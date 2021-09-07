@@ -1,0 +1,23 @@
+{
+  "name": "wg-study",
+  "version": "0.0.1",
+  "description": "Hard skills improvements for WG",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo // TODO: add"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ant478/wg-study.git"
+  },
+  "keywords": [
+    "WG",
+    "study"
+  ],
+  "author": "ant478",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ant478/wg-study/issues"
+  },
+  "homepage": "https://github.com/ant478/wg-study#readme"
+}
