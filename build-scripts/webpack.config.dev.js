@@ -16,6 +16,8 @@ module.exports = () => merge(
     devServer: {
       host: '0.0.0.0',
       port: 4780,
+      liveReload: false,
+      hot: false,
       static: {
         directory: path.join(__dirname, '../build'),
       },
