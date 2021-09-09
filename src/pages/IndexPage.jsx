@@ -1,11 +1,8 @@
 import React from 'react';
+import SimplePage from '@/components/SimplePage';
 
-const IndexPage = () => {
-  return (
-    <div className="index-page">
-      Index Page
-    </div>
-  );
-};
+const IndexPage = () => (
+  <SimplePage title="Index page" />
+);
 
 export default IndexPage;

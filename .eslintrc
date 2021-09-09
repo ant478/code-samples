@@ -6,6 +6,8 @@
     "node": true
   },
   "rules": {
-    "global-require": "off"
+    "global-require": "off",
+    "import/no-unresolved": "off",
+    "react/require-default-props": [2, { "ignoreFunctionalComponents": true }]
   }
 }

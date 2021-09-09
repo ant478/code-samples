@@ -4,7 +4,6 @@ const { merge } = require('webpack-merge');
 let localWebpackConfig;
 
 try {
-  // eslint-disable-next-line import/no-unresolved
   localWebpackConfig = require('./webpack.config.local.js');
 } catch (error) {
   localWebpackConfig = {};

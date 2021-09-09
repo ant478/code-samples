@@ -1,4 +1,6 @@
 .header {
-  height: 100px;
   background: red;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }

@@ -14,6 +14,9 @@ module.exports = (options = {}, argv = {}) => merge(
       path: path.resolve(__dirname, '../build'),
     },
     module: {
+      noParse: [
+        /benchmark/,
+      ],
       rules: [
         {
           test: /\.(js|jsx)$/,
@@ -47,6 +50,12 @@ module.exports = (options = {}, argv = {}) => merge(
     },
     resolve: {
       extensions: ['.js', '.jsx'],
+      alias: {
+        '@': path.resolve(__dirname, '../src'),
+      },
+      fallback: {
+        'process': require.resolve('process/browser'),
+      },
     },
     plugins: [
       new CleanWebpackPlugin({
