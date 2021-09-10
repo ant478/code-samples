@@ -5,13 +5,13 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import IndexPage from '@/pages/IndexPage';
-import ExamplesPage from '@/pages/ExamplesPage';
-import LinksPage from '@/pages/LinksPage';
-import ProjectsPage from '@/pages/ProjectsPage';
-import SetPerformanceExamplePage from '@/pages/examples/SetPerformanceExamplePage';
+import Header from 'src/components/Header';
+import Footer from 'src/components/Footer';
+import IndexPage from 'src/pages/IndexPage';
+import ExamplesPage from 'src/pages/ExamplesPage';
+import LinksPage from 'src/pages/LinksPage';
+import ProjectsPage from 'src/pages/ProjectsPage';
+import SetPerformanceExamplePage from 'src/pages/examples/SetPerformanceExamplePage';
 
 const RedirectToIndex = () => <Redirect to="/" />;
 

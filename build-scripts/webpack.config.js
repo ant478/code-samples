@@ -15,12 +15,12 @@ module.exports = (options = {}, argv = {}) => merge(
     },
     module: {
       noParse: [
-        /benchmark/,
+        /\\node_modules\\benchmark\\/,
       ],
       rules: [
         {
           test: /\.(js|jsx)$/,
-          exclude: /node_modules/,
+          exclude: [/node_modules/, /\\src\\raw-code-samples\\/],
           use: 'babel-loader',
         },
         {
@@ -51,7 +51,8 @@ module.exports = (options = {}, argv = {}) => merge(
     resolve: {
       extensions: ['.js', '.jsx'],
       alias: {
-        '@': path.resolve(__dirname, '../src'),
+        'src': path.resolve(__dirname, '../src'),
+        'vendor': path.resolve(__dirname, '../vendor'),
       },
       fallback: {
         'process': require.resolve('process/browser'),

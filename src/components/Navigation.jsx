@@ -1,20 +1,25 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const ITEMS = [{
-  to: '/',
-  title: 'Home',
-  exact: true,
-}, {
-  to: '/examples',
-  title: 'Examples',
-}, {
-  to: '/links',
-  title: 'Links',
-}, {
-  to: '/projects',
-  title: 'Projects',
-}];
+const ITEMS = [
+  {
+    to: '/',
+    title: 'Home',
+    exact: true,
+  },
+  {
+    to: '/examples',
+    title: 'Examples',
+  },
+  {
+    to: '/links',
+    title: 'Links',
+  },
+  {
+    to: '/projects',
+    title: 'Projects',
+  },
+];
 
 const Navigation = () => (
   <nav className="navigation">

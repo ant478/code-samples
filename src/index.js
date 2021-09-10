@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from '@/components/App';
-import './init-benchmark';
-import '@/scss/main.scss';
+import 'vendor/benchmark';
+import 'src/scss/main.scss';
+import App from 'src/components/App';
 
 ReactDOM.render(
   React.createElement(App),

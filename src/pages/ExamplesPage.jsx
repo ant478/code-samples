@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import SimplePage from '@/components/SimplePage';
+import SimplePage from 'src/components/SimplePage';
 
-const ITEMS = [{
-  to: '/examples/set-performance-testing',
-  title: 'Set Performance Testing',
-}];
+const ITEMS = [
+  {
+    to: '/examples/set-performance-testing',
+    title: 'Set Performance Testing',
+  },
+];
 
 const ExamplesPage = () => (
   <SimplePage title="Examples:">
