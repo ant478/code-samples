@@ -1,21 +1,22 @@
 .app {
-  background: yellow;
-  display: flex;
-  flex-direction: column;
-  min-height: 100%;
+  height: 100%;
+
+  &_header {
+    bottom: 100%;
+  }
 
   &_header,
   &_footer {
-    flex-shrink: 0;
+    position: fixed;
+    left: 0;
+    right: 0;
+  }
+
+  &_footer {
+    top: 100%;
   }
 
   &_main {
-    align-items: stretch;
-    display: flex;
-    flex: 1;
-  }
-
-  &_main-inner {
-    width: 100%;
+    background: yellow;
   }
 }

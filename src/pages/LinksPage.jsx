@@ -1,8 +1,8 @@
 import React from 'react';
-import SimplePage from 'src/components/SimplePage';
+import PageWithSidebar from 'src/components/Page/PageWithSidebar';
 
 const LinksPage = () => (
-  <SimplePage title="Links page" />
+  <PageWithSidebar title="Links page" />
 );
 
 export default LinksPage;

@@ -31,12 +31,12 @@
     "not < 1%"
   ],
   "dependencies": {
+    "@material-ui/core": "4.12.3",
     "benchmark": "2.1.4",
     "classnames": "2.3.1",
     "core-js": "3.17.2",
     "highlight.js": "11.2.0",
     "lodash": "4.17.21",
-    "microtime": "3.0.0",
     "process": "0.11.10",
     "prop-types": "15.7.2",
     "react": "17.0.2",

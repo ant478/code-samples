@@ -1,4 +1,26 @@
 .page {
   min-height: 100%;
-  padding: 20px;
+  display: flex;
+  justify-content: center;
+
+  &_title {
+
+  }
+  &_sidebar-wrapper {
+    width: 300px;
+  }
+  &_sidebar {
+    position: fixed;
+    width: inherit;
+    overflow-y: auto;
+  }
+  &_content {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 850px;
+
+    &:not(:first-child) {
+      margin-left: 30px;
+    }
+  }
 }

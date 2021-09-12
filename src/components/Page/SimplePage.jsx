@@ -2,16 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const SimplePage = ({
-  title = '',
-  children,
-}) => (
-  <div className="page page__simple">
-    {title && (
-      <div>
-        {title}
+   title = '',
+   children,
+ }) => (
+  <div className="page">
+    <div className="page_content">
+      {title && (
+        <div className="page_title">
+          {title}
+        </div>
+      )}
+      <div className="page_children">
+        {children}
       </div>
-    )}
-    {children}
+    </div>
   </div>
 );
 

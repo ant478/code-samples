@@ -10,6 +10,7 @@ const ARRAY_WITH_100_ITEMS = [
   81, 82, 83, 84, 85, 86, 87, 88, 89, 90,
   91, 92, 93, 94, 95, 96, 97, 98, 99, 100,
 ];
+const SET_WITH_100_ITEMS = new Set(ARRAY_WITH_100_ITEMS);
 
 export function pushToArrayX100() {
   const array = [];
@@ -31,7 +32,7 @@ export function addToSetX100() {
 
 export function removeFromArrayWithUnknownIndexX100() {
   const array = ARRAY_WITH_100_ITEMS.slice(0);
-  const set = new Set(array);
+  const set = new Set(SET_WITH_100_ITEMS);
 
   for (let i = 1; i <= 100; i++) {
     const index = array.indexOf(i);
@@ -46,7 +47,7 @@ export function removeFromArrayWithUnknownIndexX100() {
 
 export function removeFromArrayWithKnownIndexX100() {
   const array = ARRAY_WITH_100_ITEMS.slice(0);
-  const set = new Set(array);
+  const set = new Set(SET_WITH_100_ITEMS);
 
   for (let i = 1; i <= 100; i++) array.splice(0, 1);
 
@@ -55,7 +56,7 @@ export function removeFromArrayWithKnownIndexX100() {
 
 export function removeFromSetX100() {
   const array = ARRAY_WITH_100_ITEMS.slice(0);
-  const set = new Set(array);
+  const set = new Set(SET_WITH_100_ITEMS);
 
   for (let i = 1; i <= 100; i++) set.delete(i);
 
@@ -91,7 +92,7 @@ export function addAndRemoveFromSetX100() {
 
 export function readFromArrayX100() {
   const array = ARRAY_WITH_100_ITEMS;
-  const set = new Set(array);
+  const set = SET_WITH_100_ITEMS;
 
   const ar = [];
   for (let i = 1; i <= 100; i++) {
@@ -103,7 +104,7 @@ export function readFromArrayX100() {
 
 export function checkIfExistsInArrayX100() {
   const array = ARRAY_WITH_100_ITEMS;
-  const set = new Set(array);
+  const set = SET_WITH_100_ITEMS;
 
   const ar = [];
   for (let i = 1; i <= 100; i++) {
@@ -115,7 +116,7 @@ export function checkIfExistsInArrayX100() {
 
 export function checkIfExistsInSetX100() {
   const array = ARRAY_WITH_100_ITEMS;
-  const set = new Set(array);
+  const set = SET_WITH_100_ITEMS;
 
   const ar = [];
   for (let i = 1; i <= 100; i++) {
