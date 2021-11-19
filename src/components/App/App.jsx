@@ -1,8 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
-import AppHeader from './components/AppHeader';
-import AppSwitch from './components/AppSwitch';
-import AppFooter from './components/AppFooter';
 import {
   EXPANDED_HEIGHT as HEADER_EXPANDED_HEIGHT,
   EXPAND_DIFF as HEADER_EXPAND_DIFF,
@@ -10,6 +7,9 @@ import {
 import {
   EXPANDED_HEIGHT as FOOTER_EXPANDED_HEIGHT,
 } from 'src/hooks/useFooterHeight';
+import AppHeader from './components/AppHeader';
+import AppSwitch from './components/AppSwitch';
+import AppFooter from './components/AppFooter';
 
 const appMainStyles = {
   paddingTop: `${HEADER_EXPANDED_HEIGHT}px`,
@@ -37,7 +37,9 @@ const App = () => {
     <div className="app">
       <AppHeader />
       <main className="app_main" style={appMainStyles}>
-        <AppSwitch />
+        <div className="app_main-inner">
+          <AppSwitch />
+        </div>
       </main>
       <AppFooter />
     </div>

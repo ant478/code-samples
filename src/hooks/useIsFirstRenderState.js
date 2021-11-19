@@ -6,4 +6,4 @@ export default function useIsFirstRenderState() {
   useEffect(() => setIsFirstRender(false), []);
 
   return isFirstRender;
-};
+}

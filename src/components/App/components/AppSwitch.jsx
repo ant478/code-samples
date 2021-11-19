@@ -7,18 +7,17 @@ import {
 import IndexPage from 'src/pages/IndexPage';
 import LinksPage from 'src/pages/LinksPage';
 import ProjectsPage from 'src/pages/ProjectsPage';
-import SetPerformanceExamplePage from 'src/pages/examples/SetPerformanceExamplePage';
+import { CATEGORY_IDS } from 'src/consts/categories';
+import { ExamplesRoutes } from 'src/pages/examples';
 
-const DefaultRedirect = () => <Redirect to="/" />
-const ExamplesRedirect = () => <Redirect to="/examples/set-performance-testing" />
+const DefaultRedirect = () => <Redirect to="/" />;
 
 const AppSwitch = memo(() => (
   <Switch>
     <Route exact path="/" render={IndexPage} />
-    <Route exact path="/examples" render={ExamplesRedirect} />
-    <Route exact path="/examples/set-performance-testing" render={SetPerformanceExamplePage} />
-    <Route exact path="/links" render={LinksPage} />
-    <Route exact path="/projects" render={ProjectsPage} />
+    <Route exact path={`/${CATEGORY_IDS.links}`} render={LinksPage} />
+    <Route exact path={`/${CATEGORY_IDS.projects}`} render={ProjectsPage} />
+    {ExamplesRoutes}
     <Route render={DefaultRedirect} />
   </Switch>
 ));

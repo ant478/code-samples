@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import hljs from 'vendor/highlight';
 

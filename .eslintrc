@@ -5,9 +5,21 @@
     "browser": true,
     "node": true
   },
+  "globals": {
+    "Benchmark": "readonly"
+  },
   "rules": {
+    "max-len": "off",
     "global-require": "off",
     "import/no-unresolved": "off",
-    "react/require-default-props": [2, { "ignoreFunctionalComponents": true }]
-  }
+    "import/prefer-default-export": "off",
+    "react/require-default-props": [2, { "ignoreFunctionalComponents": true }],
+    "react/forbid-prop-types": "off",
+    "react/no-array-index-key": "off"
+  },
+  "ignorePatterns": [
+    "/vendor/**/*",
+    "/src/raw-code-samples/**/*"
+  ],
+  "parser": "@babel/eslint-parser"
 }

@@ -51,11 +51,11 @@ module.exports = (options = {}, argv = {}) => merge(
     resolve: {
       extensions: ['.js', '.jsx'],
       alias: {
-        'src': path.resolve(__dirname, '../src'),
-        'vendor': path.resolve(__dirname, '../vendor'),
+        src: path.resolve(__dirname, '../src'),
+        vendor: path.resolve(__dirname, '../vendor'),
       },
       fallback: {
-        'process': require.resolve('process/browser'),
+        process: require.resolve('process/browser'),
       },
     },
     plugins: [

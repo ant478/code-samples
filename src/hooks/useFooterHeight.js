@@ -16,4 +16,4 @@ export default function useFooterHeight() {
   }
 
   return (COLLAPSED_HEIGHT + EXPAND_DIFF - remainingScrollTop);
-};
+}

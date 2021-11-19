@@ -11,5 +11,5 @@ export default function useHeaderHeight() {
     return COLLAPSED_HEIGHT;
   }
 
-  return (COLLAPSED_HEIGHT + EXPAND_DIFF - scrollTop)
-};
+  return (COLLAPSED_HEIGHT + EXPAND_DIFF - scrollTop);
+}

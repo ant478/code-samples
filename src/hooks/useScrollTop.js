@@ -12,8 +12,8 @@ export default function useScrollTop(element) {
 
     return () => {
       window.removeEventListener('scroll', handler);
-    }
+    };
   }, [handler]);
 
   return scrollTop;
-};
+}

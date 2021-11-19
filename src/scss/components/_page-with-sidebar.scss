@@ -1,23 +1,26 @@
-.page {
+.page-with-sidebar {
   min-height: 100%;
-  display: flex;
-  justify-content: center;
 
-  &_title {
-
+  &_inner {
+    display: flex;
+    margin: 0 auto;
+    max-width: 1200px;
   }
+
   &_sidebar-wrapper {
     width: 300px;
   }
+
   &_sidebar {
+    overflow-y: auto;
     position: fixed;
     width: inherit;
-    overflow-y: auto;
   }
+
   &_content {
     display: flex;
     flex-direction: column;
-    flex-basis: 850px;
+    width: calc(100% - 300px - 30px);
 
     &:not(:first-child) {
       margin-left: 30px;

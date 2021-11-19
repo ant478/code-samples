@@ -1,8 +1,8 @@
 import React from 'react';
-import PageWithSidebar from 'src/components/Page/PageWithSidebar';
+import SimplePage from 'src/components/SimplePage';
 
 const IndexPage = () => (
-  <PageWithSidebar title="Index page" />
+  <SimplePage title="Index page" />
 );
 
 export default IndexPage;

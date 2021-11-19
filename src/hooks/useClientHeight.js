@@ -12,8 +12,8 @@ export default function useClientHeight(element) {
 
     return () => {
       window.removeEventListener('resize', handler);
-    }
+    };
   }, [handler]);
 
   return clientHeight;
-};
+}

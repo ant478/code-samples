@@ -1,30 +1,13 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-const ITEMS = [
-  {
-    to: '/',
-    title: 'Home',
-    exact: true,
-  },
-  {
-    to: '/examples',
-    title: 'Examples',
-  },
-  {
-    to: '/links',
-    title: 'Links',
-  },
-  {
-    to: '/projects',
-    title: 'Projects',
-  },
-];
-
-const Navigation = () => (
+const Navigation = memo(({
+  links,
+}) => (
   <nav className="navigation">
     <ul className="navigation_list">
-      {ITEMS.map(({ to, title, exact }) => (
+      {links.map(({ to, title, exact }) => (
         <li
           key={to}
           className="navigation_item"
@@ -33,7 +16,6 @@ const Navigation = () => (
             exact={exact}
             className="navigation_item-link"
             activeClassName="navigation_item-link__active"
-            title={title}
             to={to}
           >
             {title}
@@ -42,6 +24,16 @@ const Navigation = () => (
       ))}
     </ul>
   </nav>
-);
+));
+
+Navigation.propTypes = {
+  links: PropTypes.arrayOf(
+    PropTypes.shape({
+      to: PropTypes.string,
+      title: PropTypes.string,
+      exact: PropTypes.bool,
+    }),
+  ).isRequired,
+};
 
 export default Navigation;
