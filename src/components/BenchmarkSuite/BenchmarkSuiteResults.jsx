@@ -12,7 +12,7 @@ const BenchmarkSuiteResults = ({
   }, {});
 
   return (
-    <div>
+    <div className="benchmark-suite-results">
       <table>
         <thead>
           <tr>
