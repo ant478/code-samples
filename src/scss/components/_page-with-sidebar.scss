@@ -1,0 +1,29 @@
+.page-with-sidebar {
+  min-height: 100%;
+
+  &_inner {
+    display: flex;
+    margin: 0 auto;
+    max-width: 1200px;
+  }
+
+  &_sidebar-wrapper {
+    width: 300px;
+  }
+
+  &_sidebar {
+    overflow-y: auto;
+    position: fixed;
+    width: inherit;
+  }
+
+  &_content {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 300px - 30px);
+
+    &:not(:first-child) {
+      margin-left: 30px;
+    }
+  }
+}

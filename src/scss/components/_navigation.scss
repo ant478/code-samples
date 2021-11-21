@@ -1,0 +1,15 @@
+.navigation {
+  &_list {
+    display: flex;
+  }
+
+  &_item {
+    padding: 5px 20px;
+  }
+
+  &_item-link {
+    &__active {
+      background-color: gray;
+    }
+  }
+}
