@@ -1,0 +1,27 @@
+.app {
+  height: 100%;
+
+  &_header {
+    bottom: 100%;
+  }
+
+  &_header,
+  &_footer {
+    left: 0;
+    position: fixed;
+    right: 0;
+  }
+
+  &_footer {
+    top: 100%;
+  }
+
+  &_main {
+    background: yellow;
+    display: flex;
+  }
+
+  &_main-inner {
+    width: 100%;
+  }
+}
