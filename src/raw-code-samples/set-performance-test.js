@@ -1,22 +1,28 @@
-const ARRAY_WITH_100_ITEMS = [
-  1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-  11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-  21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
-  31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
-  41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
-  51, 52, 53, 54, 55, 56, 57, 58, 59, 60,
-  61, 62, 63, 64, 65, 66, 67, 68, 69, 70,
-  71, 72, 73, 74, 75, 76, 77, 78, 79, 80,
-  81, 82, 83, 84, 85, 86, 87, 88, 89, 90,
-  91, 92, 93, 94, 95, 96, 97, 98, 99, 100,
-];
-const SET_WITH_100_ITEMS = new Set(ARRAY_WITH_100_ITEMS);
+import {
+  getNewArrayWith100Items as _getNewArrayWith100Items,
+  getNewSetWith100Items as _getNewSetWith100Items,
+} from './helpers/dummies';
+
+// putting function to variable to prevent it displaying as 'WEBPACK_IMPORTED_MODULE_...' in .toString()
+const getNewArrayWith100Items = _getNewArrayWith100Items;
+const getNewSetWith100Items = _getNewSetWith100Items;
+const ARRAY_WITH_100_ITEMS = getNewArrayWith100Items();
+const SET_WITH_100_ITEMS = getNewSetWith100Items();
 
 export function pushToArrayX100() {
   const array = [];
   const set = new Set();
 
   for (let i = 1; i <= 100; i += 1) array.push(i);
+
+  return [array, set];
+}
+
+export function unshiftToArrayX100() {
+  const array = [];
+  const set = new Set();
+
+  for (let i = 1; i <= 100; i += 1) array.unshift(i);
 
   return [array, set];
 }
@@ -31,8 +37,8 @@ export function addToSetX100() {
 }
 
 export function removeFromArrayWithUnknownIndexX100() {
-  const array = ARRAY_WITH_100_ITEMS.slice(0);
-  const set = new Set(SET_WITH_100_ITEMS);
+  const array = getNewArrayWith100Items();
+  const set = getNewSetWith100Items();
 
   for (let i = 1; i <= 100; i += 1) {
     const index = array.indexOf(i);
@@ -46,8 +52,8 @@ export function removeFromArrayWithUnknownIndexX100() {
 }
 
 export function removeFromArrayWithKnownIndexX100() {
-  const array = ARRAY_WITH_100_ITEMS.slice(0);
-  const set = new Set(SET_WITH_100_ITEMS);
+  const array = getNewArrayWith100Items();
+  const set = getNewSetWith100Items();
 
   for (let i = 1; i <= 100; i += 1) array.splice(0, 1);
 
@@ -55,8 +61,8 @@ export function removeFromArrayWithKnownIndexX100() {
 }
 
 export function removeFromSetX100() {
-  const array = ARRAY_WITH_100_ITEMS.slice(0);
-  const set = new Set(SET_WITH_100_ITEMS);
+  const array = getNewArrayWith100Items();
+  const set = getNewSetWith100Items();
 
   for (let i = 1; i <= 100; i += 1) set.delete(i);
 
@@ -88,18 +94,6 @@ export function addAndRemoveFromSetX100() {
   for (let i = 1; i <= 100; i += 1) set.delete(i);
 
   return [array, set];
-}
-
-export function readFromArrayX100() {
-  const array = ARRAY_WITH_100_ITEMS;
-  const set = SET_WITH_100_ITEMS;
-
-  const ar = [];
-  for (let i = 1; i <= 100; i += 1) {
-    ar.push(array[19]);
-  }
-
-  return [ar, array, set];
 }
 
 export function checkIfExistsInArrayX100() {
