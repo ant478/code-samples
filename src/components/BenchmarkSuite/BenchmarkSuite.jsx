@@ -6,13 +6,13 @@ import Highlight from 'src/components/Highlight';
 import BenchmarkSuiteResults from 'src/components/BenchmarkSuite/BenchmarkSuiteResults';
 
 const BenchmarkSuite = memo(({
-  id: suiteId,
-  name,
+  id,
+  title,
   benchmarks,
 }) => {
   // const [isRunning, setIsRunning] = useState(false);
 
-  const defaultResults = Object.keys(benchmarks).reduce((acc, benchmarkId) => {
+  const defaultResults = benchmarks.reduce((acc, { id: benchmarkId }) => {
     acc[benchmarkId] = [];
     return acc;
   }, {});
@@ -27,16 +27,16 @@ const BenchmarkSuite = memo(({
   }, []);
 
   useEffect(() => {
-    const suite = new Benchmark.Suite({ name: suiteId });
+    const suite = new Benchmark.Suite({ name: id });
 
-    Object.entries(benchmarks).forEach(
-      ([benchmarkId, { maxTime, fn }]) => suite.add({ name: benchmarkId, maxTime, fn }),
+    benchmarks.forEach(
+      ({ id: benchmarkId, maxTime, fn }) => suite.add({ name: benchmarkId, maxTime, fn }),
     );
 
-    suite.on('cycle', ({ target: benchmark }) => {
-      const value = Math.round(benchmark.hz);
+    suite.on('cycle', ({ target: benchmarkObject }) => {
+      const value = Math.round(benchmarkObject.hz);
 
-      resultsRef.current[benchmark.name].push(value);
+      resultsRef.current[benchmarkObject.name].push(value);
       updateResults({ ...resultsRef.current });
     });
 
@@ -45,7 +45,9 @@ const BenchmarkSuite = memo(({
     });
 
     suiteRef.current = suite;
-  }, [benchmarks, suiteId, updateResults]);
+
+    return () => suiteRef.current.abort();
+  }, [benchmarks, id, updateResults]);
 
   const handleRunClick = useCallback(() => {
     // setIsRunning(true);
@@ -54,11 +56,11 @@ const BenchmarkSuite = memo(({
 
   return (
     <div>
-      <div>{name}</div>
+      <div>{title}</div>
       <ul>
-        {Object.entries(benchmarks).map(([benchmarkId, { name: benchmarkName, fn }]) => (
+        {benchmarks.map(({ id: benchmarkId, title: benchmarkTitle, fn }) => (
           <li key={benchmarkId}>
-            <div>{benchmarkName}</div>
+            <div>{benchmarkTitle}</div>
             <Highlight>{fn.toString()}</Highlight>
           </li>
         ))}
@@ -76,8 +78,8 @@ const BenchmarkSuite = memo(({
 
 BenchmarkSuite.propTypes = {
   id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  benchmarks: PropTypes.object.isRequired,
+  title: PropTypes.string.isRequired,
+  benchmarks: PropTypes.array.isRequired,
 };
 
 export default BenchmarkSuite;
