@@ -1,5 +1,6 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const { merge } = require('webpack-merge');
 const globImporter = require('node-sass-glob-importer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -8,10 +9,26 @@ const devConfig = require('./webpack.config.dev.js');
 
 module.exports = (options = {}, argv = {}) => merge(
   {
-    entry: path.resolve(__dirname, '../src/index.js'),
+    entry: {
+      main: {
+        import: path.resolve(__dirname, '../src/index.js'),
+        dependOn: 'raw-code-samples',
+      },
+      'raw-code-samples': {
+        import: path.resolve(__dirname, '../src/raw-code-samples/index.js'),
+      },
+    },
     output: {
-      filename: 'main.js',
+      filename: '[name].js',
       path: path.resolve(__dirname, '../build'),
+    },
+    optimization: {
+      runtimeChunk: 'single',
+      minimizer: [
+        new TerserPlugin({
+          exclude: /raw-code-samples\.js/,
+        }),
+      ],
     },
     module: {
       noParse: [
