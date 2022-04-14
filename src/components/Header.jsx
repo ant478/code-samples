@@ -7,21 +7,8 @@ const styles = { height: `${EXPANDED_HEIGHT}px` };
 
 const NAVIGATION_LINKS = [
   {
-    to: '/',
-    title: 'Home',
-    exact: true,
-  },
-  {
-    to: `/${CATEGORY_IDS.examples}`,
-    title: 'Examples',
-  },
-  {
-    to: `/${CATEGORY_IDS.links}`,
-    title: 'Links',
-  },
-  {
-    to: `/${CATEGORY_IDS.projects}`,
-    title: 'Projects',
+    to: `/${CATEGORY_IDS.performance}`,
+    title: 'Performance',
   },
 ];
 

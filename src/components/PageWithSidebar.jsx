@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import useHeaderHeight from 'src/hooks/useHeaderHeight';
 import useFooterHeight from 'src/hooks/useFooterHeight';
 import useAnotherRenderOnMount from 'src/hooks/useAnotherRenderOnMount';
+import SidebarScrollbar from 'src/components/SidebarScrollbar';
 
 const PageWithSidebar = memo(({
   title,
@@ -12,9 +13,10 @@ const PageWithSidebar = memo(({
   useAnotherRenderOnMount();
   const headerHeight = useHeaderHeight();
   const footerHeight = useFooterHeight();
+
   const sidebarStyles = useMemo(() => ({
-    top: headerHeight,
-    bottom: footerHeight,
+    '--header-height': `${headerHeight}px`,
+    '--footer-height': `${footerHeight}px`,
   }), [headerHeight, footerHeight]);
 
   return (
@@ -25,7 +27,9 @@ const PageWithSidebar = memo(({
             className="page-with-sidebar_sidebar"
             style={sidebarStyles}
           >
-            {sidebar}
+            <SidebarScrollbar>
+              {sidebar}
+            </SidebarScrollbar>
           </div>
         </div>
         <div className="page-with-sidebar_content">

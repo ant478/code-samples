@@ -8,12 +8,12 @@ export default function useScrollTop(element) {
   );
 
   useEffect(() => {
-    window.addEventListener('scroll', handler);
+    element.addEventListener('scroll', handler);
 
     return () => {
-      window.removeEventListener('scroll', handler);
+      element.removeEventListener('scroll', handler);
     };
-  }, [handler]);
+  }, [element, handler]);
 
   return scrollTop;
 }

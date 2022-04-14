@@ -5,7 +5,7 @@ import { EXAMPLES_CONFIG } from '../consts/examples';
 
 const LINKS = Object.entries(EXAMPLES_CONFIG).map(([exampleId, { title }]) => ({
   exact: true,
-  to: `/${CATEGORY_IDS.examples}/${exampleId}`,
+  to: `/${CATEGORY_IDS.performance}/${exampleId}`,
   title,
 }));
 

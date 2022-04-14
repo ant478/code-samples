@@ -6,18 +6,12 @@ export const EXAMPLES_IDS = {
   mapPerformanceTest: 'map-performance-test',
 };
 
-export const EXAMPLES_TYPES = {
-  codeSamplesPerformanceTest: 'codeSamplesPerformanceTest',
-};
-
 export const EXAMPLES_CONFIG = {
   [EXAMPLES_IDS.setPerformanceTest]: {
-    type: EXAMPLES_TYPES.codeSamplesPerformanceTest,
     title: 'Set performance test',
     benchmarkSuites: setPerformanceTestBenchmarkSuites,
   },
   [EXAMPLES_IDS.mapPerformanceTest]: {
-    type: EXAMPLES_TYPES.codeSamplesPerformanceTest,
     title: 'Map performance test',
     benchmarkSuites: mapPerformanceTestBenchmarkSuites,
   },
