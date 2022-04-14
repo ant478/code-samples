@@ -26,7 +26,7 @@ module.exports = (options = {}, argv = {}) => merge(
       runtimeChunk: 'single',
       minimizer: [
         new TerserPlugin({
-          exclude: /raw-code-samples\.js/,
+          exclude: /raw-code-samples.*\.js/,
         }),
       ],
     },
