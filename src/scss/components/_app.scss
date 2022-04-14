@@ -3,6 +3,7 @@
 
   &_header {
     bottom: 100%;
+    z-index: $app-header-z-index;
   }
 
   &_scrollbar-thumb-vertical {
@@ -25,6 +26,7 @@
     right: 0;
     top: 0;
     width: 15px !important;
+    z-index: $app-scrollbar-track-vertical-z-index;
   }
 
   &_header,
@@ -36,6 +38,7 @@
 
   &_footer {
     top: 100%;
+    z-index: $app-footer-z-index;
   }
 
   &_main {

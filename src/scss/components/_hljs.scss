@@ -1,9 +1,12 @@
 // reused from highlight.js/styles, modified
 // stylelint-disable selector-no-qualifying-type, no-descending-specificity, selector-class-pattern
 
+.hljs-outer {
+  @include content-block;
+}
+
 pre code.hljs {
   display: block;
-  overflow-x: auto;
   padding: 1em;
 }
 
@@ -12,8 +15,6 @@ code.hljs {
 }
 
 .hljs {
-  @include content-block;
-
   color: #abb2bf;
 }
 

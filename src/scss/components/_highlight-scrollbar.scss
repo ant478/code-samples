@@ -1,0 +1,26 @@
+.highlight-scrollbar {
+  &_view {
+    position: relative !important;
+  }
+
+  &_thumb-horisontal {
+    position: relative;
+
+    &::after {
+      @include clickable-control;
+
+      content: '';
+      height: 10px;
+      left: 5px;
+      position: absolute;
+      right: 5px;
+    }
+  }
+
+  &_track-horisontal {
+    bottom: 0;
+    height: 15px !important;
+    left: 0;
+    right: 0;
+  }
+}

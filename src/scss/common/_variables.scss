@@ -13,3 +13,8 @@ $font-family-primary: 'Roboto Condensed', sans-serif;
 
 /* colors */
 $primary-font-color: #898989;
+
+/* z-index */
+$app-header-z-index: 1;
+$app-footer-z-index: $app-header-z-index + 1;
+$app-scrollbar-track-vertical-z-index: $app-footer-z-index + 1;

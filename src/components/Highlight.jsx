@@ -1,6 +1,7 @@
 /* eslint-disable */
 import React from 'react';
 import hljs from 'vendor/highlight';
+import HighlightScrollbar from 'src/components/HighlightScrollbar';
 
 /**
  * Reuse from https://github.com/akiran/react-highlight/blob/master/src/index.js
@@ -31,28 +32,23 @@ class Highlight extends React.Component {
   };
 
   render() {
-    const {children, className, element: Element, innerHTML} = this.props;
+    const { children, className } = this.props;
     const props = { ref: this.setEl, className };
 
-    if (innerHTML) {
-      props.dangerouslySetInnerHTML = { __html: children };
-      if (Element) {
-        return <Element {...props} />;
-      }
-      return <div {...props} />;
-    }
-
-    if (Element) {
-      return <Element {...props}>{children}</Element>;
-    }
-    return <pre ref={this.setEl}><code className={className}>{children}</code></pre>;
+    return (
+      <div className="hljs-outer">
+        <HighlightScrollbar>
+          <pre ref={this.setEl}>
+            <code className={className}>{children}</code>
+          </pre>
+        </HighlightScrollbar>
+      </div>
+    );
   }
 }
 
 Highlight.defaultProps = {
-  innerHTML: false,
   className: null,
-  element: null,
 };
 
 export default Highlight;
