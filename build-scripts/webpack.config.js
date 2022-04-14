@@ -19,7 +19,7 @@ module.exports = (options = {}, argv = {}) => merge(
       },
     },
     output: {
-      filename: '[name].js',
+      filename: '[name].[contenthash].js',
       path: path.resolve(__dirname, '../build'),
     },
     optimization: {
@@ -84,7 +84,7 @@ module.exports = (options = {}, argv = {}) => merge(
         ],
       }),
       new MiniCssExtractPlugin({
-        filename: 'main.css',
+        filename: 'main.[contenthash].css',
       }),
       new HtmlWebpackPlugin({
         template: path.resolve(__dirname, '../src/index.html'),
