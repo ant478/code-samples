@@ -12,9 +12,34 @@
   }
 
   &_sidebar {
-    overflow-y: auto;
+    @include content-block;
+
+    bottom: calc(var(--footer-height) + 30px);
     position: fixed;
+    top: calc(var(--header-height) + 30px);
     width: inherit;
+  }
+
+  &_scrollbar-thumb-vertical {
+    position: relative;
+
+    &::after {
+      @include clickable-control;
+
+      bottom: 5px;
+      content: '';
+      left: 0;
+      position: absolute;
+      top: 5px;
+      width: 10px;
+    }
+  }
+
+  &_scrollbar-track-vertical {
+    bottom: 0;
+    right: 0;
+    top: 0;
+    width: 15px !important;
   }
 
   &_content {

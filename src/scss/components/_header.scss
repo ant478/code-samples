@@ -1,5 +1,6 @@
 .header {
-  background: #f00;
+  @include content-block;
+
   display: flex;
   flex-direction: column;
   justify-content: flex-end;

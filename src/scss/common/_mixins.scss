@@ -22,3 +22,15 @@
     @content;
   }
 }
+
+@mixin content-block {
+  background-color: #101010;
+  border-radius: 3px;
+  box-shadow: 0 0 10px #850000;
+}
+
+@mixin clickable-control {
+  background-color: #3f0040;
+  border-radius: 5px;
+  box-shadow: 0 0 10px #000;
+}
