@@ -9,6 +9,7 @@
     "Benchmark": "readonly"
   },
   "rules": {
+    "no-plusplus": "off",
     "max-len": "off",
     "global-require": "off",
     "import/no-unresolved": "off",

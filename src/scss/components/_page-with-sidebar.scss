@@ -54,6 +54,20 @@
   }
 
   &_title {
-    @include page-title;
+    color: #7a0000;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.5em;
+    text-shadow: 2px 8px 6px rgba(#000, 0.2), 0 -5px 35px rgba(#fff, 0.3);
+  }
+
+  &_description {
+    margin-bottom: 2em;
+
+    a {
+      color: #75007c;
+      text-decoration: underline;
+      word-break: break-all;
+    }
   }
 }

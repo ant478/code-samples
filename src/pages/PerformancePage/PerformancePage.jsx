@@ -19,11 +19,12 @@ const PerformancePage = ({
     );
   }
 
-  const { title: exampleTitle, benchmarkSuites } = EXAMPLES_CONFIG[exampleId];
+  const { title: exampleTitle, description, benchmarkSuites } = EXAMPLES_CONFIG[exampleId];
 
   return (
     <PageWithSidebar
       title={exampleTitle}
+      description={description}
       sidebar={<PerformanceSidebar />}
     >
       {benchmarkSuites.map(({ id, title, benchmarks }) => (

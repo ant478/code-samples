@@ -4,8 +4,12 @@ import useFooterHeight from 'src/hooks/useFooterHeight';
 import useAnotherRenderOnMount from 'src/hooks/useAnotherRenderOnMount';
 import SidebarScrollbar from 'src/components/SidebarScrollbar';
 
+const parseDescription = (string) => string
+  .replace(/\[(.+?)\]\((.+?)\)/g, '<a target="_blank" href="$2">$1</a>');
+
 const PageWithSidebar = memo(({
   title = '',
+  description = '',
   children,
   sidebar,
 }) => {
@@ -17,6 +21,10 @@ const PageWithSidebar = memo(({
     '--header-height': `${headerHeight}px`,
     '--footer-height': `${footerHeight}px`,
   }), [headerHeight, footerHeight]);
+
+  const descriptionHtml = useMemo(() => ({
+    __html: parseDescription(description),
+  }), [description]);
 
   return (
     <div className="page-with-sidebar">
@@ -36,6 +44,12 @@ const PageWithSidebar = memo(({
             <h2 className="page-with-sidebar_title">
               {title}
             </h2>
+          )}
+          {description && (
+            <p
+              dangerouslySetInnerHTML={descriptionHtml} // eslint-disable-line react/no-danger
+              className="page-with-sidebar_description"
+            />
           )}
           <div className="page-with-sidebar_children">
             {children}
