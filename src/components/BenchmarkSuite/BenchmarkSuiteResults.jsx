@@ -20,10 +20,10 @@ const BenchmarkSuiteResults = memo(({
             <td>{title}</td>
             <td>
               {results[id].map((value, index) => (
-                <span key={index}>{value}</span>
+                <span key={index}>{Math.round(value)}</span>
               ))}
             </td>
-            <td>{mean(results[id]) || 0}</td>
+            <td>{results[id].length > 0 && Math.round(mean(results[id]))}</td>
           </tr>
         ))}
       </tbody>

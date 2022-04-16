@@ -3,13 +3,14 @@ import React, {
 } from 'react';
 import Highlight from 'src/components/Highlight';
 import BenchmarkSuiteResults from 'src/components/BenchmarkSuite/BenchmarkSuiteResults';
+import cx from 'classnames';
 
 const BenchmarkSuite = memo(({
   id,
   title,
   benchmarks,
 }) => {
-  // const [isRunning, setIsRunning] = useState(false);
+  const [isRunning, setIsRunning] = useState(false);
 
   const defaultResults = benchmarks.reduce((acc, { id: benchmarkId }) => {
     acc[benchmarkId] = [];
@@ -32,15 +33,15 @@ const BenchmarkSuite = memo(({
       ({ id: benchmarkId, maxTime, fn }) => suite.add({ name: benchmarkId, maxTime, fn }),
     );
 
-    suite.on('cycle', ({ target: benchmarkObject }) => {
-      const value = Math.round(benchmarkObject.hz);
-
-      resultsRef.current[benchmarkObject.name].push(value);
-      updateResults({ ...resultsRef.current });
+    suite.on('cycle', ({ target: { name, hz } }) => {
+      updateResults({
+        ...resultsRef.current,
+        [name]: [...resultsRef.current[name], hz],
+      });
     });
 
     suite.on('complete', () => {
-      // setIsRunning(false);
+      setIsRunning(false);
     });
 
     suiteRef.current = suite;
@@ -48,38 +49,64 @@ const BenchmarkSuite = memo(({
     return () => suiteRef.current.abort();
   }, [benchmarks, id, updateResults]);
 
-  const handleRunClick = useCallback(() => {
-    // setIsRunning(true);
+  const handleRunClick = () => {
+    if (isRunning) {
+      return;
+    }
+
+    setIsRunning(true);
     suiteRef.current.run({ async: true });
-  }, []);
+  };
+
+  const handleClearClick = () => {
+    if (isRunning) {
+      return;
+    }
+
+    updateResults(defaultResults);
+  };
+
+  const classes = cx('benchmark-suite', {
+    'benchmark-suite__running': isRunning,
+  });
 
   return (
-    <article className="benchmark-suite">
-      <h3>{title}</h3>
-      <ul>
+    <article className={classes}>
+      <h3 className="benchmark-suite_title">{title}</h3>
+      <ul className="benchmark-suite_list">
         {benchmarks.map(({ id: benchmarkId, title: benchmarkTitle, fn }) => (
           <li
             key={benchmarkId}
             className="benchmark-suite_item"
           >
-            <h4>{benchmarkTitle}</h4>
-            <Highlight>{fn.toString()}</Highlight>
+            <Highlight
+              title={benchmarkTitle}
+            >
+              {fn.toString()}
+            </Highlight>
           </li>
         ))}
       </ul>
-      <div>
-        <BenchmarkSuiteResults
-          benchmarks={benchmarks}
-          results={results}
-        />
+      <div className="benchmark-suite_controls">
+        <button
+          className="benchmark-suite_button benchmark-suite_button__run"
+          type="button"
+          onClick={handleRunClick}
+        >
+          Run
+        </button>
+        <button
+          className="benchmark-suite_button benchmark-suite_button__clear"
+          type="button"
+          onClick={handleClearClick}
+        >
+          Clear
+        </button>
       </div>
-      <button
-        className="benchmark-suite_run-button"
-        type="button"
-        onClick={handleRunClick}
-      >
-        Run
-      </button>
+      <BenchmarkSuiteResults
+        benchmarks={benchmarks}
+        results={results}
+      />
     </article>
   );
 });

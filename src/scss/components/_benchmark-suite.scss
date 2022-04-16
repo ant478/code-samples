@@ -1,12 +1,30 @@
 .benchmark-suite {
   &:not(:last-child) {
+    margin-bottom: 4em;
+  }
+
+  &_title {
+    color: #7b0000;
+    font-size: 1.25rem;
+    margin-bottom: 0.5em;
+  }
+
+  &_list {
     margin-bottom: 2em;
   }
 
-  &_run-button {
+  &_controls {
+    margin-bottom: 1em;
+  }
+
+  &_button {
     @include control-block;
 
     padding: 0.5em 1.5em;
+
+    &:not(:last-child) {
+      margin-right: 1em;
+    }
   }
 
   &_item {
