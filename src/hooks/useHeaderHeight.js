@@ -1,8 +1,8 @@
 import useScrollTop from 'src/hooks/useScrollTop';
 import { VIEW_ID as ELEMENT_ID } from 'src/components/App/components/AppScrollbar';
 
-export const COLLAPSED_HEIGHT = 34;
-export const EXPANDED_HEIGHT = 80;
+export const COLLAPSED_HEIGHT = 62;
+export const EXPANDED_HEIGHT = 62;
 export const EXPAND_DIFF = (EXPANDED_HEIGHT - COLLAPSED_HEIGHT);
 
 export default function useHeaderHeight() {

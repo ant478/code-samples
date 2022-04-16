@@ -4,12 +4,17 @@
   }
 
   &_item {
-    padding: 5px 20px;
+    padding: 0.75em 1em;
   }
 
   &_item-link {
+    @include control-block;
+
+    display: block;
+    padding: 0.5em;
+
     &__active {
-      background-color: #808080;
+      color: #b30000;
     }
   }
 }

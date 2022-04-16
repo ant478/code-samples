@@ -1,7 +1,6 @@
 import React, {
   memo, useRef, useState, useEffect, useCallback,
 } from 'react';
-import PropTypes from 'prop-types';
 import Highlight from 'src/components/Highlight';
 import BenchmarkSuiteResults from 'src/components/BenchmarkSuite/BenchmarkSuiteResults';
 
@@ -55,12 +54,15 @@ const BenchmarkSuite = memo(({
   }, []);
 
   return (
-    <div>
-      <div>{title}</div>
+    <article className="benchmark-suite">
+      <h3>{title}</h3>
       <ul>
         {benchmarks.map(({ id: benchmarkId, title: benchmarkTitle, fn }) => (
-          <li key={benchmarkId}>
-            <div>{benchmarkTitle}</div>
+          <li
+            key={benchmarkId}
+            className="benchmark-suite_item"
+          >
+            <h4>{benchmarkTitle}</h4>
             <Highlight>{fn.toString()}</Highlight>
           </li>
         ))}
@@ -71,15 +73,15 @@ const BenchmarkSuite = memo(({
           results={results}
         />
       </div>
-      <button type="button" onClick={handleRunClick}>Run</button>
-    </div>
+      <button
+        className="benchmark-suite_run-button"
+        type="button"
+        onClick={handleRunClick}
+      >
+        Run
+      </button>
+    </article>
   );
 });
-
-BenchmarkSuite.propTypes = {
-  id: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  benchmarks: PropTypes.array.isRequired,
-};
 
 export default BenchmarkSuite;

@@ -1,0 +1,17 @@
+.benchmark-suite {
+  &:not(:last-child) {
+    margin-bottom: 2em;
+  }
+
+  &_run-button {
+    @include control-block;
+
+    padding: 0.5em 1.5em;
+  }
+
+  &_item {
+    &:not(:last-child) {
+      margin-bottom: 1.5em;
+    }
+  }
+}

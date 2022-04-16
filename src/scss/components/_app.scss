@@ -10,7 +10,7 @@
     position: relative;
 
     &::after {
-      @include clickable-control;
+      @include control-block;
 
       bottom: 5px;
       content: '';
