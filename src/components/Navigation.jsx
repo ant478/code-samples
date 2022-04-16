@@ -1,6 +1,5 @@
 import React, { memo } from 'react';
 import { NavLink } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
 const Navigation = memo(({
   links,
@@ -25,15 +24,5 @@ const Navigation = memo(({
     </ul>
   </nav>
 ));
-
-Navigation.propTypes = {
-  links: PropTypes.arrayOf(
-    PropTypes.shape({
-      to: PropTypes.string,
-      title: PropTypes.string,
-      exact: PropTypes.bool,
-    }),
-  ).isRequired,
-};
 
 export default Navigation;

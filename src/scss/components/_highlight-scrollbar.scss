@@ -7,7 +7,7 @@
     position: relative;
 
     &::after {
-      @include clickable-control;
+      @include control-block;
 
       content: '';
       height: 10px;

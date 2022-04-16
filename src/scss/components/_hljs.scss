@@ -2,7 +2,7 @@
 // stylelint-disable selector-no-qualifying-type, no-descending-specificity, selector-class-pattern
 
 .hljs-outer {
-  @include content-block;
+  @include highlighted-content-block;
 }
 
 pre code.hljs {

@@ -1,5 +1,4 @@
 import React, { memo } from 'react';
-import PropTypes from 'prop-types';
 import mean from 'lodash/mean';
 
 const BenchmarkSuiteResults = memo(({
@@ -31,10 +30,5 @@ const BenchmarkSuiteResults = memo(({
     </table>
   </div>
 ));
-
-BenchmarkSuiteResults.propTypes = {
-  benchmarks: PropTypes.array.isRequired,
-  results: PropTypes.object.isRequired,
-};
 
 export default BenchmarkSuiteResults;

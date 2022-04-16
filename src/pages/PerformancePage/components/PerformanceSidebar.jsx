@@ -9,10 +9,10 @@ const LINKS = Object.entries(EXAMPLES_CONFIG).map(([exampleId, { title }]) => ({
   title,
 }));
 
-const ExamplesSidebar = memo(() => (
+const PerformanceSidebar = memo(() => (
   <NavigationSidebar
     links={LINKS}
   />
 ));
 
-export default ExamplesSidebar;
+export default PerformanceSidebar;
