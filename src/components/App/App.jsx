@@ -4,13 +4,12 @@ import {
   EXPANDED_HEIGHT as HEADER_EXPANDED_HEIGHT,
   EXPAND_DIFF as HEADER_EXPAND_DIFF,
 } from 'src/hooks/useHeaderHeight';
-import useAnotherRenderOnMount from 'src/hooks/useAnotherRenderOnMount';
+import useRerenderOnMount from 'src/hooks/useRerenderOnMount';
 import {
   EXPANDED_HEIGHT as FOOTER_EXPANDED_HEIGHT,
 } from 'src/hooks/useFooterHeight';
-import AppScrollbar, {
-  VIEW_ID as APP_SCROLLBAR_VIEW_ID,
-} from './components/AppScrollbar';
+import { getAppScrollElement } from 'src/helpers/scroll';
+import AppScrollbar from './components/AppScrollbar';
 import AppHeader from './components/AppHeader';
 import AppSwitch from './components/AppSwitch';
 import AppFooter from './components/AppFooter';
@@ -22,7 +21,7 @@ const appMainStyles = {
 };
 
 const App = () => {
-  useAnotherRenderOnMount();
+  useRerenderOnMount();
   const location = useLocation();
   const isFirstRenderRef = useRef(true);
 
@@ -31,7 +30,7 @@ const App = () => {
       return;
     }
 
-    const element = document.getElementById(APP_SCROLLBAR_VIEW_ID);
+    const element = getAppScrollElement();
     element.scrollTop = Math.min(element.scrollTop, HEADER_EXPAND_DIFF);
   }, [location]);
 
