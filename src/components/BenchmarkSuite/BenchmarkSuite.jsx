@@ -1,7 +1,14 @@
 import React, {
-  memo, useRef, useState, useEffect, useCallback,
+  memo,
+  useMemo,
+  useRef,
+  useState,
+  useEffect,
+  useCallback,
 } from 'react';
 import Highlight from 'src/components/Highlight';
+import SimpleLoader from 'src/components/SimpleLoader';
+import ControlButton from 'src/components/ControlButton';
 import BenchmarkSuiteResults from 'src/components/BenchmarkSuite/BenchmarkSuiteResults';
 import cx from 'classnames';
 
@@ -10,14 +17,13 @@ const BenchmarkSuite = memo(({
   title,
   benchmarks,
 }) => {
+  const defaultResults = useMemo(
+    () => benchmarks.reduce((acc, { id: benchmarkId }) => ({ ...acc, [benchmarkId]: [] }), {}),
+    [benchmarks],
+  );
+
   const [isRunning, setIsRunning] = useState(false);
-
-  const defaultResults = benchmarks.reduce((acc, { id: benchmarkId }) => {
-    acc[benchmarkId] = [];
-    return acc;
-  }, {});
   const [results, setResults] = useState(defaultResults);
-
   const resultsRef = useRef(results);
   const suiteRef = useRef(null);
 
@@ -25,6 +31,23 @@ const BenchmarkSuite = memo(({
     resultsRef.current = data;
     setResults(resultsRef.current);
   }, []);
+
+  const handleRunClick = useCallback(() => {
+    if (isRunning) {
+      return;
+    }
+
+    setIsRunning(true);
+    suiteRef.current.run({ async: true });
+  }, [isRunning]);
+
+  const handleClearClick = useCallback(() => {
+    if (isRunning) {
+      return;
+    }
+
+    updateResults(defaultResults);
+  }, [defaultResults, isRunning, updateResults]);
 
   useEffect(() => {
     const suite = new Benchmark.Suite({ name: id });
@@ -49,59 +72,45 @@ const BenchmarkSuite = memo(({
     return () => suiteRef.current.abort();
   }, [benchmarks, id, updateResults]);
 
-  const handleRunClick = () => {
-    if (isRunning) {
-      return;
-    }
-
-    setIsRunning(true);
-    suiteRef.current.run({ async: true });
-  };
-
-  const handleClearClick = () => {
-    if (isRunning) {
-      return;
-    }
-
-    updateResults(defaultResults);
-  };
-
   const classes = cx('benchmark-suite', {
     'benchmark-suite__running': isRunning,
   });
 
   return (
     <article className={classes}>
-      <h3 className="benchmark-suite_title">{title}</h3>
+      <h3
+        id={id}
+        className="benchmark-suite_title"
+      >
+        {title}
+      </h3>
       <ul className="benchmark-suite_list">
         {benchmarks.map(({ id: benchmarkId, title: benchmarkTitle, fn }) => (
           <li
             key={benchmarkId}
             className="benchmark-suite_item"
           >
-            <Highlight
-              title={benchmarkTitle}
-            >
+            <Highlight title={benchmarkTitle}>
               {fn.toString()}
             </Highlight>
           </li>
         ))}
       </ul>
       <div className="benchmark-suite_controls">
-        <button
-          className="benchmark-suite_button benchmark-suite_button__run"
-          type="button"
+        <ControlButton
+          className="benchmark-suite_button-mix"
           onClick={handleRunClick}
+          icon={isRunning ? <SimpleLoader /> : '▶'}
         >
           Run
-        </button>
-        <button
-          className="benchmark-suite_button benchmark-suite_button__clear"
-          type="button"
+        </ControlButton>
+        <ControlButton
+          className="benchmark-suite_button-mix"
           onClick={handleClearClick}
+          icon="🗙"
         >
           Clear
-        </button>
+        </ControlButton>
       </div>
       <BenchmarkSuiteResults
         benchmarks={benchmarks}

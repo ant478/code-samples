@@ -1,3 +1,4 @@
+import uniqueId from 'lodash/uniqueId';
 import {
   readFromObjectByKeyX100,
   readFromMapByKeyX100,
@@ -22,17 +23,17 @@ import {
 
 export default [
   {
-    id: 'read',
+    id: uniqueId('read'),
     title: 'read',
     benchmarks: [
       {
-        id: 'readFromObjectByKey',
+        id: uniqueId('readFromObjectByKey'),
         title: 'read from object by key (x100)',
         maxTime: 0.5,
         fn: readFromObjectByKeyX100,
       },
       {
-        id: 'readFromMapByKey',
+        id: uniqueId('readFromMapByKey'),
         title: 'read from map by key (x100)',
         maxTime: 0.5,
         fn: readFromMapByKeyX100,
@@ -40,29 +41,29 @@ export default [
     ],
   },
   {
-    id: 'insert',
+    id: uniqueId('insert'),
     title: 'Insert',
     benchmarks: [
       {
-        id: 'setToObjectWithStringKey',
+        id: uniqueId('setToObjectWithStringKey'),
         title: 'set to object with string key (x100)',
         maxTime: 0.5,
         fn: setToObjectWithStringKeyX100,
       },
       {
-        id: 'setToObjectWithNumberKey',
+        id: uniqueId('setToObjectWithNumberKey'),
         title: 'set to object with number key (x100)',
         maxTime: 0.5,
         fn: setToObjectWithNumberKeyX100,
       },
       {
-        id: 'setToMapWithStringKey',
+        id: uniqueId('setToMapWithStringKey'),
         title: 'set to map with string key (x100)',
         maxTime: 0.5,
         fn: setToMapWithStringKeyX100,
       },
       {
-        id: 'setToMapWithNumberKey',
+        id: uniqueId('setToMapWithNumberKey'),
         title: 'set to map with number key (x100)',
         maxTime: 0.5,
         fn: setToMapWithNumberKeyX100,
@@ -70,17 +71,17 @@ export default [
     ],
   },
   {
-    id: 'remove',
+    id: uniqueId('remove'),
     title: 'Remove',
     benchmarks: [
       {
-        id: 'removeFromObject',
+        id: uniqueId('removeFromObject'),
         title: 'remove from object (x100)',
         maxTime: 0.5,
         fn: removeFromObjectX100,
       },
       {
-        id: 'removeFromMap',
+        id: uniqueId('removeFromMap'),
         title: 'remove from map (x100)',
         maxTime: 0.5,
         fn: removeFromMapX100,
@@ -88,17 +89,17 @@ export default [
     ],
   },
   {
-    id: 'insertAndRemove',
+    id: uniqueId('insertAndRemove'),
     title: 'Insert + remove',
     benchmarks: [
       {
-        id: 'setAndRemoveFromObject',
+        id: uniqueId('setAndRemoveFromObject'),
         title: 'insert and remove from object (x100)',
         maxTime: 0.5,
         fn: setAndRemoveFromObjectX100,
       },
       {
-        id: 'setAndRemoveFromMap',
+        id: uniqueId('setAndRemoveFromMap'),
         title: 'insert and remove from map (x100)',
         maxTime: 0.5,
         fn: setAndRemoveFromMapX100,
@@ -106,23 +107,23 @@ export default [
     ],
   },
   {
-    id: 'checkIfKeyExists',
+    id: uniqueId('checkIfKeyExists'),
     title: 'Checking if key exists',
     benchmarks: [
       {
-        id: 'checkIfKeyExistsInObjectWithInOperator',
+        id: uniqueId('checkIfKeyExistsInObjectWithInOperator'),
         title: 'check if key exists in object with "in" operator (x100)',
         maxTime: 0.5,
         fn: checkIfKeyExistsInObjectWithInOperatorX100,
       },
       {
-        id: 'checkIfKeyExistsInObjectWithHasOwnPropertyMethod',
+        id: uniqueId('checkIfKeyExistsInObjectWithHasOwnPropertyMethod'),
         title: 'check if key exists in object with "hasOwnProperty" method (x100)',
         maxTime: 0.5,
         fn: checkIfKeyExistsInObjectWithHasOwnPropertyMethodX100,
       },
       {
-        id: 'checkIfKeyExistsInMap',
+        id: uniqueId('checkIfKeyExistsInMap'),
         title: 'check if key exists in map (x100)',
         maxTime: 0.5,
         fn: checkIfKeyExistsInMapX100,
@@ -130,17 +131,17 @@ export default [
     ],
   },
   {
-    id: 'checkIfValueExists',
+    id: uniqueId('checkIfValueExists'),
     title: 'Checking if value exists',
     benchmarks: [
       {
-        id: 'checkIfValueExistsInObject',
+        id: uniqueId('checkIfValueExistsInObject'),
         title: 'check if value exists in object (x100)',
         maxTime: 0.5,
         fn: checkIfValueExistsInObjectX100,
       },
       {
-        id: 'checkIfValueExistsInMap',
+        id: uniqueId('checkIfValueExistsInMap'),
         title: 'check if value exists in map (x100)',
         maxTime: 0.5,
         fn: checkIfValueExistsInMapX100,
@@ -148,17 +149,17 @@ export default [
     ],
   },
   {
-    id: 'iterating',
+    id: uniqueId('iterating'),
     title: 'Iterating',
     benchmarks: [
       {
-        id: 'iterateOverObject',
+        id: uniqueId('iterateOverObject'),
         title: 'iterating over object (x100)',
         maxTime: 0.5,
         fn: iterateOverObjectX100,
       },
       {
-        id: 'iterateOverMap',
+        id: uniqueId('iterateOverMap'),
         title: 'iterating over map (x100)',
         maxTime: 0.5,
         fn: iterateOverMapX100,
@@ -166,17 +167,17 @@ export default [
     ],
   },
   {
-    id: 'gettingSize',
+    id: uniqueId('gettingSize'),
     title: 'Getting size',
     benchmarks: [
       {
-        id: 'gettingSizeOfObject',
+        id: uniqueId('gettingSizeOfObject'),
         title: 'getting size on object (x100)',
         maxTime: 0.5,
         fn: gettingSizeOfObjectX100,
       },
       {
-        id: 'gettingSizeOfMap',
+        id: uniqueId('gettingSizeOfMap'),
         title: 'getting size of map (x100)',
         maxTime: 0.5,
         fn: gettingSizeOfMapX100,

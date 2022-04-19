@@ -1,0 +1,22 @@
+.control-button {
+  @include control-block;
+
+  padding: 0.5em 1.5em;
+  position: relative;
+
+  &__has-icon {
+    padding-right: 2.5em;
+  }
+
+  &_icon {
+    bottom: 0;
+    height: 1em;
+    line-height: 1em;
+    margin: auto;
+    position: absolute;
+    right: 1em;
+    text-align: center;
+    top: 0;
+    width: 1em;
+  }
+}
