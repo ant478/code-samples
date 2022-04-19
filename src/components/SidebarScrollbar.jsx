@@ -1,7 +1,7 @@
 import React from 'react';
 import Scrollbars from 'react-custom-scrollbars';
 
-const renderThumbVecrital = (props) => (
+const renderThumbVertical = (props) => (
   <div
     className="page-with-sidebar_scrollbar-thumb-vertical"
     {...props}
@@ -17,7 +17,7 @@ const renderTrackVertical = (props) => (
 
 const SidebarScrollbar = (props) => (
   <Scrollbars
-    renderThumbVertical={renderThumbVecrital}
+    renderThumbVertical={renderThumbVertical}
     renderTrackVertical={renderTrackVertical}
     {...props}
   />
