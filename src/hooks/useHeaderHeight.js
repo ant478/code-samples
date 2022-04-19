@@ -1,20 +1,30 @@
-import useRerenderOnEvent from 'src/hooks/useRerenderOnEvent';
-import { VIEW_ID as ELEMENT_ID } from 'src/components/App/components/AppScrollbar';
+import { useEffect, useCallback, useState } from 'react';
+import { getAppScrollElement } from 'src/helpers/scroll';
 
 export const COLLAPSED_HEIGHT = 62;
 export const EXPANDED_HEIGHT = 62;
 export const EXPAND_DIFF = (EXPANDED_HEIGHT - COLLAPSED_HEIGHT);
 
 export default function useHeaderHeight() {
-  const element = document.getElementById(ELEMENT_ID);
+  const [headerHeight, setHeaderHeight] = useState(COLLAPSED_HEIGHT);
+  const scrollElement = getAppScrollElement();
 
-  useRerenderOnEvent('scroll', element);
+  const updateHeight = useCallback(() => {
+    const { scrollTop } = scrollElement;
 
-  const { scrollTop } = element;
+    const height = scrollTop >= EXPAND_DIFF
+      ? COLLAPSED_HEIGHT
+      : COLLAPSED_HEIGHT + EXPAND_DIFF - scrollTop;
 
-  if (scrollTop >= EXPAND_DIFF) {
-    return COLLAPSED_HEIGHT;
-  }
+    setHeaderHeight(height);
+  }, [scrollElement]);
 
-  return (COLLAPSED_HEIGHT + EXPAND_DIFF - scrollTop);
+  useEffect(() => { updateHeight(); }, [updateHeight]);
+
+  useEffect(() => {
+    scrollElement.addEventListener('scroll', updateHeight);
+    return () => scrollElement.removeEventListener('scroll', updateHeight);
+  }, [scrollElement, updateHeight]);
+
+  return headerHeight;
 }

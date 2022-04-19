@@ -1,7 +1,6 @@
 import React, { memo, useMemo } from 'react';
 import useHeaderHeight from 'src/hooks/useHeaderHeight';
 import useFooterHeight from 'src/hooks/useFooterHeight';
-import useAnotherRenderOnMount from 'src/hooks/useAnotherRenderOnMount';
 import SidebarScrollbar from 'src/components/SidebarScrollbar';
 
 const parseDescription = (string) => string
@@ -13,7 +12,6 @@ const PageWithSidebar = memo(({
   children,
   sidebar,
 }) => {
-  useAnotherRenderOnMount();
   const headerHeight = useHeaderHeight();
   const footerHeight = useFooterHeight();
 

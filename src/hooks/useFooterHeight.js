@@ -1,24 +1,41 @@
-import useRerenderOnEvent from 'src/hooks/useRerenderOnEvent';
-import { VIEW_ID as ELEMENT_ID } from 'src/components/App/components/AppScrollbar';
+import { useEffect, useCallback, useState } from 'react';
+import { getAppScrollElement } from 'src/helpers/scroll';
 
 export const COLLAPSED_HEIGHT = 0;
 export const EXPANDED_HEIGHT = 120;
 export const EXPAND_DIFF = (EXPANDED_HEIGHT - COLLAPSED_HEIGHT);
 
 export default function useFooterHeight() {
-  const element = document.getElementById(ELEMENT_ID);
+  const [footerHeight, setFooterHeight] = useState(COLLAPSED_HEIGHT);
+  const scrollElement = getAppScrollElement();
 
-  useRerenderOnEvent('scroll', element);
-  useRerenderOnEvent('resize');
-  useRerenderOnEvent('scroll-height-change-custom');
+  const updateHeight = useCallback(() => {
+    const { scrollHeight, clientHeight, scrollTop } = scrollElement;
+    const remainingScrollTop = (scrollHeight - clientHeight - scrollTop);
 
-  const { scrollTop, clientHeight, scrollHeight } = element;
+    const height = remainingScrollTop >= EXPAND_DIFF
+      ? COLLAPSED_HEIGHT
+      : COLLAPSED_HEIGHT + EXPAND_DIFF - remainingScrollTop;
 
-  const remainingScrollTop = (scrollHeight - clientHeight - scrollTop);
+    setFooterHeight(height);
+  }, [scrollElement]);
 
-  if (remainingScrollTop >= EXPAND_DIFF) {
-    return COLLAPSED_HEIGHT;
-  }
+  useEffect(() => { updateHeight(); }, [updateHeight]);
 
-  return (COLLAPSED_HEIGHT + EXPAND_DIFF - remainingScrollTop);
+  useEffect(() => {
+    scrollElement.addEventListener('scroll', updateHeight);
+    return () => scrollElement.removeEventListener('scroll', updateHeight);
+  }, [scrollElement, updateHeight]);
+
+  useEffect(() => {
+    window.addEventListener('resize', updateHeight);
+    window.addEventListener('scroll-height-change-custom', updateHeight);
+
+    return () => {
+      window.removeEventListener('resize', updateHeight);
+      window.removeEventListener('scroll-height-change-custom', updateHeight);
+    };
+  }, [updateHeight]);
+
+  return footerHeight;
 }
