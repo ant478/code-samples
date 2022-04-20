@@ -20,6 +20,7 @@ module.exports = (options = {}, argv = {}) => merge(
     },
     output: {
       filename: '[name].[contenthash].js',
+      publicPath: '/',
       path: path.resolve(__dirname, '../build'),
     },
     optimization: {

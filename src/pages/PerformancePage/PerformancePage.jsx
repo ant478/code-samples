@@ -3,7 +3,7 @@ import PageWithSidebar from 'src/components/PageWithSidebar';
 import BenchmarkSuite from 'src/components/BenchmarkSuite/BenchmarkSuite';
 import { Redirect } from 'react-router-dom';
 import { CATEGORY_IDS } from 'src/consts/categories';
-import { EXAMPLES_CONFIG } from './consts/examples';
+import { EXAMPLES } from './consts/examples';
 import PerformanceSidebar from './components/PerformanceSidebar';
 
 const PerformancePage = ({
@@ -13,13 +13,15 @@ const PerformancePage = ({
     },
   },
 }) => {
-  if (!EXAMPLES_CONFIG[exampleId]) {
+  const exampleConfig = EXAMPLES.find(({ id }) => id === exampleId);
+
+  if (!exampleConfig) {
     return (
-      <Redirect to={`/${CATEGORY_IDS.performance}/${Object.keys(EXAMPLES_CONFIG)[0]}`} />
+      <Redirect to={`/${CATEGORY_IDS.performance}/${EXAMPLES[0].id}`} />
     );
   }
 
-  const { title: exampleTitle, description, benchmarkSuites } = EXAMPLES_CONFIG[exampleId];
+  const { title: exampleTitle, description, benchmarkSuites } = exampleConfig;
 
   return (
     <PageWithSidebar

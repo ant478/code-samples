@@ -13,6 +13,7 @@ module.exports = () => merge(
   {
     devtool: 'inline-cheap-module-source-map',
     devServer: {
+      historyApiFallback: true,
       host: '0.0.0.0',
       port: 4780,
       liveReload: false,

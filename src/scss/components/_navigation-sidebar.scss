@@ -2,20 +2,18 @@
   min-height: 100%;
   padding: 0.75em 1em;
 
-  &_item {
-    &:not(:last-child) {
-      margin-bottom: 0.6em;
-    }
-  }
-
-  &_item-link {
-    @include control-block;
-
+  &_item-link,
+  &_item-sub-link {
     display: block;
+    margin-bottom: 0.6em;
     padding: 0.5em;
 
     &__active {
       color: #b30000;
     }
+  }
+
+  &_item-link {
+    @include control-block;
   }
 }
