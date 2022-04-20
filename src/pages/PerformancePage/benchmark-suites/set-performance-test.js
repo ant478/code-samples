@@ -1,4 +1,3 @@
-import uniqueId from 'lodash/uniqueId';
 import {
   pushToArrayX100,
   unshiftToArrayX100,
@@ -18,23 +17,23 @@ import {
 
 export default [
   {
-    id: uniqueId('insert'),
+    id: 'insert',
     title: 'Insert',
     benchmarks: [
       {
-        id: uniqueId('pushToArray'),
+        id: 'pushToArray',
         title: 'pushing to array (x100)',
         maxTime: 0.5,
         fn: pushToArrayX100,
       },
       {
-        id: uniqueId('unshiftToArray'),
+        id: 'unshiftToArray',
         title: 'unshifting to array (x100)',
         maxTime: 0.5,
         fn: unshiftToArrayX100,
       },
       {
-        id: uniqueId('addToSet'),
+        id: 'addToSet',
         title: 'adding to set (x100)',
         maxTime: 0.5,
         fn: addToSetX100,
@@ -42,23 +41,23 @@ export default [
     ],
   },
   {
-    id: uniqueId('remove'),
+    id: 'remove',
     title: 'Remove',
     benchmarks: [
       {
-        id: uniqueId('removeFromArrayWithUnknownIndex'),
+        id: 'removeFromArrayWithUnknownIndex',
         title: 'removing from array with unknown index (x100)',
         maxTime: 0.5,
         fn: removeFromArrayWithUnknownIndexX100,
       },
       {
-        id: uniqueId('removeFromArrayWithKnownIndex'),
+        id: 'removeFromArrayWithKnownIndex',
         title: 'removing from array with known index (x100)',
         maxTime: 0.5,
         fn: removeFromArrayWithKnownIndexX100,
       },
       {
-        id: uniqueId('removeFromSet'),
+        id: 'removeFromSet',
         title: 'removing from set (x100)',
         maxTime: 0.5,
         fn: removeFromSetX100,
@@ -66,17 +65,17 @@ export default [
     ],
   },
   {
-    id: uniqueId('insertAndRemove'),
+    id: 'insertAndRemove',
     title: 'Insert + remove',
     benchmarks: [
       {
-        id: uniqueId('pushAndRemoveFromArray'),
+        id: 'pushAndRemoveFromArray',
         title: 'pushing and removing from array (x100)',
         maxTime: 0.5,
         fn: pushAndRemoveFromArrayX100,
       },
       {
-        id: uniqueId('addAndRemoveFromSet'),
+        id: 'addAndRemoveFromSet',
         title: 'adding and removing from set (x100)',
         maxTime: 0.5,
         fn: addAndRemoveFromSetX100,
@@ -84,17 +83,17 @@ export default [
     ],
   },
   {
-    id: uniqueId('checkIfExists'),
+    id: 'checkIfExists',
     title: 'Checking if exists',
     benchmarks: [
       {
-        id: uniqueId('checkIfExistsInArray'),
+        id: 'checkIfExistsInArray',
         title: 'check if exists in array (x100)',
         maxTime: 0.5,
         fn: checkIfExistsInArrayX100,
       },
       {
-        id: uniqueId('checkIfExistsInSet'),
+        id: 'checkIfExistsInSet',
         title: 'check if exists in set (x100)',
         maxTime: 0.5,
         fn: checkIfExistsInSetX100,
@@ -102,17 +101,17 @@ export default [
     ],
   },
   {
-    id: uniqueId('iterating'),
+    id: 'iterating',
     title: 'Iterating',
     benchmarks: [
       {
-        id: uniqueId('iterateOverArray'),
+        id: 'iterateOverArray',
         title: 'iterating over array (x100)',
         maxTime: 0.5,
         fn: iterateOverArrayX100,
       },
       {
-        id: uniqueId('iterateOverSet'),
+        id: 'iterateOverSet',
         title: 'iterating over set (x100)',
         maxTime: 0.5,
         fn: iterateOverSetX100,
@@ -120,17 +119,17 @@ export default [
     ],
   },
   {
-    id: uniqueId('gettingLength'),
+    id: 'gettingLength',
     title: 'Getting length',
     benchmarks: [
       {
-        id: uniqueId('getLengthOfArray'),
+        id: 'getLengthOfArray',
         title: 'getting length of array (x100)',
         maxTime: 0.5,
         fn: getLengthOfArrayX100,
       },
       {
-        id: uniqueId('getSizeOfSet'),
+        id: 'getSizeOfSet',
         title: 'getting size of set set (x100)',
         maxTime: 0.5,
         fn: getSizeOfSetX100,
