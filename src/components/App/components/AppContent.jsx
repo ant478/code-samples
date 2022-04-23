@@ -8,6 +8,10 @@ import {
 } from 'src/hooks/useHeaderHeight';
 import { EXPANDED_HEIGHT as FOOTER_EXPANDED_HEIGHT } from 'src/hooks/useFooterHeight';
 import { appScrollbarService } from 'src/services/scroll';
+import {
+  getScrollPositionDataFromSessionStorage,
+  saveScrollPositionDataToSessionStorage,
+} from 'src/helpers/scroll';
 import AppHeader from './AppHeader';
 import AppSwitch from './AppSwitch';
 import AppFooter from './AppFooter';
@@ -20,17 +24,12 @@ const appMainStyles = {
 
 const SCROLL_POSITION_STORAGE_KEY = 'app-scroll-position';
 
-function saveScrollPositionToLS({ target: { scrollTop } }) {
-  const { location: { pathname } } = window;
-
-  sessionStorage.setItem(SCROLL_POSITION_STORAGE_KEY, JSON.stringify({ pathname, scrollTop }));
+function saveScrollPositionData({ target: { scrollTop } }) {
+  return saveScrollPositionDataToSessionStorage(SCROLL_POSITION_STORAGE_KEY, scrollTop);
 }
 
-function getScrollPositionFromLS() {
-  const { location: { pathname } } = window;
-  const data = (sessionStorage.getItem(SCROLL_POSITION_STORAGE_KEY) || JSON.stringify({ pathname, scrollTop: 0 }));
-
-  return JSON.parse(data);
+function getScrollPositionData() {
+  return getScrollPositionDataFromSessionStorage(SCROLL_POSITION_STORAGE_KEY);
 }
 
 const updateScrollPosition = (isFirstRender) => {
@@ -47,10 +46,10 @@ const updateScrollPosition = (isFirstRender) => {
   }
 
   if (isFirstRender) {
-    const lsData = getScrollPositionFromLS();
+    const scrollData = getScrollPositionData();
 
-    if (lsData.pathname === pathname) {
-      appScrollbarService.scrollToPosition(lsData.scrollTop, { clamp: false });
+    if (scrollData.pathname === pathname) {
+      appScrollbarService.scrollToPosition(scrollData.scrollTop, { clamp: false });
       return;
     }
   }
@@ -73,8 +72,8 @@ const AppContent = memo(() => {
   useEffect(() => {
     const scrollElement = appScrollbarService.getScrollElement();
 
-    scrollElement.addEventListener('scroll', saveScrollPositionToLS);
-    return () => scrollElement.removeEventListener('scroll', saveScrollPositionToLS);
+    scrollElement.addEventListener('scroll', saveScrollPositionData);
+    return () => scrollElement.removeEventListener('scroll', saveScrollPositionData);
   }, []);
 
   useEffect(() => { isFirstRenderRef.current = false; }, []);

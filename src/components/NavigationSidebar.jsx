@@ -1,29 +1,67 @@
-import get from 'lodash/get';
 import noop from 'lodash/noop';
-import React, { memo, useLayoutEffect } from 'react';
+import React, {
+  memo, useRef, useLayoutEffect, useEffect,
+} from 'react';
 import { useLocation, NavLink, matchPath } from 'react-router-dom';
 import { NavHashLink } from 'react-router-hash-link';
 import { sidebarScrollService } from 'src/services/scroll';
+import {
+  getScrollPositionDataFromSessionStorage,
+  saveScrollPositionDataToSessionStorage,
+} from 'src/helpers/scroll';
 
-const getLinkIdByHash = (hash) => `${hash}-link`;
+const SCROLL_POSITION_STORAGE_KEY = 'sidebar-scroll-position';
+
+function saveScrollPositionData({ target: { scrollTop } }) {
+  return saveScrollPositionDataToSessionStorage(SCROLL_POSITION_STORAGE_KEY, scrollTop);
+}
+
+function getScrollPositionData() {
+  return getScrollPositionDataFromSessionStorage(SCROLL_POSITION_STORAGE_KEY);
+}
+
+const getLinkIdByHash = (hash) => `${hash.replace('#', '')}-link`;
+
+const updateScrollPosition = (isFirstRender) => {
+  const { pathname, hash } = window.location;
+
+  if (hash) {
+    const elementId = getLinkIdByHash(hash);
+    const element = document.getElementById(elementId);
+
+    if (element) {
+      sidebarScrollService.scrollToElement(element);
+      return;
+    }
+  }
+
+  if (isFirstRender) {
+    const scrollData = getScrollPositionData();
+
+    if (scrollData.pathname === pathname) {
+      sidebarScrollService.scrollToPosition(scrollData.scrollTop);
+    }
+  }
+};
 
 const NavigationSidebar = memo(({
   links,
 }) => {
   const { pathname } = useLocation();
+  const isFirstRenderRef = useRef(true);
 
   useLayoutEffect(() => {
-    const hash = get(window, 'location.hash', '');
-
-    if (hash) {
-      const elementId = getLinkIdByHash(hash);
-      const element = document.getElementById(elementId);
-
-      if (element) {
-        sidebarScrollService.scrollToElement(element);
-      }
-    }
+    updateScrollPosition(isFirstRenderRef.current);
   }, []);
+
+  useEffect(() => {
+    const scrollElement = sidebarScrollService.getScrollElement();
+
+    scrollElement.addEventListener('scroll', saveScrollPositionData);
+    return () => scrollElement.removeEventListener('scroll', saveScrollPositionData);
+  }, []);
+
+  useEffect(() => { isFirstRenderRef.current = false; }, []);
 
   return (
     <aside className="navigation-sidebar">
