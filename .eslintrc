@@ -15,6 +15,7 @@
     "import/no-unresolved": "off",
     "import/prefer-default-export": "off",
     "no-return-assign": "off",
+    "func-names": "off",
     "react/require-default-props": [2, { "ignoreFunctionalComponents": true }],
     "react/forbid-prop-types": "off",
     "react/no-array-index-key": "off",

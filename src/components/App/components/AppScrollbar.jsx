@@ -1,9 +1,12 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, {
+  useState, useEffect, useCallback, useRef,
+} from 'react';
 import get from 'lodash/get';
 import Scrollbars from 'react-custom-scrollbars';
-import { getAppScrollElement } from 'src/helpers/scroll';
+import { appScrollbarService } from 'src/services/scroll';
+import useRerenderOnMount from 'src/hooks/useRerenderOnMount';
 
-export const VIEW_ID = 'app-scrollbar-view';
+const VIEW_ID = 'app-scrollbar-view';
 
 const renderThumbVertical = (props) => (
   <div
@@ -26,8 +29,8 @@ const renderView = (props) => (
   />
 );
 
-const AppScrollbar = (props) => {
-  const scrollElement = getAppScrollElement();
+const AppScrollbar = ({ children, ...props }) => {
+  const scrollElement = appScrollbarService.getScrollElement();
   const [, setScrollHeight] = useState(get(scrollElement, 'scrollHeight', 0));
 
   const updateScrollHeight = useCallback(() => {
@@ -39,13 +42,25 @@ const AppScrollbar = (props) => {
     return () => window.removeEventListener('scroll-height-change-custom', updateScrollHeight);
   }, [updateScrollHeight]);
 
+  useRerenderOnMount();
+  const isFirstRenderRef = useRef(true);
+
+  useEffect(() => {
+    appScrollbarService.init(VIEW_ID);
+    return () => appScrollbarService.flush();
+  }, []);
+
+  useEffect(() => { isFirstRenderRef.current = false; }, []);
+
   return (
     <Scrollbars
       renderView={renderView}
       renderThumbVertical={renderThumbVertical}
       renderTrackVertical={renderTrackVertical}
       {...props}
-    />
+    >
+      {!isFirstRenderRef.current && children}
+    </Scrollbars>
   );
 };
 

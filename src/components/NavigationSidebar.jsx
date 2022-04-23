@@ -1,12 +1,29 @@
-import React, { memo } from 'react';
+import get from 'lodash/get';
+import noop from 'lodash/noop';
+import React, { memo, useLayoutEffect } from 'react';
 import { useLocation, NavLink, matchPath } from 'react-router-dom';
 import { NavHashLink } from 'react-router-hash-link';
-import { scrollAppToElement } from 'src/helpers/scroll';
+import { sidebarScrollService } from 'src/services/scroll';
+
+const getLinkIdByHash = (hash) => `${hash}-link`;
 
 const NavigationSidebar = memo(({
   links,
 }) => {
   const { pathname } = useLocation();
+
+  useLayoutEffect(() => {
+    const hash = get(window, 'location.hash', '');
+
+    if (hash) {
+      const elementId = getLinkIdByHash(hash);
+      const element = document.getElementById(elementId);
+
+      if (element) {
+        sidebarScrollService.scrollToElement(element);
+      }
+    }
+  }, []);
 
   return (
     <aside className="navigation-sidebar">
@@ -29,17 +46,18 @@ const NavigationSidebar = memo(({
               </NavLink>
               {hashLinks.length > 0 && matchPath(pathname, to) && (
               <ul>
-                {hashLinks.map(({ to: subTo, title: subTitle, exact: subExact }) => (
+                {hashLinks.map(({ hash, title: subTitle, exact: subExact }) => (
                   <li
-                    key={subTo}
+                    key={hash}
                     className="navigation-sidebar_sub-item"
                   >
                     <NavHashLink
+                      id={getLinkIdByHash(hash)}
                       className="navigation-sidebar_item-sub-link"
                       activeClassName="navigation-sidebar_item-sub-link__active"
                       exact={subExact}
-                      to={subTo}
-                      scroll={scrollAppToElement}
+                      to={`${to}${hash}`}
+                      scroll={noop}
                     >
                       {subTitle}
                     </NavHashLink>
