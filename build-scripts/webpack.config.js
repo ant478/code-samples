@@ -5,10 +5,22 @@ const { merge } = require('webpack-merge');
 const globImporter = require('node-sass-glob-importer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const devConfig = require('./webpack.config.dev.js');
 
-module.exports = (options = {}, argv = {}) => merge(
+let localWebpackConfig;
+
+try {
+  localWebpackConfig = require('./webpack.config.local.js');
+} catch (error) {
+  localWebpackConfig = {};
+}
+
+const isDevelopment = process.env.NODE_ENV === 'development';
+
+module.exports = () => merge(
   {
+    mode: isDevelopment ? 'development' : 'production',
+    devtool: isDevelopment ? 'inline-cheap-module-source-map' : undefined,
+    performance: false,
     entry: {
       main: {
         import: path.resolve(__dirname, '../src/index.js'),
@@ -92,6 +104,16 @@ module.exports = (options = {}, argv = {}) => merge(
         inject: false,
       }),
     ],
+    devServer: {
+      historyApiFallback: true,
+      host: '0.0.0.0',
+      port: 4780,
+      liveReload: false,
+      hot: false,
+      static: {
+        directory: path.join(__dirname, '../build'),
+      },
+    },
   },
-  (argv.mode === 'development' ? devConfig(options) : {}),
+  localWebpackConfig,
 );
