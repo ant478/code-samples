@@ -1,5 +1,5 @@
 import { useEffect, useCallback, useState } from 'react';
-import { getAppScrollElement } from 'src/helpers/scroll';
+import { appScrollbarService } from 'src/services/scroll';
 
 export const COLLAPSED_HEIGHT = 0;
 export const EXPANDED_HEIGHT = 120;
@@ -7,7 +7,7 @@ export const EXPAND_DIFF = (EXPANDED_HEIGHT - COLLAPSED_HEIGHT);
 
 export default function useFooterHeight() {
   const [footerHeight, setFooterHeight] = useState(COLLAPSED_HEIGHT);
-  const scrollElement = getAppScrollElement();
+  const scrollElement = appScrollbarService.getScrollElement();
 
   const updateHeight = useCallback(() => {
     const { scrollHeight, clientHeight, scrollTop } = scrollElement;

@@ -8,15 +8,11 @@ const LINKS = EXAMPLES.map(({ id: exampleId, title, benchmarkSuites }) => ({
   title,
   hashLinks: benchmarkSuites.map(({ id: benchmarkSuiteId, title: benchmarkTitle }) => ({
     exact: true,
-    to: `/${CATEGORY_IDS.performance}/${exampleId}#${benchmarkSuiteId}`,
     title: benchmarkTitle,
+    hash: `#${benchmarkSuiteId}`,
   })),
 }));
 
-const PerformanceSidebar = memo(() => (
-  <NavigationSidebar
-    links={LINKS}
-  />
-));
+const PerformanceSidebar = memo(() => <NavigationSidebar links={LINKS} />);
 
 export default PerformanceSidebar;

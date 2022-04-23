@@ -1,5 +1,9 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Scrollbars from 'react-custom-scrollbars';
+import useRerenderOnMount from 'src/hooks/useRerenderOnMount';
+import { sidebarScrollService } from 'src/services/scroll';
+
+const VIEW_ID = 'page-with-sidebar-scrollbar-view';
 
 const renderThumbVertical = (props) => (
   <div
@@ -15,12 +19,35 @@ const renderTrackVertical = (props) => (
   />
 );
 
-const SidebarScrollbar = (props) => (
-  <Scrollbars
-    renderThumbVertical={renderThumbVertical}
-    renderTrackVertical={renderTrackVertical}
+const renderView = (props) => (
+  <div
+    id={VIEW_ID}
     {...props}
   />
 );
+
+const SidebarScrollbar = ({ children, ...props }) => {
+  useRerenderOnMount();
+  const isFirstRenderRef = useRef(true);
+
+  useEffect(() => {
+    sidebarScrollService.init(VIEW_ID);
+    return () => sidebarScrollService.flush();
+  }, []);
+
+  useEffect(() => { isFirstRenderRef.current = false; }, []);
+
+  return (
+    <Scrollbars
+      autoHide={false}
+      renderView={renderView}
+      renderThumbVertical={renderThumbVertical}
+      renderTrackVertical={renderTrackVertical}
+      {...props}
+    >
+      {!isFirstRenderRef.current && children}
+    </Scrollbars>
+  );
+};
 
 export default SidebarScrollbar;

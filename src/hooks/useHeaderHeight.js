@@ -1,5 +1,5 @@
 import { useEffect, useCallback, useState } from 'react';
-import { getAppScrollElement } from 'src/helpers/scroll';
+import { appScrollbarService } from 'src/services/scroll';
 
 export const COLLAPSED_HEIGHT = 62;
 export const EXPANDED_HEIGHT = 122;
@@ -7,7 +7,7 @@ export const EXPAND_DIFF = (EXPANDED_HEIGHT - COLLAPSED_HEIGHT);
 
 export default function useHeaderHeight() {
   const [headerHeight, setHeaderHeight] = useState(COLLAPSED_HEIGHT);
-  const scrollElement = getAppScrollElement();
+  const scrollElement = appScrollbarService.getScrollElement();
 
   const updateHeight = useCallback(() => {
     const { scrollTop } = scrollElement;
