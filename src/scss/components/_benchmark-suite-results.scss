@@ -9,13 +9,22 @@
   td {
     border: 2px solid #7b0000;
     padding: 0.25em 0.5em;
-
-    &:not(:first-child) {
-      width: 10em;
-    }
   }
 
-  td span {
-    display: block;
+  th {
+    text-align: center;
+  }
+
+  td {
+    text-align: left;
+
+    &:not(:first-child) {
+      text-align: right;
+      width: 10em;
+    }
+
+    span {
+      display: block;
+    }
   }
 }

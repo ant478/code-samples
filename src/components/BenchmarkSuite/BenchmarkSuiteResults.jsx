@@ -1,5 +1,6 @@
 import React, { memo, useEffect } from 'react';
 import mean from 'lodash/mean';
+import LargeNumberFormal from 'src/components/LargeNumberFormal';
 
 const BenchmarkSuiteResults = memo(({
   benchmarks,
@@ -14,8 +15,8 @@ const BenchmarkSuiteResults = memo(({
       <table>
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Results</th>
+            <th>Test Name</th>
+            <th>Times per second</th>
             <th>Average</th>
           </tr>
         </thead>
@@ -25,10 +26,19 @@ const BenchmarkSuiteResults = memo(({
               <td>{title}</td>
               <td>
                 {results[id].map((value, index) => (
-                  <span key={index}>{Math.round(value)}</span>
+                  <LargeNumberFormal
+                    key={index}
+                    value={Math.round(value)}
+                  />
                 ))}
               </td>
-              <td>{results[id].length > 0 && Math.round(mean(results[id]))}</td>
+              <td>
+                {results[id].length > 0 && (
+                  <LargeNumberFormal
+                    value={Math.round(mean(results[id]))}
+                  />
+                )}
+              </td>
             </tr>
           ))}
         </tbody>
