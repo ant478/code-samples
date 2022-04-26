@@ -1,5 +1,5 @@
 .header {
-  @include highlighted-content-block;
+  @include highlighted-block;
 
   display: flex;
   flex-direction: column;

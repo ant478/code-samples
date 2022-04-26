@@ -7,9 +7,7 @@ const Footer = memo(() => (
   <footer
     className="footer"
     style={styles}
-  >
-    ant478 study polygon
-  </footer>
+  />
 ));
 
 export default Footer;

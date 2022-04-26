@@ -10,7 +10,6 @@ import Highlight from 'src/components/Highlight';
 import SimpleLoader from 'src/components/SimpleLoader';
 import ControlButton from 'src/components/ControlButton';
 import BenchmarkSuiteResults from 'src/components/BenchmarkSuite/BenchmarkSuiteResults';
-import cx from 'classnames';
 
 const BenchmarkSuite = memo(({
   id,
@@ -72,12 +71,8 @@ const BenchmarkSuite = memo(({
     return () => suiteRef.current.abort();
   }, [benchmarks, id, updateResults]);
 
-  const classes = cx('benchmark-suite', {
-    'benchmark-suite__running': isRunning,
-  });
-
   return (
-    <article className={classes}>
+    <article className="benchmark-suite">
       <h3
         id={id}
         className="benchmark-suite_title"
@@ -98,6 +93,7 @@ const BenchmarkSuite = memo(({
       </ul>
       <div className="benchmark-suite_controls">
         <ControlButton
+          isDisabled={isRunning}
           className="benchmark-suite_button-mix"
           onClick={handleRunClick}
           icon={isRunning ? <SimpleLoader /> : '▶'}
@@ -105,6 +101,7 @@ const BenchmarkSuite = memo(({
           Run
         </ControlButton>
         <ControlButton
+          isDisabled={isRunning}
           className="benchmark-suite_button-mix"
           onClick={handleClearClick}
           icon="🗙"

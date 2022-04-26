@@ -1,4 +1,9 @@
 @import 'reset-css';
-@import 'common/index';
+@import 'common/media';
+@import 'common/variables';
+@import 'common/functions';
+@import 'common/themes';
+@import 'common/mixins';
+@import 'common/default';
 @import 'components/**/*';
 @import 'pages/**/*';

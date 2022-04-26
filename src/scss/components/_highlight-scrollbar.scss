@@ -4,11 +4,11 @@
   }
 
   &_thumb-horisontal {
+    @include control-block('::after');
+
     position: relative;
 
     &::after {
-      @include control-block;
-
       content: '';
       height: 10px;
       left: 5px;

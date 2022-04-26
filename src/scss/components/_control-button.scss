@@ -3,9 +3,23 @@
 
   padding: 0.5em 1.5em;
   position: relative;
+  transition: opacity $transition-fast;
 
   &__has-icon {
     padding-right: 2.5em;
+  }
+
+  &__disabled {
+    background-image:
+      repeating-linear-gradient(
+        45deg,
+        rgba(#000, 0.6),
+        rgba(#000, 0.6) 2px,
+        transparent 2px,
+        transparent 4px
+      );
+    opacity: 0.7;
+    pointer-events: none;
   }
 
   &_icon {

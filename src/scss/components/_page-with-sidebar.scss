@@ -14,7 +14,7 @@
   }
 
   &_sidebar {
-    @include highlighted-content-block;
+    @include highlighted-block;
 
     bottom: calc(var(--footer-height) + 2em);
     position: fixed;
@@ -23,11 +23,11 @@
   }
 
   &_scrollbar-thumb-vertical {
+    @include control-block('::after');
+
     position: relative;
 
     &::after {
-      @include control-block;
-
       bottom: 5px;
       content: '';
       left: 0;
@@ -54,19 +54,19 @@
   }
 
   &_title {
-    color: #7a0000;
+    color: var(--page-title-color);
     font-size: 1.75rem;
     font-weight: 700;
     margin-bottom: 0.5em;
-    text-shadow: 2px 8px 6px rgba(#000, 0.2), 0 -5px 35px rgba(#fff, 0.3);
+    text-shadow: var(--page-title-text-shadow);
   }
 
   &_description {
     margin-bottom: 2em;
 
     a {
-      color: #75007c;
-      text-decoration: underline;
+      @include link;
+
       word-break: break-all;
     }
   }
