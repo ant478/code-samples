@@ -2,7 +2,7 @@ import { useEffect, useCallback, useState } from 'react';
 import { appScrollbarService } from 'src/services/scroll';
 
 export const COLLAPSED_HEIGHT = 62;
-export const EXPANDED_HEIGHT = 122;
+export const EXPANDED_HEIGHT = 62;
 export const EXPAND_DIFF = (EXPANDED_HEIGHT - COLLAPSED_HEIGHT);
 
 export default function useHeaderHeight() {

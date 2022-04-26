@@ -76,12 +76,24 @@ module.exports = () => merge(
             },
           ],
         },
+        {
+          test: /\.(jpeg|png|webp)$/,
+          type: 'asset/resource',
+          generator: {
+            filename: '[path][name].[contenthash].[ext]',
+          },
+        },
+        {
+          test: /\.svg$/,
+          type: 'asset/inline',
+        },
       ],
     },
     resolve: {
       extensions: ['.js', '.jsx'],
       alias: {
         src: path.resolve(__dirname, '../src'),
+        img: path.resolve(__dirname, '../src/img'),
         vendor: path.resolve(__dirname, '../vendor'),
       },
       fallback: {

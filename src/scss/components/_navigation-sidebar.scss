@@ -1,4 +1,6 @@
 .navigation-sidebar {
+  $padding: 0.5em;
+
   min-height: 100%;
   padding: 0.75em 1em;
 
@@ -6,14 +8,31 @@
   &_item-sub-link {
     display: block;
     margin-bottom: 0.6em;
-    padding: 0.5em;
+    padding: $padding;
 
     &__active {
-      color: #b30000;
+      color: var(--navigation-active-text-color);
     }
   }
 
   &_item-link {
     @include control-block;
+  }
+
+  &_item-sub-link {
+    @include link-underline;
+
+    position: relative;
+    text-indent: 1em;
+
+    &::before {
+      content: '#';
+      left: $padding;
+      opacity: 0.5;
+      position: absolute;
+      text-indent: 0;
+      top: $padding;
+      user-select: none;
+    }
   }
 }
