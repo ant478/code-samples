@@ -55,7 +55,7 @@ const NavigationSidebar = memo(({
   }, []);
 
   useEffect(() => {
-    const scrollElement = sidebarScrollService.getScrollElement();
+    const scrollElement = sidebarScrollService.scrollElement;
 
     scrollElement.addEventListener('scroll', saveScrollPositionData);
     return () => scrollElement.removeEventListener('scroll', saveScrollPositionData);

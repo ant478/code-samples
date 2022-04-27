@@ -8,8 +8,4 @@ export default class ScrollService {
   flush() {
     delete this.scrollElement;
   }
-
-  getScrollElement() {
-    return this.scrollElement;
-  }
 }

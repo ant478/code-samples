@@ -30,7 +30,7 @@ const renderView = (props) => (
 );
 
 const AppScrollbar = ({ children, ...props }) => {
-  const scrollElement = appScrollbarService.getScrollElement();
+  const scrollElement = appScrollbarService.scrollElement;
   const [, setScrollHeight] = useState(get(scrollElement, 'scrollHeight', 0));
 
   const updateScrollHeight = useCallback(() => {

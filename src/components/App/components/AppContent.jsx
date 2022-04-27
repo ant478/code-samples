@@ -70,7 +70,7 @@ const AppContent = memo(() => {
   }, []);
 
   useEffect(() => {
-    const scrollElement = appScrollbarService.getScrollElement();
+    const scrollElement = appScrollbarService.scrollElement;
 
     scrollElement.addEventListener('scroll', saveScrollPositionData);
     return () => scrollElement.removeEventListener('scroll', saveScrollPositionData);

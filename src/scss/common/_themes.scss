@@ -2,7 +2,7 @@
   --hue: 340;
   --primary-text-color: #919191;
   --app-background-color: #{hsl-with-var(0, 100%, 6%)};
-  --app-mask-background-color: #{hsl-with-var(0, 70%, 6%)};
+  --app-mask-background-color: #{hsl-with-var(0, 60%, 6%)};
   --highlighted-block-background-color: #{hsl-with-var(0, 0%, 6%)};
   --highlighted-block-mask-color: #{hsl-with-var(0, 5%, 5%)};
   --highlighted-block-shadow-inset: inset 0 0 24px #{hsl-with-var(0, 0%, 0%)};
@@ -22,7 +22,7 @@
   --page-title-color: #{hsl-with-var(0, 100%, 31%)};
   --page-title-text-shadow: 2px 8px 16px #{hsl-with-var(0, 0%, 0%)};
   --article-title-color: #{hsl-with-var(0, 100%, 31%)};
-  --hljs-mask-color: #{hsl-with-var(0, 5%, 5%)};
+  --hljs-mask-color: var(--highlighted-block-mask-color);
   --hljs-container-box-shadow: var(--highlighted-block-shadow);
   --hljs-outer-background-color: var(--highlighted-block-background-color);
   --hljs-outer-box-shadow: var(--highlighted-block-shadow-inset);

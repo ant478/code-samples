@@ -1,4 +1,4 @@
-@mixin highlighted-block($maskImage: none) {
+@mixin highlighted-block($maskImage: none, $maskPosition: center) {
   background-color: var(--highlighted-block-background-color);
   border-radius: 3px;
 
@@ -23,7 +23,7 @@
 
     &::before {
       background-color: var(--highlighted-block-mask-color);
-      mask: url($maskImage) center / auto repeat;
+      mask: url($maskImage) $maskPosition / auto repeat;
       z-index: -2;
     }
 

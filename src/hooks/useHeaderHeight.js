@@ -7,7 +7,7 @@ export const EXPAND_DIFF = (EXPANDED_HEIGHT - COLLAPSED_HEIGHT);
 
 export default function useHeaderHeight() {
   const [headerHeight, setHeaderHeight] = useState(COLLAPSED_HEIGHT);
-  const scrollElement = appScrollbarService.getScrollElement();
+  const scrollElement = appScrollbarService.scrollElement;
 
   const updateHeight = useCallback(() => {
     const { scrollTop } = scrollElement;
