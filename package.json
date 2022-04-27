@@ -1,7 +1,7 @@
 {
-  "name": "study-polygon",
+  "name": "code-samples",
   "version": "0.0.1",
-  "description": "study-polygon",
+  "description": "code-samples",
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack serve --config=build-scripts/webpack.config.js",
@@ -15,18 +15,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ant478/wg-study.git"
+    "url": "git+https://github.com/ant478/code-samples.git"
   },
-  "keywords": [
-    "WG",
-    "study"
-  ],
   "author": "ant478",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ant478/wg-study/issues"
+    "url": "https://github.com/ant478/code-samples/issues"
   },
-  "homepage": "https://github.com/ant478/wg-study#readme",
+  "homepage": "https://github.com/ant478/code-samples#readme",
   "browserslist": [
     "last 3 versions",
     "not < 1%"
