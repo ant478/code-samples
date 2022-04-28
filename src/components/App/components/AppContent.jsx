@@ -66,7 +66,9 @@ const AppContent = memo(() => {
   }, [location]);
 
   useEffect(() => {
-    if (isFirstRenderRef.current) updateScrollPosition(isFirstRenderRef.current);
+    const timeoutId = setTimeout(() => updateScrollPosition(true), 1);
+
+    return () => clearTimeout(timeoutId);
   }, []);
 
   useEffect(() => {
