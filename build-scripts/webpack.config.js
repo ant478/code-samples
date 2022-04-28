@@ -1,10 +1,11 @@
-const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const { merge } = require('webpack-merge');
 const globImporter = require('node-sass-glob-importer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
+const paths = require('./paths');
 
 let localWebpackConfig;
 
@@ -23,34 +24,34 @@ module.exports = () => merge(
     performance: false,
     entry: {
       main: {
-        import: path.resolve(__dirname, '../src/index.js'),
+        import: paths.mainEntry,
         dependOn: 'raw-code-samples',
       },
       'raw-code-samples': {
-        import: path.resolve(__dirname, '../src/raw-code-samples/index.js'),
+        import: paths.mainEntry,
       },
     },
     output: {
       filename: '[name].[contenthash].js',
-      publicPath: '/',
-      path: path.resolve(__dirname, '../build'),
+      publicPath: paths.publicPath,
+      path: paths.output,
     },
     optimization: {
       runtimeChunk: 'single',
       minimizer: [
         new TerserPlugin({
-          exclude: /raw-code-samples.*\.js/,
+          exclude: /raw-code-samples/,
         }),
       ],
     },
     module: {
       noParse: [
-        /\\node_modules\\benchmark\\/,
+        paths.benchmarkModule,
       ],
       rules: [
         {
           test: /\.(js|jsx)$/,
-          exclude: [/node_modules/, /\\src\\raw-code-samples\\/],
+          exclude: [paths.nodeModules, paths.rawCodeSamplesFolder],
           use: 'babel-loader',
         },
         {
@@ -92,9 +93,9 @@ module.exports = () => merge(
     resolve: {
       extensions: ['.js', '.jsx'],
       alias: {
-        src: path.resolve(__dirname, '../src'),
-        img: path.resolve(__dirname, '../src/img'),
-        vendor: path.resolve(__dirname, '../vendor'),
+        src: paths.src,
+        img: paths.img,
+        vendor: paths.vendor,
       },
       fallback: {
         process: require.resolve('process/browser'),
@@ -112,7 +113,7 @@ module.exports = () => merge(
         filename: 'main.[contenthash].css',
       }),
       new HtmlWebpackPlugin({
-        template: path.resolve(__dirname, '../src/index.html'),
+        template: paths.indexHtml,
         inject: false,
       }),
     ],
@@ -123,7 +124,8 @@ module.exports = () => merge(
       liveReload: false,
       hot: false,
       static: {
-        directory: path.join(__dirname, '../build'),
+        publicPath: paths.publicPath,
+        directory: paths.output,
       },
     },
   },
