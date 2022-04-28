@@ -28,7 +28,7 @@ module.exports = () => merge(
         dependOn: 'raw-code-samples',
       },
       'raw-code-samples': {
-        import: paths.mainEntry,
+        import: paths.rawCodeSamplesEntry,
       },
     },
     output: {
