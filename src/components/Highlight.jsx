@@ -3,9 +3,9 @@ import hljs from 'vendor/highlight';
 import HighlightScrollbar from 'src/components/HighlightScrollbar';
 
 /**
- * Reuse from https://github.com/akiran/react-highlight/blob/master/src/index.js
+ * Reused from https://github.com/akiran/react-highlight/blob/master/src/index.js, modified
  */
-class Highlight extends React.Component {
+class Highlight extends React.PureComponent {
   constructor(props) {
     super(props);
     this.setEl = this.setEl.bind(this);

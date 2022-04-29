@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Scrollbars from 'react-custom-scrollbars';
 
 const renderThumbHorizontal = (props) => (
@@ -22,13 +22,13 @@ const renderView = (props) => (
   />
 );
 
-const HighlightScrollbar = (props) => (
+const HighlightScrollbar = memo((props) => (
   <Scrollbars
     renderView={renderView}
     renderTrackHorizontal={renderTrackHorizontal}
     renderThumbHorizontal={renderThumbHorizontal}
     {...props}
   />
-);
+));
 
 export default HighlightScrollbar;

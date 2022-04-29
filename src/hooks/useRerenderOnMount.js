@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useLayoutEffect } from 'react';
 
 export default function useRerenderOnMount() {
   const [, setIsFirstRender] = useState(true);
 
-  useEffect(() => setIsFirstRender(false), []);
+  useLayoutEffect(() => setIsFirstRender(false), []);
 }

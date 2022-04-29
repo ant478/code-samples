@@ -13,7 +13,7 @@ import {
 const SCROLL_POSITION_STORAGE_KEY = 'sidebar-scroll-position';
 
 function saveScrollPositionData({ target: { scrollTop } }) {
-  return saveScrollPositionDataToSessionStorage(SCROLL_POSITION_STORAGE_KEY, scrollTop);
+  saveScrollPositionDataToSessionStorage(SCROLL_POSITION_STORAGE_KEY, scrollTop);
 }
 
 function getScrollPositionData() {

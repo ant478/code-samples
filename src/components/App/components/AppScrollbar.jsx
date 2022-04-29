@@ -1,5 +1,5 @@
 import React, {
-  useState, useEffect, useCallback, useRef,
+  useState, useEffect, useCallback, useRef, memo,
 } from 'react';
 import get from 'lodash/get';
 import Scrollbars from 'react-custom-scrollbars';
@@ -29,7 +29,7 @@ const renderView = (props) => (
   />
 );
 
-const AppScrollbar = ({ children, ...props }) => {
+const AppScrollbar = memo(({ children, ...props }) => {
   const scrollElement = appScrollbarService.scrollElement;
   const [, setScrollHeight] = useState(get(scrollElement, 'scrollHeight', 0));
 
@@ -62,6 +62,6 @@ const AppScrollbar = ({ children, ...props }) => {
       {!isFirstRenderRef.current && children}
     </Scrollbars>
   );
-};
+});
 
 export default AppScrollbar;

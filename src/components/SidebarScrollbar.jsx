@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, memo } from 'react';
 import Scrollbars from 'react-custom-scrollbars';
 import useRerenderOnMount from 'src/hooks/useRerenderOnMount';
 import { sidebarScrollService } from 'src/services/scroll';
@@ -26,7 +26,7 @@ const renderView = (props) => (
   />
 );
 
-const SidebarScrollbar = ({ children, ...props }) => {
+const SidebarScrollbar = memo(({ children, ...props }) => {
   useRerenderOnMount();
   const isFirstRenderRef = useRef(true);
 
@@ -48,6 +48,6 @@ const SidebarScrollbar = ({ children, ...props }) => {
       {!isFirstRenderRef.current && children}
     </Scrollbars>
   );
-};
+});
 
 export default SidebarScrollbar;

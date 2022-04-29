@@ -25,7 +25,7 @@ const appMainStyles = {
 const SCROLL_POSITION_STORAGE_KEY = 'app-scroll-position';
 
 function saveScrollPositionData({ target: { scrollTop } }) {
-  return saveScrollPositionDataToSessionStorage(SCROLL_POSITION_STORAGE_KEY, scrollTop);
+  saveScrollPositionDataToSessionStorage(SCROLL_POSITION_STORAGE_KEY, scrollTop);
 }
 
 function getScrollPositionData() {
@@ -66,7 +66,7 @@ const AppContent = memo(() => {
   }, [location]);
 
   useEffect(() => {
-    const timeoutId = setTimeout(() => updateScrollPosition(true), 1);
+    const timeoutId = setTimeout(() => updateScrollPosition(true), 10);
 
     return () => clearTimeout(timeoutId);
   }, []);
