@@ -1,4 +1,4 @@
-@mixin theme-sea {
+@mixin theme-hue {
   --hue: 340;
   --primary-text-color: #919191;
   --app-background-color: #{hsl-with-var(0, 100%, 6%)};
@@ -9,10 +9,10 @@
   --highlighted-block-shadow: 0 0 10px #{hsl-with-var(0, 100%, 32%)};
   --control-block-background-color: #{hsl-with-var(0, 80%, 6%)};
   --control-block-background-color-hover: #{hsl-with-var(0, 59%, 8%)};
-  --control-block-background-color-active: #{hsl-with-var(0, 63%, 6%)};
+  --control-block-background-color-active: #{hsl-with-var(0, 63%, 5%)};
   --control-block-shadow-inset: inset 0 0 10px #{hsl-with-var(0, 100%, 29%)};
   --control-block-shadow-inset-hover: inset 0 0 12px #{hsl-with-var(0, 100%, 40%)};
-  --control-block-shadow-inset-active: inset 0 0 12px #{hsl-with-var(0, 100%, 25%)};
+  --control-block-shadow-inset-active: inset 0 0 12px #{hsl-with-var(0, 100%, 20%)};
   --control-block-shadow: 0 0 10px #{hsl-with-var(0, 0%, 0%)};
   --control-block-shadow-hover: var(--control-block-shadow);
   --control-block-shadow-active: var(--control-block-shadow);

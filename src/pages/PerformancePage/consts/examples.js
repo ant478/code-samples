@@ -2,15 +2,15 @@ import setPerformanceTestBenchmarkSuites from '../benchmark-suites/set-performan
 import mapPerformanceTestBenchmarkSuites from '../benchmark-suites/map-performance-test';
 
 export const EXAMPLES_IDS = {
-  setPerformanceTest: 'set-performance-test',
-  mapPerformanceTest: 'map-performance-test',
+  set: 'set',
+  map: 'map',
 };
 
 const getLink = (link, title = link) => `[${title}](${link})`;
 
 export const EXAMPLES = [{
-  id: EXAMPLES_IDS.setPerformanceTest,
-  title: 'Set performance test',
+  id: EXAMPLES_IDS.set,
+  title: 'Set',
   description: `
       Documentation:<br/><br/>
       en - ${getLink('https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set')}<br/>
@@ -20,8 +20,8 @@ export const EXAMPLES = [{
     `,
   benchmarkSuites: setPerformanceTestBenchmarkSuites,
 }, {
-  id: EXAMPLES_IDS.mapPerformanceTest,
-  title: 'Map performance test',
+  id: EXAMPLES_IDS.map,
+  title: 'Map',
   description: `
       Documentation:<br/><br/>
       en - ${getLink('https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map')}<br/>

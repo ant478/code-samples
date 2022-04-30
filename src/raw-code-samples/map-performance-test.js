@@ -13,24 +13,24 @@ export function readFromObjectByKeyX100() {
   const object = OBJECT_WITH_100_ITEMS;
   const map = MAP_WITH_100_ITEMS;
 
-  const ar = [];
+  const results = [];
   for (let i = 1; i <= 100; i += 1) {
-    ar.push(object[i.toString()]);
+    results.push(object[i.toString()]);
   }
 
-  return [object, map, ar];
+  return [object, map, results];
 }
 
 export function readFromMapByKeyX100() {
   const object = OBJECT_WITH_100_ITEMS;
   const map = MAP_WITH_100_ITEMS;
 
-  const ar = [];
+  const results = [];
   for (let i = 1; i <= 100; i += 1) {
-    ar.push(map.get(i.toString()));
+    results.push(map.get(i.toString()));
   }
 
-  return [object, map, ar];
+  return [object, map, results];
 }
 
 export function setToObjectWithStringKeyX100() {
@@ -161,122 +161,128 @@ export function checkIfKeyExistsInObjectWithInOperatorX100() {
   const object = OBJECT_WITH_100_ITEMS;
   const map = MAP_WITH_100_ITEMS;
 
-  const ar = [];
+  const results = [];
   for (let i = 1; i <= 100; i += 1) {
-    ar.push('19' in object);
+    const key = i.toString();
+
+    results.push(key in object);
   }
 
-  return [object, map, ar];
+  return [object, map, results];
 }
 
 export function checkIfKeyExistsInObjectWithHasOwnPropertyMethodX100() {
   const object = OBJECT_WITH_100_ITEMS;
   const map = MAP_WITH_100_ITEMS;
 
-  const ar = [];
+  const results = [];
   for (let i = 1; i <= 100; i += 1) {
-    ar.push(Object.prototype.hasOwnProperty.call(object, '19'));
+    const key = i.toString();
+
+    results.push(Object.prototype.hasOwnProperty.call(object, key));
   }
 
-  return [object, map, ar];
+  return [object, map, results];
 }
 
 export function checkIfKeyExistsInMapX100() {
   const object = OBJECT_WITH_100_ITEMS;
   const map = MAP_WITH_100_ITEMS;
 
-  const ar = [];
+  const results = [];
   for (let i = 1; i <= 100; i += 1) {
-    map.has('19');
+    const key = i.toString();
+
+    map.has(key);
   }
 
-  return [object, map, ar];
+  return [object, map, results];
 }
 
 export function checkIfValueExistsInObjectX100() {
   const object = OBJECT_WITH_100_ITEMS;
   const map = MAP_WITH_100_ITEMS;
 
-  const ar = [];
+  const results = [];
   for (let i = 1; i <= 100; i += 1) {
     for (const key in object) {
       if (Object.prototype.hasOwnProperty.call(object, key) && object[key] === 50) {
-        ar.push(true);
+        results.push(true);
         break;
       }
     }
   }
 
-  return [object, map, ar];
+  return [object, map, results];
 }
 
 export function checkIfValueExistsInMapX100() {
   const object = OBJECT_WITH_100_ITEMS;
   const map = MAP_WITH_100_ITEMS;
 
-  const ar = [];
+  const results = [];
   for (let i = 1; i <= 100; i += 1) {
     for (const value of map.values()) {
       if (value === 50) {
-        ar.push(true);
+        results.push(true);
         break;
       }
     }
   }
 
-  return [object, map, ar];
+  return [object, map, results];
 }
 
 export function iterateOverObjectX100() {
   const object = OBJECT_WITH_100_ITEMS;
   const map = MAP_WITH_100_ITEMS;
 
-  const ar = [];
+  const results = [];
   for (let i = 1; i <= 100; i += 1) {
     for (const key in object) {
       if (Object.prototype.hasOwnProperty.call(object, key)) {
-        ar.push(key);
+        results.push(object[key]);
       }
     }
   }
 
-  return [object, map, ar];
+  return [object, map, results];
 }
 
 export function iterateOverMapX100() {
   const object = OBJECT_WITH_100_ITEMS;
   const map = MAP_WITH_100_ITEMS;
 
-  const ar = [];
+  const results = [];
   for (let i = 1; i <= 100; i += 1) {
-    for (const item of map) {
-      ar.push(item);
+    for (const item of map.values()) {
+      results.push(item);
     }
   }
 
-  return [object, map, ar];
+  return [object, map, results];
 }
 
 export function gettingSizeOfObjectX100() {
   const object = OBJECT_WITH_100_ITEMS;
   const map = MAP_WITH_100_ITEMS;
 
-  const ar = [];
+  const results = [];
   for (let i = 1; i <= 100; i += 1) {
-    ar.push(Object.keys(object).length);
+    results.push(Object.keys(object).length);
   }
 
-  return [object, map, ar];
+  return [object, map, results];
 }
 
 export function gettingSizeOfMapX100() {
   const object = OBJECT_WITH_100_ITEMS;
   const map = MAP_WITH_100_ITEMS;
 
-  const ar = [];
+  const results = [];
   for (let i = 1; i <= 100; i += 1) {
-    ar.push(map.size);
+    results.push(map.size);
   }
 
-  return [object, map, ar];
+  return [object, map, results];
 }

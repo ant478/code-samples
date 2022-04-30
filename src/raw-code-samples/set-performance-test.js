@@ -100,74 +100,100 @@ export function checkIfExistsInArrayX100() {
   const array = ARRAY_WITH_100_ITEMS;
   const set = SET_WITH_100_ITEMS;
 
-  const ar = [];
+  const results = [];
   for (let i = 1; i <= 100; i += 1) {
-    ar.push(array.indexOf(19) !== -1);
+    results.push(array.indexOf(19) !== -1);
   }
 
-  return [ar, array, set];
+  return [results, array, set];
 }
 
 export function checkIfExistsInSetX100() {
   const array = ARRAY_WITH_100_ITEMS;
   const set = SET_WITH_100_ITEMS;
 
-  const ar = [];
+  const results = [];
   for (let i = 1; i <= 100; i += 1) {
-    ar.push(set.has(19));
+    results.push(set.has(19));
   }
 
-  return [ar, array, set];
+  return [results, array, set];
 }
 
 export function iterateOverArrayX100() {
   const array = ARRAY_WITH_100_ITEMS;
   const set = SET_WITH_100_ITEMS;
 
-  const ar = [];
+  const results = [];
   for (let i = 1; i <= 100; i += 1) {
     for (const item of array) {
-      ar.push(item);
+      results.push(item);
     }
   }
 
-  return [ar, array, set];
+  return [results, array, set];
+}
+
+export function cycleOverArrayX100() {
+  const array = ARRAY_WITH_100_ITEMS;
+  const set = SET_WITH_100_ITEMS;
+
+  const results = [];
+  for (let i = 1; i <= 100; i += 1) {
+    for (let g = 1; g <= array.length - 1; g += 1) {
+      results.push(array[g]);
+    }
+  }
+
+  return [results, array, set];
+}
+
+export function iterateOverArrayWithMethodX100() {
+  const array = ARRAY_WITH_100_ITEMS;
+  const set = SET_WITH_100_ITEMS;
+
+  const results = [];
+  for (let i = 1; i <= 100; i += 1) {
+    array.forEach((item) => results.push(item));
+  }
+
+  return [results, array, set];
 }
 
 export function iterateOverSetX100() {
   const array = ARRAY_WITH_100_ITEMS;
   const set = SET_WITH_100_ITEMS;
 
-  const ar = [];
+  const results = [];
   for (let i = 1; i <= 100; i += 1) {
     for (const item of set) {
-      ar.push(item);
+      results.push(item);
     }
   }
 
-  return [ar, array, set];
+  return [results, array, set];
 }
 
 export function getLengthOfArrayX100() {
   const array = ARRAY_WITH_100_ITEMS;
   const set = SET_WITH_100_ITEMS;
 
-  const ar = [];
+  const results = [];
   for (let i = 1; i <= 100; i += 1) {
-    ar.push(array.length);
+    results.push(array.length);
   }
 
-  return [ar, array, set];
+  return [results, array, set];
 }
 
 export function getSizeOfSetX100() {
   const array = ARRAY_WITH_100_ITEMS;
   const set = SET_WITH_100_ITEMS;
 
-  const ar = [];
+  const results = [];
   for (let i = 1; i <= 100; i += 1) {
-    ar.push(set.size);
+    results.push(set.size);
   }
 
-  return [ar, array, set];
+  return [results, array, set];
 }

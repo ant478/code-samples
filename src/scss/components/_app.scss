@@ -17,8 +17,8 @@
     z-index: -1;
   }
 
-  &__theme-default {
-    @include theme-sea;
+  &__theme-hue {
+    @include theme-hue;
   }
 
   &_header {
