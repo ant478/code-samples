@@ -58,7 +58,7 @@ const BenchmarkSuite = memo(({
     suite.on('cycle', ({ target: { name, hz } }) => {
       updateResults({
         ...resultsRef.current,
-        [name]: [...resultsRef.current[name], hz],
+        [name]: [...resultsRef.current[name], 1e9 / hz],
       });
     });
 

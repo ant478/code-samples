@@ -16,7 +16,7 @@ const BenchmarkSuiteResults = memo(({
         <thead>
           <tr>
             <th>Test Name</th>
-            <th>Times per second</th>
+            <th>Time (nanoseconds)</th>
             <th>Average</th>
           </tr>
         </thead>
