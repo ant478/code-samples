@@ -4,7 +4,7 @@ import useFooterHeight from 'src/hooks/useFooterHeight';
 import SidebarScrollbar from 'src/components/SidebarScrollbar';
 
 const parseDescription = (string) => string
-  .replace(/\[(.+?)\]\((.+?)\)/g, '<a target="_blank" href="$2">$1</a>');
+  .replace(/\[(.+)\]\((.+)\)/g, '<a target="_blank" href="$2">$1</a>');
 
 const PageWithSidebar = memo(({
   title = '',

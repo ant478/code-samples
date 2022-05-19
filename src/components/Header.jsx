@@ -10,6 +10,10 @@ const NAVIGATION_LINKS = [
     to: `/${CATEGORY_IDS.performance}`,
     title: 'Performance',
   },
+  {
+    to: `/${CATEGORY_IDS.dataStructures}`,
+    title: 'Data structures',
+  },
 ];
 
 const Header = memo(() => (
