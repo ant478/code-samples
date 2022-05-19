@@ -1,6 +1,7 @@
 import React, {
-  useState, useEffect, useCallback, useRef, memo,
+  useState, useEffect, useCallback, useRef, memo, useLayoutEffect,
 } from 'react';
+import { useLocation } from 'react-router-dom';
 import get from 'lodash/get';
 import Scrollbars from 'react-custom-scrollbars';
 import { appScrollbarService } from 'src/services/scroll';
@@ -33,9 +34,17 @@ const AppScrollbar = memo(({ children, ...props }) => {
   const scrollElement = appScrollbarService.scrollElement;
   const [, setScrollHeight] = useState(get(scrollElement, 'scrollHeight', 0));
 
-  const updateScrollHeight = useCallback(() => {
-    setScrollHeight(get(scrollElement, 'scrollHeight', 0));
-  }, [scrollElement]);
+  const updateScrollHeight = useCallback(
+    () => setScrollHeight(get(scrollElement, 'scrollHeight', 0)),
+    [scrollElement],
+  );
+
+  const { pathname } = useLocation();
+
+  useLayoutEffect(
+    () => updateScrollHeight(),
+    [updateScrollHeight, pathname],
+  );
 
   useEffect(() => {
     window.addEventListener('scroll-height-change-custom', updateScrollHeight);

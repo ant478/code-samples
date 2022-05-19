@@ -1,12 +1,11 @@
 import React, { memo, useLayoutEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import PageWithSidebar from 'src/components/PageWithSidebar';
-import BenchmarkSuite from 'src/components/BenchmarkSuite/BenchmarkSuite';
 import { CATEGORY_IDS } from 'src/consts/categories';
 import { EXAMPLES } from './consts/examples';
-import PerformanceSidebar from './components/PerformanceSidebar';
+import DataStructuresSidebar from './components/DataStructuresSidebar';
 
-const PerformancePage = memo(({
+const DataStructuresPage = memo(({
   match: {
     params: {
       exampleId,
@@ -23,28 +22,19 @@ const PerformancePage = memo(({
 
   useLayoutEffect(() => {
     if (isConfigNotFound) {
-      history.replace(`/${CATEGORY_IDS.performance}/${exampleConfig.id}`);
+      history.replace(`/${CATEGORY_IDS.dataStructures}/${exampleConfig.id}`);
     }
   }, [exampleConfig, history, isConfigNotFound]);
 
-  const { title: exampleTitle, description, benchmarkSuites } = exampleConfig;
+  const { title: exampleTitle, description } = exampleConfig;
 
   return (
     <PageWithSidebar
       title={exampleTitle}
       description={description}
-      sidebar={<PerformanceSidebar />}
-    >
-      {benchmarkSuites.map(({ id, title, benchmarks }) => (
-        <BenchmarkSuite
-          key={`${exampleConfig.id}${id}`}
-          id={id}
-          title={title}
-          benchmarks={benchmarks}
-        />
-      ))}
-    </PageWithSidebar>
+      sidebar={<DataStructuresSidebar />}
+    />
   );
 });
 
-export default PerformancePage;
+export default DataStructuresPage;
