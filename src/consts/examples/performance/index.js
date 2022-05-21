@@ -1,14 +1,14 @@
 import { makeMarkdownLink } from 'src/helpers/strings';
-import setPerformanceTestBenchmarkSuites from '../benchmark-suites/set-performance-test';
-import mapPerformanceTestBenchmarkSuites from '../benchmark-suites/map-performance-test';
+import setSuites from './suites/set';
+import mapSuites from './suites/map';
 
-export const EXAMPLES_IDS = {
+export const EXAMPLE_IDS = {
   set: 'set',
   map: 'map',
 };
 
 export const EXAMPLES = [{
-  id: EXAMPLES_IDS.set,
+  id: EXAMPLE_IDS.set,
   title: 'Set',
   description: `
       Documentation:<br/><br/>
@@ -17,9 +17,9 @@ export const EXAMPLES = [{
       ru - ${makeMarkdownLink('https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Set')}<br/>
       ru - ${makeMarkdownLink('https://learn.javascript.ru/map-set')}
     `,
-  benchmarkSuites: setPerformanceTestBenchmarkSuites,
+  suites: setSuites,
 }, {
-  id: EXAMPLES_IDS.map,
+  id: EXAMPLE_IDS.map,
   title: 'Map',
   description: `
       Documentation:<br/><br/>
@@ -27,5 +27,5 @@ export const EXAMPLES = [{
       en - ${makeMarkdownLink('https://www.w3schools.com/js/js_object_maps.asp')}<br/>
       ru - ${makeMarkdownLink('https://learn.javascript.ru/map-set')}
     `,
-  benchmarkSuites: mapPerformanceTestBenchmarkSuites,
+  suites: mapSuites,
 }];

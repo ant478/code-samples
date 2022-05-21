@@ -1,6 +1,4 @@
 .benchmark-suite {
-  $self: &;
-
   &:not(:last-child) {
     margin-bottom: 4em;
   }

@@ -95,6 +95,7 @@ module.exports = () => merge(
       alias: {
         src: paths.src,
         img: paths.img,
+        raw: paths.raw,
         vendor: paths.vendor,
       },
       fallback: {

@@ -1,9 +1,8 @@
 import {
   getNewObjectWith100Items as _getNewObjectWith100Items,
   getNewMapWith100Items as _getNewMapWith100Items,
-} from './helpers/dummies';
+} from '../helpers/dummies';
 
-// putting function to variable to prevent it displaying as 'WEBPACK_IMPORTED_MODULE_...' in .toString()
 const getNewObjectWith100Items = _getNewObjectWith100Items;
 const getNewMapWith100Items = _getNewMapWith100Items;
 const OBJECT_WITH_100_ITEMS = getNewObjectWith100Items();

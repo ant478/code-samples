@@ -1,9 +1,8 @@
 import {
   getNewArrayWith100Items as _getNewArrayWith100Items,
   getNewSetWith100Items as _getNewSetWith100Items,
-} from './helpers/dummies';
+} from '../helpers/dummies';
 
-// putting function to variable to prevent it displaying as 'WEBPACK_IMPORTED_MODULE_...' in .toString()
 const getNewArrayWith100Items = _getNewArrayWith100Items;
 const getNewSetWith100Items = _getNewSetWith100Items;
 const ARRAY_WITH_100_ITEMS = getNewArrayWith100Items();

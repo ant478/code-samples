@@ -1,0 +1,11 @@
+.code-listing-suite {
+  &:not(:last-child) {
+    margin-bottom: 4em;
+  }
+
+  &_title {
+    color: var(--benchmark-suite-title-color);
+    font-size: 1.25rem;
+    margin-bottom: 0.5em;
+  }
+}

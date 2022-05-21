@@ -9,7 +9,7 @@ import React, {
 import Highlight from 'src/components/Highlight';
 import SimpleLoader from 'src/components/SimpleLoader';
 import ControlButton from 'src/components/ControlButton';
-import BenchmarkSuiteResults from 'src/components/BenchmarkSuite/BenchmarkSuiteResults';
+import BenchmarkSuiteResults from 'src/components/Suites/BenchmarkSuite/BenchmarkSuiteResults';
 
 const BenchmarkSuite = memo(({
   id,
