@@ -1,3 +1,4 @@
+import { SUITE_TYPES } from 'src/consts/suite-types';
 import {
   pushToArrayX100,
   unshiftToArrayX100,
@@ -15,12 +16,13 @@ import {
   getSizeOfSetX100,
   cycleOverArrayX100,
   iterateOverArrayWithMethodX100,
-} from 'src/raw-code-samples/set-performance-test';
+} from 'raw/performance/set';
 
 export default [
   {
     id: 'insert',
     title: 'Insert',
+    type: SUITE_TYPES.benchmark,
     benchmarks: [
       {
         id: 'push-to-array',
@@ -45,6 +47,7 @@ export default [
   {
     id: 'remove',
     title: 'Remove',
+    type: SUITE_TYPES.benchmark,
     benchmarks: [
       {
         id: 'remove-from-array-with-unknown-index',
@@ -69,6 +72,7 @@ export default [
   {
     id: 'inset-and-remove',
     title: 'Insert and remove',
+    type: SUITE_TYPES.benchmark,
     benchmarks: [
       {
         id: 'push-and-remove-from-array',
@@ -87,6 +91,7 @@ export default [
   {
     id: 'check-if-exists',
     title: 'Check if exists',
+    type: SUITE_TYPES.benchmark,
     benchmarks: [
       {
         id: 'check-if-exists-in-array',
@@ -105,6 +110,7 @@ export default [
   {
     id: 'iterating',
     title: 'Iterating',
+    type: SUITE_TYPES.benchmark,
     benchmarks: [
       {
         id: 'cycle-over-array',
@@ -135,6 +141,7 @@ export default [
   {
     id: 'get-length',
     title: 'Get length',
+    type: SUITE_TYPES.benchmark,
     benchmarks: [
       {
         id: 'get-length-of-array',

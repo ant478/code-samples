@@ -1,3 +1,4 @@
+import { SUITE_TYPES } from 'src/consts/suite-types';
 import {
   readFromObjectByKeyX100,
   readFromMapByKeyX100,
@@ -18,12 +19,13 @@ import {
   iterateOverMapX100,
   gettingSizeOfObjectX100,
   gettingSizeOfMapX100,
-} from 'src/raw-code-samples/map-performance-test';
+} from 'raw/performance/map';
 
 export default [
   {
     id: 'read',
     title: 'Read',
+    type: SUITE_TYPES.benchmark,
     benchmarks: [
       {
         id: 'read-from-object-by-key',
@@ -42,6 +44,7 @@ export default [
   {
     id: 'insert',
     title: 'Insert',
+    type: SUITE_TYPES.benchmark,
     benchmarks: [
       {
         id: 'set-to-object-with-string-key',
@@ -72,6 +75,7 @@ export default [
   {
     id: 'remove',
     title: 'Remove',
+    type: SUITE_TYPES.benchmark,
     benchmarks: [
       {
         id: 'remove-from-object',
@@ -90,6 +94,7 @@ export default [
   {
     id: 'inset-and-remove',
     title: 'Insert and remove',
+    type: SUITE_TYPES.benchmark,
     benchmarks: [
       {
         id: 'assign-and-delete-from-object',
@@ -108,6 +113,7 @@ export default [
   {
     id: 'check-if-key-exists',
     title: 'Check if key exists',
+    type: SUITE_TYPES.benchmark,
     benchmarks: [
       {
         id: 'check-if-key-exists-in-object-with-in-operator',
@@ -132,6 +138,7 @@ export default [
   {
     id: 'check-if-value-exists',
     title: 'Check if value exists',
+    type: SUITE_TYPES.benchmark,
     benchmarks: [
       {
         id: 'check-if-value-exists-in-object',
@@ -150,6 +157,7 @@ export default [
   {
     id: 'iterate',
     title: 'Iterate',
+    type: SUITE_TYPES.benchmark,
     benchmarks: [
       {
         id: 'iterate-over-object',
@@ -168,6 +176,7 @@ export default [
   {
     id: 'get-size',
     title: 'Get size',
+    type: SUITE_TYPES.benchmark,
     benchmarks: [
       {
         id: 'get-size-of-object',
