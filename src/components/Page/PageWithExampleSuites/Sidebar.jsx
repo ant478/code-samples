@@ -7,10 +7,10 @@ const Sidebar = memo(({
 }) => {
   const category = CATEGORIES.find(({ id }) => id === categoryId);
 
-  const links = useMemo(() => category.examples.map(({ id: exampleId, title, suites }) => ({
+  const links = useMemo(() => category.examples.map(({ id: exampleId, title, suites = [] }) => ({
     to: `/${categoryId}/${exampleId}`,
     title,
-    hashLinks: suites && suites.map(({ id: suiteId, title: suiteTitle }) => ({
+    hashLinks: suites.map(({ id: suiteId, title: suiteTitle }) => ({
       exact: true,
       title: suiteTitle,
       hash: `#${suiteId}`,
