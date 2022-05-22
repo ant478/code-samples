@@ -4,7 +4,7 @@ import Highlight from 'src/components/Highlight';
 const CodeListingSuite = memo(({
   id,
   title,
-  listing,
+  listings,
 }) => (
   <article className="code-listing-suite">
     <h3
@@ -13,9 +13,18 @@ const CodeListingSuite = memo(({
     >
       {title}
     </h3>
-    <Highlight>
-      {listing}
-    </Highlight>
+    <ul className="code-listing-suite_list">
+      {listings.map((listing, index) => (
+        <li
+          key={index}
+          className="code-listing-suite_item"
+        >
+          <Highlight>
+            {listing}
+          </Highlight>
+        </li>
+      ))}
+    </ul>
   </article>
 ));
 

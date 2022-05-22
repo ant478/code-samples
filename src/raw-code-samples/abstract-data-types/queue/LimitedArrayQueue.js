@@ -1,8 +1,8 @@
 export default class LimitedArrayQueue {
-  #queue = [];
-  #maxLength = 0;
-  #lastItemIndex = -1;
-  #itemsCount = 0;
+  #queue;
+  #maxLength;
+  #lastIndex;
+  #length;
 
   constructor({ maxLength }) {
     if (maxLength === undefined) {
@@ -11,32 +11,41 @@ export default class LimitedArrayQueue {
 
     this.#queue = new Array(maxLength);
     this.#maxLength = maxLength;
-    this.#lastItemIndex = -1;
-    this.#itemsCount = 0;
+    this.#lastIndex = -1;
+    this.#length = 0;
   }
 
-  enqueue(dataItem) {
-    if (this.#itemsCount === this.#maxLength) {
+  enqueue(data) {
+    if (this.#length === this.#maxLength) {
       throw new Error('LimitedArrayQueue: maximum exceeded');
     }
 
-    this.#lastItemIndex = (this.#lastItemIndex + 1) % this.#maxLength;
-    this.#queue[this.#lastItemIndex] = dataItem;
-    this.#itemsCount++;
+    this.#lastIndex = (this.#lastIndex + 1) % this.#maxLength;
+    this.#queue[this.#lastIndex] = data;
+    this.#length++;
   }
 
   dequeue() {
-    if (this.#itemsCount === 0) {
+    if (this.#length === 0) {
       throw new Error('LimitedArrayQueue: empty');
     }
 
-    const itemIndex = (
-      this.#lastItemIndex - this.#itemsCount + 1 + this.#maxLength
+    const index = (
+      this.#lastIndex - this.#length + 1 + this.#maxLength
     ) % this.#maxLength;
 
-    const dequeuedItem = this.#queue[itemIndex];
-    this.#itemsCount--;
+    const data = this.#queue[index];
+    this.#length--;
 
-    return dequeuedItem;
+    return data;
   }
 }
+
+LimitedArrayQueue.annotation =
+`/**
+ *  Time complexity:
+ *    init - O(maxLength)
+ *    enqueue - O(1)
+ *    dequeue - O(1)
+ */
+`;

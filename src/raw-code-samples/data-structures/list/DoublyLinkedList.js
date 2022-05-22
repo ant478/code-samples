@@ -10,8 +10,8 @@ export default class DoublyLinkedList {
     return this.#tail;
   }
 
-  insertHead(dataItem) {
-    const item = { dataItem, prev: null, next: null };
+  insertHead(data) {
+    const item = { data, prev: null, next: null };
 
     if (this.#head === null) {
       this.#head = this.#tail = item;
@@ -23,8 +23,8 @@ export default class DoublyLinkedList {
     this.#head = item;
   }
 
-  insertTail(dataItem) {
-    const item = { dataItem, prev: null, next: null };
+  insertTail(data) {
+    const item = { data, prev: null, next: null };
 
     if (this.#tail === null) {
       this.#tail = this.#head = item;
@@ -36,53 +36,65 @@ export default class DoublyLinkedList {
     this.#tail = item;
   }
 
-  delete(listItem) {
+  delete(item) {
     if (this.#head === null) {
       return;
     }
 
-    if (listItem === this.#head) {
-      this.#head = listItem.next;
+    if (item === this.#head) {
+      this.#head = item.next;
     }
 
-    if (listItem === this.#tail) {
-      this.#tail = listItem.prev;
+    if (item === this.#tail) {
+      this.#tail = item.prev;
     }
 
-    if (listItem.next) {
-      listItem.next.prev = listItem.prev;
+    if (item.next) {
+      item.next.prev = item.prev;
     }
 
-    if (listItem.prev) {
-      listItem.prev.next = listItem.next;
+    if (item.prev) {
+      item.prev.next = item.next;
     }
   }
 
-  searchHead(dataItem) {
-    let listItem = this.#head;
+  searchHead(data) {
+    let item = this.#head;
 
-    while (listItem !== null) {
-      if (listItem.dataItem === dataItem) {
-        return listItem;
+    while (item !== null) {
+      if (item.data === data) {
+        return item;
       }
 
-      listItem = listItem.next;
+      item = item.next;
     }
 
-    throw new Error('SinglyLinkedListItem: not found');
+    throw new Error('DoublyLinkedList: not found');
   }
 
-  searchTail(dataItem) {
-    let listItem = this.#tail;
+  searchTail(data) {
+    let item = this.#tail;
 
-    while (listItem !== null) {
-      if (listItem.dataItem === dataItem) {
-        return listItem;
+    while (item !== null) {
+      if (item.data === data) {
+        return item;
       }
 
-      listItem = listItem.prev;
+      item = item.prev;
     }
 
-    throw new Error('SinglyLinkedListItem: not found');
+    throw new Error('DoublyLinkedList: not found');
   }
 }
+
+DoublyLinkedList.annotation =
+`/**
+ *  Time complexity:
+ *    init - O(1)
+ *    head - O(1)
+ *    tail - O(1)
+ *    insertHead / insertTail - O(1)
+ *    searchHead / searchTail - O(n)
+ *    delete O(1)
+ */
+`;
