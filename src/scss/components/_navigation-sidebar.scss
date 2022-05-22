@@ -3,6 +3,7 @@
 
   min-height: 100%;
   padding: 0.75em 1em;
+  user-select: none;
 
   &_item-link,
   &_item-sub-link {
@@ -32,7 +33,6 @@
       position: absolute;
       text-indent: 0;
       top: $padding;
-      user-select: none;
     }
   }
 }

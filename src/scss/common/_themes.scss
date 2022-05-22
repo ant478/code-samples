@@ -1,6 +1,8 @@
 @mixin theme-hue {
   --hue: 340;
   --primary-text-color: #919191;
+  --selection-text-color: #151515;
+  --selection-background-color: var(--primary-text-color);
   --app-background-color: #{hsl-with-var(0, 100%, 6%)};
   --app-mask-background-color: #{hsl-with-var(0, 60%, 6%)};
   --highlighted-block-background-color: #{hsl-with-var(0, 0%, 6%)};
