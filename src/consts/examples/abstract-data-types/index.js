@@ -1,5 +1,6 @@
 import { makeMarkdownLink } from 'src/helpers/strings';
 import queueSuites from './suites/queue';
+import stackSuites from './suites/stack';
 
 export const EXAMPLE_IDS = {
   queue: 'queue',
@@ -25,6 +26,6 @@ export const EXAMPLES = [
         en - ${makeMarkdownLink('https://en.wikipedia.org/wiki/Stack_(abstract_data_type)')}<br/>
         ru - ${makeMarkdownLink('https://ru.wikipedia.org/wiki/Стэк')}
       `,
-    suites: [],
+    suites: stackSuites,
   },
 ];

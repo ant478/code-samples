@@ -5,6 +5,8 @@ import DoublyLinkedListQueue from './abstract-data-types/queue/DoublyLinkedListQ
 import ArrayQueue from './abstract-data-types/queue/ArrayQueue';
 import LimitedArrayQueue from './abstract-data-types/queue/LimitedArrayQueue';
 
+import ArrayStack from './abstract-data-types/stack/ArrayStack';
+
 import DoublyLinkedList from './data-structures/list/DoublyLinkedList';
 import SinglyLinkedList from './data-structures/list/SinglyLinkedList';
 
@@ -18,6 +20,9 @@ export default {
       DoublyLinkedListQueue,
       ArrayQueue,
       LimitedArrayQueue,
+    },
+    stack: {
+      ArrayStack,
     },
   },
   dataStructures: {
