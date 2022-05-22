@@ -1,4 +1,4 @@
-export default class UnlimitedArrayQueue {
+export default class ArrayQueue {
   #queue = [];
 
   enqueue(dataItem) {

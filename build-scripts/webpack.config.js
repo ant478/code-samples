@@ -38,6 +38,7 @@ module.exports = () => merge(
     },
     optimization: {
       runtimeChunk: 'single',
+      concatenateModules: false,
       minimizer: [
         new TerserPlugin({
           exclude: /raw-code-samples/,

@@ -3,16 +3,16 @@ import rawCodeSamples from 'src/raw-code-samples';
 
 export default [
   {
-    id: 'unlimited-array-queue',
-    title: 'Unlimited array queue',
+    id: 'array-queue',
+    title: 'Array queue',
     type: SUITE_TYPES.codeListing,
-    listing: rawCodeSamples.abstractDataTypes.queue.UnlimitedArrayQueue.toString(),
+    listing: rawCodeSamples.abstractDataTypes.queue.ArrayQueue.toString(),
   },
   {
     id: 'limited-array-queue',
     title: 'Limited array queue',
     type: SUITE_TYPES.codeListing,
-    listing: rawCodeSamples.abstractDataTypes.queue.LimitedArrayQueue.toString(),
+    listing: rawCodeSamples.abstractDataTypes.queue.ArrayQueue.toString(),
   },
   {
     id: 'doubly-linked-list-queue',

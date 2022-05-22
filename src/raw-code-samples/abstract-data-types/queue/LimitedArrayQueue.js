@@ -1,8 +1,8 @@
 export default class LimitedArrayQueue {
-  #queue;
-  #maxLength;
-  #lastItemIndex;
-  #itemsCount;
+  #queue = [];
+  #maxLength = 0;
+  #lastItemIndex = -1;
+  #itemsCount = 0;
 
   constructor({ maxLength }) {
     if (maxLength === undefined) {

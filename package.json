@@ -9,9 +9,12 @@
   },
   "scripts": {
     "start": "node ./scripts/server.js",
-    "dev": "node_modules/.bin/cross-env NODE_ENV=development webpack serve --config=build-scripts/webpack.config.js",
-    "build": "node_modules/.bin/cross-env NODE_ENV=production webpack --config=build-scripts/webpack.config.js",
+    "serve": "npm run serve:dev",
+    "serve:dev": "node_modules/.bin/cross-env NODE_ENV=development webpack serve --config=build-scripts/webpack.config.js",
+    "serve:prod": "node_modules/.bin/cross-env NODE_ENV=production webpack serve --config=build-scripts/webpack.config.js",
+    "build": "npm run build:prod",
     "build:dev": "node_modules/.bin/cross-env NODE_ENV=development webpack --config=build-scripts/webpack.config.js",
+    "build:prod": "node_modules/.bin/cross-env NODE_ENV=production webpack --config=build-scripts/webpack.config.js",
     "lint": "eslint --ext .js,.jsx src/ build-scripts/ babel.config.js",
     "lint:fix": "eslint --ext .js,.jsx src/ build-scripts/ babel.config.js --fix",
     "stylelint": "stylelint src/**/*.{css,scss}",
@@ -28,8 +31,7 @@
   },
   "homepage": "https://github.com/ant478/code-samples#readme",
   "browserslist": [
-    "last 3 versions",
-    "not < 1%"
+    "defaults"
   ],
   "dependencies": {
     "benchmark": "2.1.4",

@@ -2,7 +2,7 @@ import * as mapPerformance from './performance/map';
 import * as setPerformance from './performance/set';
 
 import DoublyLinkedListQueue from './abstract-data-types/queue/DoublyLinkedListQueue';
-import UnlimitedArrayQueue from './abstract-data-types/queue/UnlimitedArrayQueue';
+import ArrayQueue from './abstract-data-types/queue/ArrayQueue';
 import LimitedArrayQueue from './abstract-data-types/queue/LimitedArrayQueue';
 
 import DoublyLinkedList from './data-structures/list/DoublyLinkedList';
@@ -16,7 +16,7 @@ export default {
   abstractDataTypes: {
     queue: {
       DoublyLinkedListQueue,
-      UnlimitedArrayQueue,
+      ArrayQueue,
       LimitedArrayQueue,
     },
   },
