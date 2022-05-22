@@ -5,40 +5,51 @@ export default class SinglyLinkedList {
     return this.#head;
   }
 
-  insert(dataItem) {
-    this.#head = { dataItem, next: this.#head };
+  insert(data) {
+    this.#head = { data, next: this.#head };
   }
 
-  delete(listItem) {
-    if (this.#head !== null && listItem === this.#head) {
-      this.#head = listItem.next;
+  delete(item) {
+    if (this.#head !== null && item === this.#head) {
+      this.#head = item.next;
       return;
     }
 
-    let prevListItem = this.#head;
+    let prevItem = this.#head;
 
-    while (prevListItem !== null && prevListItem.next !== listItem) {
-      prevListItem = prevListItem.next;
+    while (prevItem !== null && prevItem.next !== item) {
+      prevItem = prevItem.next;
     }
 
-    if (prevListItem === null) {
-      throw new Error('SinglyLinkedListItem: not found');
+    if (prevItem === null) {
+      throw new Error('SinglyLinkedList: not found');
     }
 
-    prevListItem.next = listItem.next;
+    prevItem.next = item.next;
   }
 
-  search(dataItem) {
-    let listItem = this.#head;
+  search(data) {
+    let item = this.#head;
 
-    while (listItem !== null) {
-      if (listItem.dataItem === dataItem) {
-        return listItem;
+    while (item !== null) {
+      if (item.data === data) {
+        return item;
       }
 
-      listItem = listItem.next;
+      item = item.next;
     }
 
-    throw new Error('SinglyLinkedListItem: not found');
+    throw new Error('SinglyLinkedList: not found');
   }
 }
+
+SinglyLinkedList.annotation =
+  `/**
+ *  Time complexity:
+ *    init - O(1)
+ *    head - O(1)
+ *    insert - O(1)
+ *    search - O(n)
+ *    delete O(n)
+ */
+`;

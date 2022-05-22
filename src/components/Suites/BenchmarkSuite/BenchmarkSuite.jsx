@@ -80,13 +80,13 @@ const BenchmarkSuite = memo(({
         {title}
       </h3>
       <ul className="benchmark-suite_list">
-        {benchmarks.map(({ id: benchmarkId, title: benchmarkTitle, fn }) => (
+        {benchmarks.map(({ id: benchmarkId, title: benchmarkTitle, listing }) => (
           <li
             key={benchmarkId}
             className="benchmark-suite_item"
           >
             <Highlight title={benchmarkTitle}>
-              {fn.toString()}
+              {listing}
             </Highlight>
           </li>
         ))}
@@ -104,7 +104,7 @@ const BenchmarkSuite = memo(({
           isDisabled={isRunning}
           className="benchmark-suite_button-mix"
           onClick={handleClearClick}
-          icon="🗙"
+          icon="&#128473;"
         >
           Clear
         </ControlButton>

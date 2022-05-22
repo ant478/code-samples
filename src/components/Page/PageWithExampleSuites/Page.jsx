@@ -58,7 +58,7 @@ const Page = memo(({
               key={`${id}_${suite.id}`}
               id={suite.id}
               title={suite.title}
-              listing={suite.listing}
+              listings={suite.listings}
             />
           );
         }

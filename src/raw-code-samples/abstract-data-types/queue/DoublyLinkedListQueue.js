@@ -5,8 +5,8 @@ const DoublyLinkedList = _DoublyLinkedList;
 export default class DoublyLinkedListQueue {
   #list = new DoublyLinkedList();
 
-  enqueue(dataItem) {
-    this.#list.insertHead(dataItem);
+  enqueue(data) {
+    this.#list.insertHead(data);
   }
 
   dequeue() {
@@ -14,10 +14,19 @@ export default class DoublyLinkedListQueue {
       throw new Error('DoublyLinkedListQueue: empty');
     }
 
-    const dataItem = this.#list.tail.dataItem;
+    const data = this.#list.tail.data;
 
     this.#list.delete(this.#list.tail);
 
-    return dataItem;
+    return data;
   }
 }
+
+DoublyLinkedListQueue.annotation =
+`/**
+ *  Time complexity:
+ *    init - O(1)
+ *    enqueue - O(1)
+ *    dequeue - O(1)
+ */
+`;
