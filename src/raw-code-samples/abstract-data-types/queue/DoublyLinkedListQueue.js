@@ -1,4 +1,4 @@
-import _DoublyLinkedList from 'src/raw-code-samples/data-structures/list/DoublyLinkedList';
+import _DoublyLinkedList from 'src/raw-code-samples/data-structures/linked-list/DoublyLinkedList';
 
 const DoublyLinkedList = _DoublyLinkedList;
 

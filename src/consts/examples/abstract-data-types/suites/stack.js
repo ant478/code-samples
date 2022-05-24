@@ -11,4 +11,20 @@ export default [
       getListing(rawCodeSamples.abstractDataTypes.stack.ArrayStack),
     ],
   },
+  {
+    id: 'limited-array-stack',
+    title: 'Limited array stack',
+    type: SUITE_TYPES.codeListing,
+    listings: [
+      getListing(rawCodeSamples.abstractDataTypes.stack.LimitedArrayStack),
+    ],
+  },
+  {
+    id: 'singly-linked-list-stack',
+    title: 'Singly linked list stack',
+    type: SUITE_TYPES.codeListing,
+    listings: [
+      getListing(rawCodeSamples.abstractDataTypes.stack.SinglyLinkedListStack),
+    ],
+  },
 ];
