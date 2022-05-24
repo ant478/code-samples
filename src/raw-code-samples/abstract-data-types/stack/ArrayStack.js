@@ -6,6 +6,10 @@ export default class ArrayStack {
   }
 
   pop() {
+    if (this.#stack.length === 0) {
+      throw new Error('ArrayStack: empty');
+    }
+
     return this.#stack.pop();
   }
 }
