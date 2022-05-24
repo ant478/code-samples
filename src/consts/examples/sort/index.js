@@ -10,8 +10,8 @@ export const EXAMPLES = [{
   title: 'Tree sort',
   description: `
       Documentation:<br/><br/>
-      en - ${makeMarkdownLink('https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set')}<br/>
-      ru - ${makeMarkdownLink('https://learn.javascript.ru/map-set')}
+      en - ${makeMarkdownLink('https://en.wikipedia.org/wiki/Tree_sort')}<br/>
+      ru - ${makeMarkdownLink('https://ru.wikipedia.org/wiki/Сортировка_с_помощью_двоичного_дерева')}
     `,
   suites: treeSortSuites,
 }];
