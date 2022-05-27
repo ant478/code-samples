@@ -133,11 +133,21 @@ export default class BinarySearchTree {
       this.#insert(node.right, key, data);
     }
   }
+
+  static createFromNumbersArray(array) {
+    const tree = new this();
+
+    for (let i = 0; i <= array.length - 1; i++) {
+      tree.insert(array[i], array[i]);
+    }
+
+    return tree;
+  }
 }
 
 BinarySearchTree.annotation =
 `/**
- *  Time complexity: (h - tree height)
+ *  Time complexity: (log(n) <= h <= n)
  *    init - O(1)
  *    insert - O(h)
  *    search - O(h)

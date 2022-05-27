@@ -1,10 +1,12 @@
 import { makeMarkdownLink } from 'src/helpers/strings';
 import linkedListSuites from './suites/linked-list';
 import treeSuites from './suites/tree';
+import heapSuites from './suites/heap';
 
 export const EXAMPLE_IDS = {
   linkedList: 'linked-list',
   tree: 'tree',
+  heap: 'heap',
 };
 
 export const EXAMPLES = [
@@ -27,5 +29,15 @@ export const EXAMPLES = [
         ru - ${makeMarkdownLink('https://ru.wikipedia.org/wiki/Дерево_(структура_данных)')}
       `,
     suites: treeSuites,
+  },
+  {
+    id: EXAMPLE_IDS.heap,
+    title: 'Heap',
+    description: `
+        Documentation:<br/><br/>
+        en - ${makeMarkdownLink('https://en.wikipedia.org/wiki/Heap_(data_structure)')}<br/>
+        ru - ${makeMarkdownLink('https://ru.wikipedia.org/wiki/Куча_(структура_данных)')}
+      `,
+    suites: heapSuites,
   },
 ];
