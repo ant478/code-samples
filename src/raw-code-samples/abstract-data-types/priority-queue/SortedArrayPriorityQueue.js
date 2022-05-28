@@ -2,9 +2,7 @@ export default class SortedArrayPriorityQueue {
   #array = [];
 
   insert(key, data) {
-    let index = 0;
-    while (index < this.#array.length && key < this.#array[index].key)
-      index++;
+    const index = this.#getNewKeyIndex(key);
 
     this.#array.splice(index, 0, { key, data });
   }
@@ -16,13 +14,29 @@ export default class SortedArrayPriorityQueue {
 
     return this.#array.pop().data;
   }
+
+  #getNewKeyIndex(key) {
+    let low = 0;
+    let high = this.#array.length;
+
+    while (low < high) {
+      const mid = (low + high) >>> 1;
+
+      if (key < this.#array[mid].key)
+        low = mid + 1;
+      else
+        high = mid;
+    }
+
+    return low;
+  }
 }
 
 SortedArrayPriorityQueue.annotation =
 `/**
  *  Time complexity:
  *    init - O(1)
- *    insert - O(n)
+ *    insert - O(log(n))
  *    extractMin - O(1)
  */
 `;
