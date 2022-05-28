@@ -23,7 +23,7 @@ export default class SinglyLinkedListStack {
 }
 
 SinglyLinkedListStack.annotation =
-  `/**
+`/**
  *  Time complexity:
  *    init - O(1)
  *    enqueue - O(1)

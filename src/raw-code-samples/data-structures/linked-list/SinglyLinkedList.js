@@ -44,7 +44,7 @@ export default class SinglyLinkedList {
 }
 
 SinglyLinkedList.annotation =
-  `/**
+`/**
  *  Time complexity:
  *    init - O(1)
  *    head - O(1)

@@ -5,6 +5,9 @@ import DoublyLinkedListQueue from './abstract-data-types/queue/DoublyLinkedListQ
 import ArrayQueue from './abstract-data-types/queue/ArrayQueue';
 import LimitedArrayQueue from './abstract-data-types/queue/LimitedArrayQueue';
 
+import BinaryHeapPriorityQueue from './abstract-data-types/priority-queue/BinaryHeapPriorityQueue';
+import SortedArrayPriorityQueue from './abstract-data-types/priority-queue/SortedArrayPriorityQueue';
+
 import ArrayStack from './abstract-data-types/stack/ArrayStack';
 import SinglyLinkedListStack from './abstract-data-types/stack/SinglyLinkedListStack';
 import LimitedArrayStack from './abstract-data-types/stack/LimitedArrayStack';
@@ -29,6 +32,10 @@ export default {
       DoublyLinkedListQueue,
       ArrayQueue,
       LimitedArrayQueue,
+    },
+    priorityQueue: {
+      BinaryHeapPriorityQueue,
+      SortedArrayPriorityQueue,
     },
     stack: {
       ArrayStack,

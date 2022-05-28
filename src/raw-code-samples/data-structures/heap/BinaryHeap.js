@@ -22,6 +22,10 @@ export default class BinaryHeap {
       throw new Error('BinaryHeap: empty');
     }
 
+    if (this.#length === 1) {
+      return this.#heap.pop().data;
+    }
+
     const min = this.#heap[1];
 
     this.#heap[1] = this.#heap.pop();
@@ -76,7 +80,7 @@ export default class BinaryHeap {
 }
 
 BinaryHeap.annotation =
-  `/**
+`/**
  *  Time complexity:
  *    init - O(1)
  *    makeHeap - O(n)

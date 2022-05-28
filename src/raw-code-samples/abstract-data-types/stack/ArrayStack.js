@@ -15,7 +15,7 @@ export default class ArrayStack {
 }
 
 ArrayStack.annotation =
-  `/**
+`/**
  *  Time complexity:
  *    init - O(1)
  *    push - O(1)
