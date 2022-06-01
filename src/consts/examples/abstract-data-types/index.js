@@ -2,11 +2,13 @@ import { makeMarkdownLink } from 'src/helpers/strings';
 import queueSuites from './suites/queue';
 import priorityQueueSuites from './suites/priority-queue';
 import stackSuites from './suites/stack';
+import setSuites from './suites/set';
 
 export const EXAMPLE_IDS = {
   queue: 'queue',
   priorityQueue: 'priority-queue',
   stack: 'stack',
+  set: 'set',
 };
 
 export const EXAMPLES = [
@@ -39,5 +41,15 @@ export const EXAMPLES = [
         ru - ${makeMarkdownLink('https://ru.wikipedia.org/wiki/Стэк')}
       `,
     suites: stackSuites,
+  },
+  {
+    id: EXAMPLE_IDS.set,
+    title: 'Set',
+    description: `
+        Documentation:<br/><br/>
+        en - ${makeMarkdownLink('https://en.wikipedia.org/wiki/Set_(abstract_data_type)')}<br/>
+        ru - ${makeMarkdownLink('https://ru.wikipedia.org/wiki/Множество_(тип_данных)')}
+      `,
+    suites: setSuites,
   },
 ];

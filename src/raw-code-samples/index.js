@@ -5,6 +5,8 @@ import DoublyLinkedListQueue from './abstract-data-types/queue/DoublyLinkedListQ
 import ArrayQueue from './abstract-data-types/queue/ArrayQueue';
 import LimitedArrayQueue from './abstract-data-types/queue/LimitedArrayQueue';
 
+import HashTableSet from './abstract-data-types/set/HashTableSet';
+
 import BinaryHeapPriorityQueue from './abstract-data-types/priority-queue/BinaryHeapPriorityQueue';
 import ArrayPriorityQueue from './abstract-data-types/priority-queue/ArrayPriorityQueue';
 import SortedArrayPriorityQueue from './abstract-data-types/priority-queue/SortedArrayPriorityQueue';
@@ -49,6 +51,9 @@ export default {
       SinglyLinkedListStack,
       LimitedArrayStack,
     },
+    set: {
+      HashTableSet,
+    }
   },
   dataStructures: {
     linkedList: {
