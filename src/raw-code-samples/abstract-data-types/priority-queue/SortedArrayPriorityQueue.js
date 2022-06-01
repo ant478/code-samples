@@ -36,7 +36,7 @@ SortedArrayPriorityQueue.annotation =
 `/**
  *  Time complexity:
  *    init - O(1)
- *    insert - O(log(n))
+ *    insert - O(n)
  *    extractMin - O(1)
  */
 `;
