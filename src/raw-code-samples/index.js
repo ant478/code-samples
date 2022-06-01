@@ -19,6 +19,11 @@ import BinarySearchTree from './data-structures/tree/BinarySearchTree';
 
 import BinaryHeap from './data-structures/heap/BinaryHeap';
 
+import {
+  ChainedHashTable,
+  HastTableArray,
+} from './data-structures/hash-table/ChainedHashTable';
+
 import treeSort from './sort/treeSort';
 import heapSort from './sort/heapSort';
 
@@ -53,6 +58,12 @@ export default {
     },
     heap: {
       BinaryHeap,
+    },
+    hashTable: {
+      ChainedHashTable: {
+        ChainedHashTable,
+        HastTableArray,
+      },
     },
   },
   sort: {

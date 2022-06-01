@@ -5,8 +5,8 @@ export default class SinglyLinkedList {
     return this.#head;
   }
 
-  insert(data) {
-    this.#head = { data, next: this.#head };
+  insert(key, data) {
+    this.#head = { key, data, next: this.#head };
   }
 
   delete(item) {
@@ -15,24 +15,24 @@ export default class SinglyLinkedList {
       return;
     }
 
-    let prevItem = this.#head;
+    let prev = this.#head;
 
-    while (prevItem !== null && prevItem.next !== item) {
-      prevItem = prevItem.next;
+    while (prev !== null && prev.next !== item) {
+      prev = prev.next;
     }
 
-    if (prevItem === null) {
+    if (prev === null) {
       throw new Error('SinglyLinkedList: not found');
     }
 
-    prevItem.next = item.next;
+    prev.next = item.next;
   }
 
-  search(data) {
+  search(key) {
     let item = this.#head;
 
     while (item !== null) {
-      if (item.data === data) {
+      if (item.key === key) {
         return item;
       }
 

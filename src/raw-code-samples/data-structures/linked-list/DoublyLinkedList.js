@@ -10,8 +10,8 @@ export default class DoublyLinkedList {
     return this.#tail;
   }
 
-  insertHead(data) {
-    const item = { data, prev: null, next: null };
+  insertHead(key, data) {
+    const item = { key, data, prev: null, next: null };
 
     if (this.#head === null) {
       this.#head = this.#tail = item;
@@ -23,8 +23,8 @@ export default class DoublyLinkedList {
     this.#head = item;
   }
 
-  insertTail(data) {
-    const item = { data, prev: null, next: null };
+  insertTail(key, data) {
+    const item = { key, data, prev: null, next: null };
 
     if (this.#tail === null) {
       this.#tail = this.#head = item;
@@ -58,11 +58,11 @@ export default class DoublyLinkedList {
     }
   }
 
-  searchHead(data) {
+  searchHead(key) {
     let item = this.#head;
 
     while (item !== null) {
-      if (item.data === data) {
+      if (item.key === key) {
         return item;
       }
 
@@ -72,11 +72,11 @@ export default class DoublyLinkedList {
     throw new Error('DoublyLinkedList: not found');
   }
 
-  searchTail(data) {
+  searchTail(key) {
     let item = this.#tail;
 
     while (item !== null) {
-      if (item.data === data) {
+      if (item.key === key) {
         return item;
       }
 

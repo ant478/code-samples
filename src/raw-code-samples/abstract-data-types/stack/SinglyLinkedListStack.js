@@ -5,8 +5,8 @@ const SinglyLinkedList = _SinglyLinkedList;
 export default class SinglyLinkedListStack {
   #list = new SinglyLinkedList();
 
-  push(data) {
-    this.#list.insert(data);
+  push(key, data) {
+    this.#list.insert(key, data);
   }
 
   pop() {
@@ -14,11 +14,11 @@ export default class SinglyLinkedListStack {
       throw new Error('SinglyLinkedListQueue: empty');
     }
 
-    const data = this.#list.head.data;
+    const { key, data } = this.#list.head;
 
     this.#list.delete(this.#list.head);
 
-    return data;
+    return [key, data];
   }
 }
 
