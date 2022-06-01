@@ -5,7 +5,7 @@ import stackSuites from './suites/stack';
 
 export const EXAMPLE_IDS = {
   queue: 'queue',
-  priorityQueue: 'priorityQueue',
+  priorityQueue: 'priority-queue',
   stack: 'stack',
 };
 

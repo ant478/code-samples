@@ -4,11 +4,11 @@ import { getListing } from 'src/helpers/strings';
 
 export default [
   {
-    id: 'binary-heap-priority-queue',
-    title: 'Binary heap priority queue',
+    id: 'array-priority-queue',
+    title: 'Array priority queue',
     type: SUITE_TYPES.codeListing,
     listings: [
-      getListing(rawCodeSamples.abstractDataTypes.priorityQueue.BinaryHeapPriorityQueue),
+      getListing(rawCodeSamples.abstractDataTypes.priorityQueue.ArrayPriorityQueue),
     ],
   },
   {
@@ -17,6 +17,14 @@ export default [
     type: SUITE_TYPES.codeListing,
     listings: [
       getListing(rawCodeSamples.abstractDataTypes.priorityQueue.SortedArrayPriorityQueue),
+    ],
+  },
+  {
+    id: 'binary-heap-priority-queue',
+    title: 'Binary heap priority queue',
+    type: SUITE_TYPES.codeListing,
+    listings: [
+      getListing(rawCodeSamples.abstractDataTypes.priorityQueue.BinaryHeapPriorityQueue),
     ],
   },
 ];

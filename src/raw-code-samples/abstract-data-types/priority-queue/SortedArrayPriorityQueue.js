@@ -12,7 +12,9 @@ export default class SortedArrayPriorityQueue {
       throw new Error('SortedArrayPriorityQueue: empty');
     }
 
-    return this.#array.pop().data;
+    const min = this.#array.pop();
+
+    return [min.key, min.data];
   }
 
   #getNewKeyIndex(key) {

@@ -31,7 +31,7 @@ export default class BinaryHeap {
     this.#heap[1] = this.#heap.pop();
     this.#heapify(1);
 
-    return min.data;
+    return [min.key, min.data];
   }
 
   #swap(i, g) {
