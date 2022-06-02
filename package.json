@@ -31,7 +31,7 @@
   },
   "homepage": "https://github.com/ant478/code-samples#readme",
   "browserslist": [
-    "defaults"
+    "last 10 chrome version"
   ],
   "dependencies": {
     "benchmark": "2.1.4",
