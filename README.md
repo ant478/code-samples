@@ -1,8 +1,8 @@
-#ant478 Code Samples
+# ant478 Code Samples
 
 App for storing and displaying code examples
 
-<span style="color:#A20000">!!! ATTENTION !!!</span>
+!!! ATTENTION !!!
 
 * Work in progress
 
