@@ -2,6 +2,8 @@ import React, { useEffect, useRef, memo } from 'react';
 import Scrollbars from 'react-custom-scrollbars';
 import useRerenderOnMount from 'src/hooks/useRerenderOnMount';
 import { sidebarScrollService } from 'src/services/scroll';
+import useHeaderHeight from 'src/hooks/useHeaderHeight';
+import useFooterHeight from 'src/hooks/useFooterHeight';
 
 const VIEW_ID = 'page-with-sidebar-scrollbar-view';
 
@@ -28,6 +30,8 @@ const renderView = (props) => (
 
 const SidebarScrollbar = memo(({ children, ...props }) => {
   useRerenderOnMount();
+  useHeaderHeight();
+  useFooterHeight();
   const isFirstRenderRef = useRef(true);
 
   useEffect(() => {
