@@ -3,6 +3,9 @@ export default class LimitedArrayStack {
   #length;
   #maxLength;
 
+  /**
+   * @param {number} maxLength
+   */
   constructor({ maxLength }) {
     if (maxLength === undefined) {
       throw new Error('LimitedArrayStack: maxLength is required');
@@ -13,7 +16,10 @@ export default class LimitedArrayStack {
     this.#length = 0;
   }
 
-  enqueue(data) {
+  /**
+   * @param {*} data
+   */
+  push(data) {
     if (this.#length === this.#maxLength) {
       throw new Error('LimitedArrayStack: maximum exceeded');
     }
@@ -21,20 +27,23 @@ export default class LimitedArrayStack {
     this.#stack[this.#length++] = data;
   }
 
-  dequeue() {
+  /**
+   * @returns {*}
+   */
+  pop() {
     if (this.#length === 0) {
       throw new Error('LimitedArrayStack: empty');
     }
 
-    return this.#stack[this.#length--];
+    return this.#stack[--this.#length];
   }
 }
 
 LimitedArrayStack.annotation =
 `/**
- *  Time complexity:
- *    init - O(maxLength)
- *    enqueue - O(1)
- *    dequeue - O(1)
+ * Time complexity:
+ *   init - O(maxLength)
+ *   push - O(1)
+ *   pop - O(1)
  */
 `;

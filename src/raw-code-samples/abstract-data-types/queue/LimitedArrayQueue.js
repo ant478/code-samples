@@ -4,6 +4,9 @@ export default class LimitedArrayQueue {
   #lastIndex;
   #length;
 
+  /**
+   * @param {number} maxLength
+   */
   constructor({ maxLength }) {
     if (maxLength === undefined) {
       throw new Error('LimitedArrayQueue: maxLength is required');
@@ -15,6 +18,9 @@ export default class LimitedArrayQueue {
     this.#length = 0;
   }
 
+  /**
+   * @param {*} data
+   */
   enqueue(data) {
     if (this.#length === this.#maxLength) {
       throw new Error('LimitedArrayQueue: maximum exceeded');
@@ -25,6 +31,9 @@ export default class LimitedArrayQueue {
     this.#length++;
   }
 
+  /**
+   * @returns {*}
+   */
   dequeue() {
     if (this.#length === 0) {
       throw new Error('LimitedArrayQueue: empty');
@@ -43,9 +52,9 @@ export default class LimitedArrayQueue {
 
 LimitedArrayQueue.annotation =
 `/**
- *  Time complexity:
- *    init - O(maxLength)
- *    enqueue - O(1)
- *    dequeue - O(1)
+ * Time complexity:
+ *   init - O(maxLength)
+ *   enqueue - O(1)
+ *   dequeue - O(1)
  */
 `;

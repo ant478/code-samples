@@ -5,10 +5,17 @@ const BinaryHeap = _BinaryHeap;
 export default class BinaryHeapPriorityQueue {
   #heap = new BinaryHeap();
 
+  /**
+   * @param {number} key
+   * @param {*} data
+   */
   insert(key, data) {
     this.#heap.insert(key, data);
   }
 
+  /**
+   * @returns {[key: number,data: *]}
+   */
   extractMin() {
     return this.#heap.extractMin();
   }
@@ -16,9 +23,9 @@ export default class BinaryHeapPriorityQueue {
 
 BinaryHeapPriorityQueue.annotation =
 `/**
- *  Time complexity:
- *    init - O(1)
- *    insert - O(log(n))
- *    extractMin - O(log(n))
+ * Time complexity:
+ *   init - O(1)
+ *   insert - O(log(n))
+ *   extractMin - O(log(n))
  */
 `;

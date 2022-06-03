@@ -54,24 +54,19 @@ export class ChainedHashTable {
     this.#table = new HastTableArray(16);
   }
 
+  /**
+   * @param {string | number} key
+   * @param {*} data
+   */
   insert(key, data) {
     this.#insert(key, data);
     this.#resizeIfRequired();
   }
 
-  #insert(key, data, table = this.#table) {
-    const index = table.getIndexForKey(key);
-    let cell = table.array[index];
-
-    if (!cell) {
-      cell = new DoublyLinkedList();
-      table.array[index] = cell;
-    }
-
-    cell.insertHead(key, data);
-    table.itemsCount += 1;
-  }
-
+  /**
+   * @param {string | number} key
+   * @returns {[key: number, data: *]}
+   */
   search(key) {
     const index = this.#table.getIndexForKey(key);
     const cell = this.#table.array[index];
@@ -91,6 +86,9 @@ export class ChainedHashTable {
     return [item.key, item.data];
   }
 
+  /**
+   * @param {string | number} key
+   */
   delete(key) {
     const index = this.#table.getIndexForKey(key);
     const cell = this.#table.array[index];
@@ -115,6 +113,19 @@ export class ChainedHashTable {
 
     this.#table.itemsCount -= 1;
     this.#resizeIfRequired();
+  }
+
+  #insert(key, data, table = this.#table) {
+    const index = table.getIndexForKey(key);
+    let cell = table.array[index];
+
+    if (!cell) {
+      cell = new DoublyLinkedList();
+      table.array[index] = cell;
+    }
+
+    cell.insertHead(key, data);
+    table.itemsCount += 1;
   }
 
   #resizeIfRequired() {
@@ -147,11 +158,11 @@ export class ChainedHashTable {
 
 ChainedHashTable.annotation =
 `/**
- *  Time complexity:
- *    init - O(1)
- *    insert - O(1)
- *    search - O(1)
- *    delete - O(1)
- *    resize - O(n)
+ * Time complexity:
+ *   init - O(1)
+ *   insert - O(1)
+ *   search - O(1)
+ *   delete - O(1)
+ *   resize - O(n)
  */
 `;

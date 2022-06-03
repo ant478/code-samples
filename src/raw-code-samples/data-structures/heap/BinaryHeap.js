@@ -1,6 +1,9 @@
 export default class BinaryHeap {
   #heap;
 
+  /**
+   * @param {Array<{key: number, data: *}>} [array = []]
+   */
   constructor(array = []) {
     this.#heap = [null, ...array];
     for (let number = Math.floor(this.#length / 2); number >= 1; number--) {
@@ -12,21 +15,31 @@ export default class BinaryHeap {
     return (this.#heap.length - 1);
   }
 
+  /**
+   * @param {number} key
+   * @param {*} data
+   */
   insert(key, data) {
     this.#heap.push({ key, data });
     this.#bubbleUp(this.#length);
   }
 
+  /**
+   * @returns {[key: number, data: *]}
+   */
   extractMin() {
     if (this.#length === 0) {
       throw new Error('BinaryHeap: empty');
     }
 
+    let min;
+
     if (this.#length === 1) {
-      return this.#heap.pop().data;
+      min = this.#heap.pop();
+      return [min.key, min.data];
     }
 
-    const min = this.#heap[1];
+    min = this.#heap[1];
 
     this.#heap[1] = this.#heap.pop();
     this.#heapify(1);
@@ -72,8 +85,12 @@ export default class BinaryHeap {
     }
   }
 
+  /**
+   * @param {number[]} array
+   * @returns {BinaryHeap}
+   */
   static createFromNumbersArray(array) {
-    const heapItems = array.map((key) => ({ key, data: key }));
+    const heapItems = array.map((key) => ({ key, data: undefined }));
 
     return new this(heapItems);
   }
@@ -81,10 +98,10 @@ export default class BinaryHeap {
 
 BinaryHeap.annotation =
 `/**
- *  Time complexity:
- *    init - O(1)
- *    makeHeap - O(n)
- *    insert - O(log(n))
- *    extractMin - O(log(n))
+ * Time complexity:
+ *   init (with zero items) - O(1)
+ *   init (with n items) - O(n)
+ *   insert - O(log(n))
+ *   extractMin - O(log(n))
  */
 `;

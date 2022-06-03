@@ -1,10 +1,17 @@
 export default class ArrayPriorityQueue {
   #array = [];
 
+  /**
+   * @param {number} key
+   * @param {*} data
+   */
   insert(key, data) {
     this.#array.push({ key, data });
   }
 
+  /**
+   * @returns {[key: number, data: *]}
+   */
   extractMin() {
     if (this.#array.length === 0) {
       throw new Error('ArrayPriorityQueue: empty');
@@ -27,9 +34,9 @@ export default class ArrayPriorityQueue {
 
 ArrayPriorityQueue.annotation =
 `/**
- *  Time complexity:
- *    init - O(1)
- *    insert - O(1)
- *    extractMin - O(n)
+ * Time complexity:
+ *   init - O(1)
+ *   insert - O(1)
+ *   extractMin - O(n)
  */
 `;

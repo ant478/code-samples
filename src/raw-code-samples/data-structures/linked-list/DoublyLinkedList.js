@@ -10,6 +10,10 @@ export default class DoublyLinkedList {
     return this.#tail;
   }
 
+  /**
+   * @param {number} key
+   * @param {*} data
+   */
   insertHead(key, data) {
     const item = { key, data, prev: null, next: null };
 
@@ -23,6 +27,10 @@ export default class DoublyLinkedList {
     this.#head = item;
   }
 
+  /**
+   * @param {number} key
+   * @param {*} data
+   */
   insertTail(key, data) {
     const item = { key, data, prev: null, next: null };
 
@@ -36,6 +44,9 @@ export default class DoublyLinkedList {
     this.#tail = item;
   }
 
+  /**
+   * @param {{ key: number, data: * }} item
+   */
   delete(item) {
     if (this.#head === null) {
       return;
@@ -58,6 +69,10 @@ export default class DoublyLinkedList {
     }
   }
 
+  /**
+   * @param {number} key
+   * @returns {{ key: number, data: * }}
+   */
   searchHead(key) {
     let item = this.#head;
 
@@ -72,6 +87,10 @@ export default class DoublyLinkedList {
     throw new Error('DoublyLinkedList: not found');
   }
 
+  /**
+   * @param {number} key
+   * @returns {{ key: number, data: * }}
+   */
   searchTail(key) {
     let item = this.#tail;
 
@@ -89,12 +108,10 @@ export default class DoublyLinkedList {
 
 DoublyLinkedList.annotation =
 `/**
- *  Time complexity:
- *    init - O(1)
- *    head - O(1)
- *    tail - O(1)
- *    insertHead / insertTail - O(1)
- *    searchHead / searchTail - O(n)
- *    delete O(1)
+ * Time complexity:
+ *   init - O(1)
+ *   insert - O(1)
+ *   search - O(n)
+ *   delete - O(1)
  */
 `;
