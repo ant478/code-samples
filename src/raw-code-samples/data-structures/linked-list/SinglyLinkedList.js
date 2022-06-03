@@ -5,10 +5,17 @@ export default class SinglyLinkedList {
     return this.#head;
   }
 
+  /**
+   * @param {number} key
+   * @param {*} data
+   */
   insert(key, data) {
     this.#head = { key, data, next: this.#head };
   }
 
+  /**
+   * @param {{ key: number, data: * }} item
+   */
   delete(item) {
     if (this.#head !== null && item === this.#head) {
       this.#head = item.next;
@@ -28,6 +35,10 @@ export default class SinglyLinkedList {
     prev.next = item.next;
   }
 
+  /**
+   * @param {number} key
+   * @returns {{ key: number, data: * }}
+   */
   search(key) {
     let item = this.#head;
 
@@ -45,11 +56,10 @@ export default class SinglyLinkedList {
 
 SinglyLinkedList.annotation =
 `/**
- *  Time complexity:
- *    init - O(1)
- *    head - O(1)
- *    insert - O(1)
- *    search - O(n)
- *    delete O(n)
+ * Time complexity:
+ *   init - O(1)
+ *   insert - O(1)
+ *   search - O(n)
+ *   delete - O(n) parent search + O(1) delete itself
  */
 `;

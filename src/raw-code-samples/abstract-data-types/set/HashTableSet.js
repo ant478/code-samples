@@ -5,6 +5,9 @@ const ChainedHashTable = _ChainedHashTable;
 export default class HashTableSet {
   #hash = new ChainedHashTable();
 
+  /**
+   * @param {string | number} key
+   */
   add(key) {
     if (this.has(key)) {
       throw new Error('HashTableSet: already exists');
@@ -13,6 +16,11 @@ export default class HashTableSet {
     this.#hash.insert(key, true);
   }
 
+  /**
+   *
+   * @param {string | number} key
+   * @returns {boolean}
+   */
   has(key) {
     try {
       this.#hash.search(key);
@@ -22,6 +30,9 @@ export default class HashTableSet {
     }
   }
 
+  /**
+   * @param {string | number} key
+   */
   delete(key) {
     try {
       this.#hash.delete(key);
@@ -32,11 +43,11 @@ export default class HashTableSet {
 }
 
 HashTableSet.annotation =
-  `/**
- *  Time complexity:
- *    init - O(1)
- *    add - O(1)
- *    has - O(1)
- *    delete - O(1)
+`/**
+ * Time complexity:
+ *   init - O(1)
+ *   add - O(1)
+ *   has - O(1)
+ *   delete - O(1)
  */
 `;

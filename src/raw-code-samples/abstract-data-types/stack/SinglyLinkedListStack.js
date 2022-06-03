@@ -5,10 +5,17 @@ const SinglyLinkedList = _SinglyLinkedList;
 export default class SinglyLinkedListStack {
   #list = new SinglyLinkedList();
 
+  /**
+   * @param {number} key
+   * @param {*} data
+   */
   push(key, data) {
     this.#list.insert(key, data);
   }
 
+  /**
+   * @returns {[key: number, data: *]}
+   */
   pop() {
     if (this.#list.head === null) {
       throw new Error('SinglyLinkedListQueue: empty');
@@ -24,9 +31,9 @@ export default class SinglyLinkedListStack {
 
 SinglyLinkedListStack.annotation =
 `/**
- *  Time complexity:
- *    init - O(1)
- *    enqueue - O(1)
- *    dequeue - O(1)
+ * Time complexity:
+ *   init - O(1)
+ *   push - O(1)
+ *   pop - O(1)
  */
 `;

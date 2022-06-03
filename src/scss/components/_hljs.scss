@@ -54,6 +54,10 @@ pre code.hljs {
   font-style: italic;
 }
 
+.hljs-comment * {
+  color: inherit !important;
+}
+
 .hljs-doctag,
 .hljs-formula,
 .hljs-keyword {

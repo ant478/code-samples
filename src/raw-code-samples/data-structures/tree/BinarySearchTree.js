@@ -5,6 +5,10 @@ export default class BinarySearchTree {
     return this.#head;
   }
 
+  /**
+   * @param {number} key
+   * @param {*} data
+   */
   insert(key, data) {
     if (!this.#head) {
       this.#head = this.constructor.#createNode(key, data);
@@ -14,12 +18,17 @@ export default class BinarySearchTree {
     this.constructor.#insert(this.#head, key, data);
   }
 
+  /**
+   * @param {number} key
+   * @returns {Node}
+   */
   search(key) {
-    const node = this.constructor.#searchNode(this.#head, key);
-
-    return node.data;
+    return this.constructor.#searchNode(this.#head, key);
   }
 
+  /**
+   * @param {number} key
+   */
   delete(key) {
     const node = this.constructor.#searchNode(this.#head, key);
     let parent;
@@ -68,6 +77,9 @@ export default class BinarySearchTree {
     replaceParentPointer(replacementNode);
   }
 
+  /**
+   * @returns {Array<{ key: number, data: * }>}
+   */
   traverse() {
     return this.constructor.#traverse(this.#head);
   }
@@ -110,7 +122,7 @@ export default class BinarySearchTree {
     }
 
     this.#traverse(node.left, result);
-    result.push(node.data);
+    result.push([node.key, node.data]);
     this.#traverse(node.right, result);
 
     return result;
@@ -134,11 +146,15 @@ export default class BinarySearchTree {
     }
   }
 
+  /**
+   * @param {number[]} array
+   * @returns {BinarySearchTree}
+   */
   static createFromNumbersArray(array) {
     const tree = new this();
 
     for (let i = 0; i <= array.length - 1; i++) {
-      tree.insert(array[i], array[i]);
+      tree.insert(array[i], undefined);
     }
 
     return tree;
@@ -147,11 +163,11 @@ export default class BinarySearchTree {
 
 BinarySearchTree.annotation =
 `/**
- *  Time complexity: (log(n) <= h <= n)
- *    init - O(1)
- *    insert - O(h)
- *    search - O(h)
- *    delete - O(h) search + O(h) delete itself
- *    traverse - O(n)
+ * Time complexity: (log(n) <= h <= n)
+ *   init - O(1)
+ *   insert - O(h)
+ *   search - O(h)
+ *   delete - O(h) search + O(h) delete itself
+ *   traverse - O(n)
  */
 `;

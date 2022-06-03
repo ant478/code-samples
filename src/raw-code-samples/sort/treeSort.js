@@ -2,15 +2,18 @@ import _BinarySearchTree from 'src/raw-code-samples/data-structures/tree/BinaryS
 
 const BinarySearchTree = _BinarySearchTree;
 
-export default function treeSort(arrayOfNumbers) {
-  const tree = BinarySearchTree.createFromNumbersArray(arrayOfNumbers);
+export default function treeSort(array) {
+  const tree = BinarySearchTree.createFromNumbersArray(array);
 
-  return tree.traverse();
+  return tree.traverse().map(([key]) => key);
 }
 
 treeSort.annotation =
 `/**
- *  Time complexity:
- *    O(n*log(n))
+ * Time complexity:
+ *   O(n*log(n))
+ *
+ * @param {number[]} array
+ * @returns {number[]}
  */
 `;

@@ -1,12 +1,19 @@
 export default class SortedArrayPriorityQueue {
   #array = [];
 
+  /**
+   * @param {number} key
+   * @param {*} data
+   */
   insert(key, data) {
     const index = this.#getNewKeyIndex(key);
 
     this.#array.splice(index, 0, { key, data });
   }
 
+  /**
+   * @returns {[key: number, data: *]}
+   */
   extractMin() {
     if (this.#array.length === 0) {
       throw new Error('SortedArrayPriorityQueue: empty');
@@ -36,9 +43,9 @@ export default class SortedArrayPriorityQueue {
 
 SortedArrayPriorityQueue.annotation =
 `/**
- *  Time complexity:
- *    init - O(1)
- *    insert - O(n)
- *    extractMin - O(1)
+ * Time complexity:
+ *   init - O(1)
+ *   insert - O(n)
+ *   extractMin - O(1)
  */
 `;

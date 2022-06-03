@@ -2,12 +2,12 @@ import _BinaryHeap from 'src/raw-code-samples/data-structures/heap/BinaryHeap';
 
 const BinaryHeap = _BinaryHeap;
 
-export default function heapSort(arrayOfNumbers) {
-  const heap = BinaryHeap.createFromNumbersArray(arrayOfNumbers);
-  const result = new Array(arrayOfNumbers.length);
+export default function heapSort(array) {
+  const heap = BinaryHeap.createFromNumbersArray(array);
+  const result = new Array(array.length);
 
-  for (let i = 0; i <= arrayOfNumbers.length - 1; i++) {
-    result[i] = heap.extractMin();
+  for (let i = 0; i <= array.length - 1; i++) {
+    result[i] = heap.extractMin()[0];
   }
 
   return result;
@@ -15,7 +15,10 @@ export default function heapSort(arrayOfNumbers) {
 
 heapSort.annotation =
 `/**
- *  Time complexity:
- *    O(n*log(n))
+ * Time complexity:
+ *   O(n*log(n))
+ *
+ * @param {number[]} array
+ * @returns {number[]}
  */
 `;
