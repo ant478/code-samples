@@ -14,7 +14,7 @@ export default class BinaryHeapPriorityQueue {
   }
 
   /**
-   * @returns {[key: number,data: *]}
+   * @returns {[key: number, data: *]}
    */
   extractMin() {
     return this.#heap.extractMin();
