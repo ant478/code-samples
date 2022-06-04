@@ -21,6 +21,7 @@ import {
 import treeSort from './sort/treeSort';
 import heapSort from './sort/heapSort';
 import IterableSinglyLinkedList from './javascript/iterators/IterableSinglyLinkedList';
+import IterableBinarySearchTree from './javascript/iterators/IterableBinarySearchTree';
 
 export default {
   performance: {
@@ -72,6 +73,7 @@ export default {
   javascript: {
     iterators: {
       IterableSinglyLinkedList,
+      IterableBinarySearchTree,
     },
   },
 }

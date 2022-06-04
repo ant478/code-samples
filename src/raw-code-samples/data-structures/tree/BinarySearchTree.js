@@ -11,11 +11,11 @@ export default class BinarySearchTree {
    */
   insert(key, data) {
     if (!this.#head) {
-      this.#head = this.constructor.#createNode(key, data);
+      this.#head = BinarySearchTree.#createNode(key, data);
       return;
     }
 
-    this.constructor.#insert(this.#head, key, data);
+    BinarySearchTree.#insert(this.#head, key, data);
   }
 
   /**

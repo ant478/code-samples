@@ -11,4 +11,12 @@ export default [
       getListing(rawCodeSamples.javascript.iterators.IterableSinglyLinkedList),
     ],
   },
+  {
+    id: 'iterable-binary-search-tree',
+    title: 'Iterable binary search tree',
+    type: SUITE_TYPES.codeListing,
+    listings: [
+      getListing(rawCodeSamples.javascript.iterators.IterableBinarySearchTree),
+    ],
+  },
 ];
