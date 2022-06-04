@@ -4,11 +4,19 @@ import { getListing } from 'src/helpers/strings';
 
 export default [
   {
-    id: 'iterable-singly-linked-list',
-    title: 'Iterable singly linked list',
+    id: 'iterable-singly-linked-list-1',
+    title: 'Iterable singly linked list 1',
     type: SUITE_TYPES.codeListing,
     listings: [
-      getListing(rawCodeSamples.javascript.iterators.IterableSinglyLinkedList),
+      getListing(rawCodeSamples.javascript.iterators.IterableSinglyLinkedList1),
+    ],
+  },
+  {
+    id: 'iterable-singly-linked-list-2',
+    title: 'Iterable singly linked list 2',
+    type: SUITE_TYPES.codeListing,
+    listings: [
+      getListing(rawCodeSamples.javascript.iterators.IterableSinglyLinkedList2),
     ],
   },
   {

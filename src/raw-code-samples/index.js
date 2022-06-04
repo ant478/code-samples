@@ -20,7 +20,8 @@ import {
 } from './data-structures/hash-table/ChainedHashTable';
 import treeSort from './sort/treeSort';
 import heapSort from './sort/heapSort';
-import IterableSinglyLinkedList from './javascript/iterators/IterableSinglyLinkedList';
+import IterableSinglyLinkedList1 from './javascript/iterators/IterableSinglyLinkedList1';
+import IterableSinglyLinkedList2 from './javascript/iterators/IterableSinglyLinkedList2';
 import IterableBinarySearchTree from './javascript/iterators/IterableBinarySearchTree';
 
 export default {
@@ -72,7 +73,8 @@ export default {
   },
   javascript: {
     iterators: {
-      IterableSinglyLinkedList,
+      IterableSinglyLinkedList1,
+      IterableSinglyLinkedList2,
       IterableBinarySearchTree,
     },
   },
