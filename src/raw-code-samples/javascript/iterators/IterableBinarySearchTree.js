@@ -4,17 +4,11 @@ const BinarySearchTree = _BinarySearchTree;
 
 export default class IterableBinarySearchTree extends BinarySearchTree {
   [Symbol.iterator]() {
-    return this.traverse()[Symbol.iterator]();
+    return this.traverse();
   }
 
   traverse() {
-    const instance = this;
-
-    return {
-      [Symbol.iterator]() {
-        return IterableBinarySearchTree.#traverse(instance.head);
-      }
-    };
+    return IterableBinarySearchTree.#traverse(this.head);
   }
 
   static traverse(instance) {

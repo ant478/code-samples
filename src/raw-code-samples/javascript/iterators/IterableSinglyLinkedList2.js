@@ -4,7 +4,7 @@ const SinglyLinkedList = _SinglyLinkedList;
 
 export default class IterableSinglyLinkedList extends SinglyLinkedList {
   [Symbol.iterator]() {
-    return this.entries()[Symbol.iterator]();
+    return this.entries();
   }
 
   entries() {

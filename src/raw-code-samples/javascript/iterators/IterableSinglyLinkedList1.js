@@ -4,73 +4,19 @@ const SinglyLinkedList = _SinglyLinkedList;
 
 export default class IterableSinglyLinkedList extends SinglyLinkedList {
   [Symbol.iterator]() {
-    return this.entries()[Symbol.iterator]();
+    return this.entries();
   }
 
   entries() {
-    const instance = this;
-
-    return {
-      [Symbol.iterator]() {
-        return {
-          nextItem: instance.head,
-          next() {
-            if (this.nextItem === null) {
-              return { done: true };
-            }
-
-            const value = [this.nextItem.key, this.nextItem.data];
-            this.nextItem = this.nextItem.next;
-
-            return { value };
-          },
-        };
-      },
-    };
+    return this.#makeIterator(({ key, data }) => [key, data]);
   }
 
   keys() {
-    const instance = this;
-
-    return {
-      [Symbol.iterator]() {
-        return {
-          nextItem: instance.head,
-          next() {
-            if (this.nextItem === null) {
-              return { done: true };
-            }
-
-            const value = this.nextItem.key;
-            this.nextItem = this.nextItem.next;
-
-            return { value };
-          },
-        };
-      },
-    };
+    return this.#makeIterator(({ key }) => key);
   }
 
   values() {
-    const instance = this;
-
-    return {
-      [Symbol.iterator]() {
-        return {
-          nextItem: instance.head,
-          next() {
-            if (this.nextItem === null) {
-              return { done: true };
-            }
-
-            const value = this.nextItem.data;
-            this.nextItem = this.nextItem.next;
-
-            return { value };
-          },
-        };
-      },
-    };
+    return this.#makeIterator(({ data }) => data);
   }
 
   static entries(instance) {
@@ -83,6 +29,25 @@ export default class IterableSinglyLinkedList extends SinglyLinkedList {
 
   static values(instance) {
     return [...instance.values()];
+  }
+
+  #makeIterator(getValue) {
+    return {
+      _nextItem: this.head,
+      next() {
+        if (this._nextItem === null) {
+          return { done: true };
+        }
+
+        const value = getValue(this._nextItem);
+        this._nextItem = this._nextItem.next;
+
+        return { value };
+      },
+      [Symbol.iterator]() {
+        return this;
+      },
+    };
   }
 }
 
