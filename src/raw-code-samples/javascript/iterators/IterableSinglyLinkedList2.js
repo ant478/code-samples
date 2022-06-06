@@ -2,21 +2,21 @@ import _SinglyLinkedList from 'src/raw-code-samples/data-structures/linked-list/
 
 const SinglyLinkedList = _SinglyLinkedList;
 
-export default class IterableSinglyLinkedList2 extends SinglyLinkedList {
+export default class IterableSinglyLinkedList extends SinglyLinkedList {
   [Symbol.iterator]() {
     return this.entries()[Symbol.iterator]();
   }
 
   entries() {
-    return IterableSinglyLinkedList2.#entries(this.head);
+    return IterableSinglyLinkedList.#entries(this.head);
   }
 
   keys() {
-    return IterableSinglyLinkedList2.#keys(this.head);
+    return IterableSinglyLinkedList.#keys(this.head);
   }
 
   values() {
-    return IterableSinglyLinkedList2.#values(this.head);
+    return IterableSinglyLinkedList.#values(this.head);
   }
 
   static *#entries(node) {
@@ -56,4 +56,4 @@ export default class IterableSinglyLinkedList2 extends SinglyLinkedList {
   }
 }
 
-IterableSinglyLinkedList2.annotation = '';
+IterableSinglyLinkedList.annotation = '';
