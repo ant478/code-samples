@@ -33,14 +33,14 @@ export default class IterableSinglyLinkedList extends SinglyLinkedList {
 
   #makeIterator(getValue) {
     return {
-      _nextItem: this.head,
+      nextItem: this.head,
       next() {
-        if (this._nextItem === null) {
+        if (this.nextItem === null) {
           return { done: true };
         }
 
-        const value = getValue(this._nextItem);
-        this._nextItem = this._nextItem.next;
+        const value = getValue(this.nextItem);
+        this.nextItem = this.nextItem.next;
 
         return { value };
       },
@@ -51,4 +51,22 @@ export default class IterableSinglyLinkedList extends SinglyLinkedList {
   }
 }
 
-IterableSinglyLinkedList.annotation = '';
+IterableSinglyLinkedList.annotation =
+`/**
+ * list = new IterableSinglyLinkedList();
+ *
+ * const entries = [...list];
+ * const entries = [...list.entries()];
+ * const keys = [...list.keys()];
+ * const values = [...list.values()];
+ *
+ * const entries = IterableSinglyLinkedList.entries(list);
+ * const keys = IterableSinglyLinkedList.keys(list);
+ * const values = IterableSinglyLinkedList.values(list);
+ *
+ * for (const [key, value] of list) {}
+ * for (const [key, value] of list.entries()) {}
+ * for (const key of list.keys()) {}
+ * for (const value of list.values()) {}
+ */
+`;

@@ -44,7 +44,7 @@ export default class BinarySearchTree {
       }
 
       parent[node === parent.left ? 'left' : 'right'] = newNode;
-    }
+    };
 
     if (!node.left && !node.right) {
       replaceParentPointer(null);

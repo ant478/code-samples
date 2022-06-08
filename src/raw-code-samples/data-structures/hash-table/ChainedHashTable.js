@@ -65,7 +65,7 @@ export class ChainedHashTable {
 
   /**
    * @param {string | number} key
-   * @returns {[key: number, data: *]}
+   * @returns {[key: string | number, data: *]}
    */
   search(key) {
     const index = this.#table.getIndexForKey(key);

@@ -15,7 +15,7 @@ export default class IterableBinarySearchTree extends BinarySearchTree {
     return [...IterableBinarySearchTree.#traverse(instance.head)];
   }
 
-  static *#traverse(node) {
+  static* #traverse(node) {
     if (node.left) {
       yield* this.#traverse(node.left);
     }
@@ -28,4 +28,15 @@ export default class IterableBinarySearchTree extends BinarySearchTree {
   }
 }
 
-IterableBinarySearchTree.annotation = '';
+IterableBinarySearchTree.annotation =
+`/**
+ * tree = new IterableBinarySearchTree();
+ *
+ * const nodes = [...tree];
+ * const nodes = [...tree.traverse()];
+ * const nodes = IterableBinarySearchTree.traverse(tree);
+ *
+ * for (const [key, value] of tree) {}
+ * for (const [key, value] of tree.traverse()) {}
+ */
+`;

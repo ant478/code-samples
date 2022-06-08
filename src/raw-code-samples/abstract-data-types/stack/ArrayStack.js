@@ -28,4 +28,3 @@ ArrayStack.annotation =
  *   pop - O(1)
  */
 `;
-

@@ -23,6 +23,7 @@ import heapSort from './sort/heapSort';
 import IterableSinglyLinkedList1 from './javascript/iterators/IterableSinglyLinkedList1';
 import IterableSinglyLinkedList2 from './javascript/iterators/IterableSinglyLinkedList2';
 import IterableBinarySearchTree from './javascript/iterators/IterableBinarySearchTree';
+import StackableVector from './javascript/symbols/StackableVector';
 
 export default {
   performance: {
@@ -47,7 +48,7 @@ export default {
     },
     set: {
       HashTableSet,
-    }
+    },
   },
   dataStructures: {
     linkedList: {
@@ -77,5 +78,9 @@ export default {
       IterableSinglyLinkedList2,
       IterableBinarySearchTree,
     },
+    symbols: {
+      IterableBinarySearchTree,
+      StackableVector,
+    },
   },
-}
+};
