@@ -1,3 +1,7 @@
+import { ArrayStartingFromOne as _ArrayStartingFromOne } from 'src/raw-code-samples/javascript/proxy/ArrayStartingFromOne';
+
+const ArrayStartingFromOne = _ArrayStartingFromOne;
+
 export default class BinaryHeap {
   #heap;
 
@@ -5,14 +9,10 @@ export default class BinaryHeap {
    * @param {Array<{key: number, data: *}>} [array = []]
    */
   constructor(array = []) {
-    this.#heap = [null, ...array];
-    for (let number = Math.floor(this.#length / 2); number >= 1; number--) {
+    this.#heap = ArrayStartingFromOne.from(array);
+    for (let number = Math.floor(this.#heap.length / 2); number >= 1; number--) {
       this.#heapify(number);
     }
-  }
-
-  get #length() {
-    return (this.#heap.length - 1);
   }
 
   /**
@@ -21,20 +21,20 @@ export default class BinaryHeap {
    */
   insert(key, data) {
     this.#heap.push({ key, data });
-    this.#bubbleUp(this.#length);
+    this.#bubbleUp(this.#heap.length);
   }
 
   /**
    * @returns {[key: number, data: *]}
    */
   extractMin() {
-    if (this.#length === 0) {
+    if (this.#heap.length === 0) {
       throw new Error('BinaryHeap: empty');
     }
 
     let min;
 
-    if (this.#length === 1) {
+    if (this.#heap.length === 1) {
       min = this.#heap.pop();
       return [min.key, min.data];
     }
@@ -71,11 +71,11 @@ export default class BinaryHeap {
     const right = (2 * number + 1);
     let smallest = number;
 
-    if (left <= this.#length && this.#heap[left].key < this.#heap[smallest].key) {
+    if (left <= this.#heap.length && this.#heap[left].key < this.#heap[smallest].key) {
       smallest = left;
     }
 
-    if (right <= this.#length && this.#heap[right].key < this.#heap[smallest].key) {
+    if (right <= this.#heap.length && this.#heap[right].key < this.#heap[smallest].key) {
       smallest = right;
     }
 

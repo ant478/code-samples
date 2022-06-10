@@ -24,6 +24,10 @@ import IterableSinglyLinkedList1 from './javascript/iterators/IterableSinglyLink
 import IterableSinglyLinkedList2 from './javascript/iterators/IterableSinglyLinkedList2';
 import IterableBinarySearchTree from './javascript/iterators/IterableBinarySearchTree';
 import StackableVector from './javascript/symbols/StackableVector';
+import {
+  isArrayIndex,
+  ArrayStartingFromOne,
+} from './javascript/proxy/ArrayStartingFromOne';
 
 export default {
   performance: {
@@ -81,6 +85,12 @@ export default {
     symbols: {
       IterableBinarySearchTree,
       StackableVector,
+    },
+    proxy: {
+      ArrayStartingFromOne: [
+        isArrayIndex,
+        ArrayStartingFromOne,
+      ],
     },
   },
 };
