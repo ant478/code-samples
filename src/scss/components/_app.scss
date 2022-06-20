@@ -1,21 +1,10 @@
 .app {
-  background-color: var(--app-background-color);
+  @include main-background;
+
   color: var(--primary-text-color);
   font: 16px/1.375 $font-family-primary;
   font-weight: 400;
   height: 100%;
-  position: relative;
-  z-index: 1;
-
-  &::before {
-    @include full-size;
-
-    background-color: var(--app-mask-background-color);
-    content: '';
-    mask: url('~img/main-pattern.png') center top / auto repeat;
-    pointer-events: none;
-    z-index: -1;
-  }
 
   &__theme-hue {
     @include theme-hue;

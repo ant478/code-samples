@@ -1,0 +1,14 @@
+.fullscreen-overlay {
+  @include full-size(fixed);
+  @include main-background;
+
+  z-index: $overlay-z-index;
+
+  &_close-mix {
+    line-height: 1;
+    padding: 0.75em;
+    position: absolute;
+    right: 0.5em;
+    top: 0.5em;
+  }
+}
