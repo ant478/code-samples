@@ -4,6 +4,7 @@ import { SUITE_TYPES } from 'src/consts/suite-types';
 import { CATEGORIES } from 'src/consts/categories';
 import BenchmarkSuite from 'src/components/Suites/BenchmarkSuite';
 import CodeListingSuite from 'src/components/Suites/CodeListingSuite';
+import ComponentSuite from 'src/components/Suites/ComponentSuite';
 import PageWithSidebar from 'src/components/Page/PageWithSidebar';
 import Sidebar from './Sidebar';
 
@@ -59,6 +60,17 @@ const Page = memo(({
               id={suite.id}
               title={suite.title}
               listings={suite.listings}
+            />
+          );
+        }
+
+        if (suite.type === SUITE_TYPES.component) {
+          return (
+            <ComponentSuite
+              key={`${id}_${suite.id}`}
+              id={suite.id}
+              title={suite.title}
+              component={suite.component}
             />
           );
         }
