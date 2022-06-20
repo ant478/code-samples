@@ -4,7 +4,7 @@ import {
   EXPAND_DIFF as HEADER_EXPAND_DIFF,
 } from 'src/hooks/useHeaderHeight';
 import { EXPAND_DIFF as FOOTER_EXPAND_DIFF } from 'src/hooks/useFooterHeight';
-import { getElementOffsetTop } from 'src/helpers/dom';
+import { getElementOffsets } from 'src/helpers/dom';
 import ScrollService from 'src/services/scroll/ScrollService';
 
 const OFFSET = 32; // 2em
@@ -23,7 +23,7 @@ export default class AppScrollService extends ScrollService {
   }
 
   scrollToElement(element, options) {
-    const scrollTop = (getElementOffsetTop(element, this.scrollElement) - HEADER_COLLAPSED_HEIGHT - OFFSET);
+    const scrollTop = (getElementOffsets(element, this.scrollElement)[1] - HEADER_COLLAPSED_HEIGHT - OFFSET);
 
     this.scrollToPosition(scrollTop, options);
   }

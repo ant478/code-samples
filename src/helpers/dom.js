@@ -1,11 +1,13 @@
-export function getElementOffsetTop(element, wrapper) {
-  let offset = 0;
+export function getElementOffsets(element, wrapper) {
+  let offsetTop = 0;
+  let offsetLeft = 0;
   let tmpElement = element;
 
   while (tmpElement && tmpElement !== wrapper) {
-    offset += tmpElement.offsetTop;
+    offsetTop += tmpElement.offsetTop;
+    offsetLeft += tmpElement.offsetLeft;
     tmpElement = tmpElement.offsetParent;
   }
 
-  return offset;
+  return [offsetLeft, offsetTop];
 }
