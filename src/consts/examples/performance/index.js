@@ -1,10 +1,14 @@
 import { makeMarkdownLink } from 'src/helpers/strings';
 import setSuites from './suites/set';
 import mapSuites from './suites/map';
+import numberSuites from './suites/number';
+import arraySuites from './suites/array';
 
 export const EXAMPLE_IDS = {
   set: 'set',
   map: 'map',
+  number: 'number',
+  array: 'array',
 };
 
 export const EXAMPLES = [{
@@ -28,4 +32,12 @@ export const EXAMPLES = [{
       ru - ${makeMarkdownLink('https://learn.javascript.ru/map-set')}
     `,
   suites: mapSuites,
+}, {
+  id: EXAMPLE_IDS.number,
+  title: 'Number',
+  suites: numberSuites,
+}, {
+  id: EXAMPLE_IDS.array,
+  title: 'Array',
+  suites: arraySuites,
 }];

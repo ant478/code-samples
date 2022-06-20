@@ -104,7 +104,7 @@ const BenchmarkSuite = memo(({
           isDisabled={isRunning}
           className="benchmark-suite_button-mix"
           onClick={handleClearClick}
-          icon="&#128473;"
+          icon="🗙"
         >
           Clear
         </ControlButton>
