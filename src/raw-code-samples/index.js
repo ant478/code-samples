@@ -1,5 +1,7 @@
 import * as mapPerformance from './performance/map';
 import * as setPerformance from './performance/set';
+import * as numberPerformance from './performance/number';
+import * as arrayPerformance from './performance/array';
 import DoublyLinkedListQueue from './abstract-data-types/queue/DoublyLinkedListQueue';
 import ArrayQueue from './abstract-data-types/queue/ArrayQueue';
 import LimitedArrayQueue from './abstract-data-types/queue/LimitedArrayQueue';
@@ -33,6 +35,8 @@ export default {
   performance: {
     map: mapPerformance,
     set: setPerformance,
+    number: numberPerformance,
+    array: arrayPerformance,
   },
   abstractDataTypes: {
     queue: {
