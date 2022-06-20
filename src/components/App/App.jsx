@@ -3,7 +3,7 @@ import AppScrollbar from './components/AppScrollbar';
 import AppContent from './components/AppContent';
 
 const App = () => (
-  <div className="app app__theme-hue">
+  <div id="app" className="app app__theme-hue">
     <AppScrollbar>
       <AppContent />
     </AppScrollbar>

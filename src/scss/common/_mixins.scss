@@ -110,6 +110,22 @@
   }
 }
 
+@mixin main-background() {
+  background-color: var(--app-background-color);
+  position: relative;
+  z-index: 1;
+
+  &::before {
+    @include full-size;
+
+    background-color: var(--app-mask-background-color);
+    content: '';
+    mask: url('~img/main-pattern.png') center top / auto repeat;
+    pointer-events: none;
+    z-index: -1;
+  }
+}
+
 @mixin full-size($position: absolute, $indent: 0) {
   bottom: $indent;
   left: $indent;

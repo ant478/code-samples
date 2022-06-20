@@ -6,6 +6,7 @@ $font-family-monospace: 'Roboto Mono', monospace;
 $app-header-z-index: 100;
 $app-footer-z-index: $app-header-z-index + 1;
 $app-scrollbar-track-vertical-z-index: $app-footer-z-index + 1;
+$overlay-z-index: $app-scrollbar-track-vertical-z-index + 1;
 
 /* transition */
 $transition-fast: 0.1s ease-in-out;
