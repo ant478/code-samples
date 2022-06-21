@@ -1,6 +1,6 @@
 .fullscreen-overlay {
-  @include full-size(fixed);
   @include main-background;
+  @include full-size(fixed);
 
   z-index: $overlay-z-index;
 

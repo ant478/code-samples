@@ -1,0 +1,9 @@
+.intersection-observer-example {
+  &_fps-meter-mix {
+    left: 7em;
+    position: absolute;
+    top: 1em;
+    transform: translateX(-100%);
+    z-index: 1;
+  }
+}
