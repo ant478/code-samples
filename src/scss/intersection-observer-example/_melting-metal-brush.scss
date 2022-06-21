@@ -1,0 +1,8 @@
+$base: '.melting-metal-brush';
+.intersection-observer-example#{$base} {
+  @include control-block;
+
+  background-color: transparent !important;
+  border-radius: 50% !important;
+  cursor: pointer;
+}

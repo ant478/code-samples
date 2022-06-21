@@ -2,11 +2,13 @@ import { makeMarkdownLink } from 'src/helpers/strings';
 import iteratorsSuites from './suites/iterators';
 import symbolsSuites from './suites/symbols';
 import proxySuites from './suites/proxy';
+import observersSuites from './suites/observers';
 
 export const EXAMPLE_IDS = {
   iterators: 'iterators',
   symbols: 'symbols',
   proxy: 'proxy',
+  observers: 'observers',
 };
 
 export const EXAMPLES = [
@@ -39,5 +41,11 @@ export const EXAMPLES = [
         ru - ${makeMarkdownLink('https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Proxy')}
       `,
     suites: proxySuites,
+  },
+  {
+    id: EXAMPLE_IDS.observers,
+    title: 'Observers',
+    // description: ``,
+    suites: observersSuites,
   },
 ];
