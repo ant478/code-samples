@@ -6,6 +6,12 @@ import 'src/scss/main.scss';
 import App from 'src/components/App/App';
 
 ReactDOM.render(
-  React.createElement(Router, {}, React.createElement(App)),
+  (
+    <React.StrictMode>
+      <Router>
+        <App />
+      </Router>
+    </React.StrictMode>
+  ),
   document.getElementById('root'),
 );
