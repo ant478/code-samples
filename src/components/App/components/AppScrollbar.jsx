@@ -6,8 +6,18 @@ import get from 'lodash/get';
 import Scrollbars from 'react-custom-scrollbars';
 import { appScrollbarService } from 'src/services/scroll';
 import useRerenderOnMount from 'src/hooks/useRerenderOnMount';
+import {
+  EXPAND_DIFF as HEADER_EXPAND_DIFF,
+  EXPANDED_HEIGHT as HEADER_EXPANDED_HEIGHT,
+} from 'src/hooks/useHeaderHeight';
+import { EXPANDED_HEIGHT as FOOTER_EXPANDED_HEIGHT } from 'src/hooks/useFooterHeight';
 
 const VIEW_ID = 'app-scrollbar-view';
+const appMainStyles = {
+  paddingTop: `${HEADER_EXPANDED_HEIGHT}px`,
+  paddingBottom: `${FOOTER_EXPANDED_HEIGHT}px`,
+  minHeight: `calc(100% + ${FOOTER_EXPANDED_HEIGHT + HEADER_EXPAND_DIFF}px)`,
+};
 
 const renderThumbVertical = (props) => (
   <div
@@ -47,8 +57,8 @@ const AppScrollbar = memo(({ children, ...props }) => {
   );
 
   useEffect(() => {
-    window.addEventListener('scroll-height-change-custom', updateScrollHeight);
-    return () => window.removeEventListener('scroll-height-change-custom', updateScrollHeight);
+    appScrollbarService.addScrollHeightChangeListener(updateScrollHeight);
+    return () => appScrollbarService.removeScrollHeightChangeListener(updateScrollHeight);
   }, [updateScrollHeight]);
 
   useRerenderOnMount();
@@ -68,7 +78,9 @@ const AppScrollbar = memo(({ children, ...props }) => {
       renderTrackVertical={renderTrackVertical}
       {...props}
     >
-      {!isFirstRenderRef.current && children}
+      <div className="app_scrollbar-content" style={appMainStyles}>
+        {!isFirstRenderRef.current && children}
+      </div>
     </Scrollbars>
   );
 });

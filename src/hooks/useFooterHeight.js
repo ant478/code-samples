@@ -1,5 +1,6 @@
 import { useEffect, useCallback, useState } from 'react';
 import { appScrollbarService } from 'src/services/scroll';
+import useEventListener from 'src/hooks/useEventListener';
 
 export const COLLAPSED_HEIGHT = 0;
 export const EXPANDED_HEIGHT = 120;
@@ -22,19 +23,18 @@ export default function useFooterHeight() {
 
   useEffect(() => { updateHeight(); }, [updateHeight]);
 
+  useEventListener(scrollElement, 'scroll', updateHeight);
+
   useEffect(() => {
-    scrollElement.addEventListener('scroll', updateHeight);
-    return () => scrollElement.removeEventListener('scroll', updateHeight);
+    const observer = new ResizeObserver(updateHeight);
+    observer.observe(scrollElement);
+
+    return () => observer.disconnect();
   }, [scrollElement, updateHeight]);
 
   useEffect(() => {
-    window.addEventListener('resize', updateHeight);
-    window.addEventListener('scroll-height-change-custom', updateHeight);
-
-    return () => {
-      window.removeEventListener('resize', updateHeight);
-      window.removeEventListener('scroll-height-change-custom', updateHeight);
-    };
+    appScrollbarService.addScrollHeightChangeListener(updateHeight);
+    return () => appScrollbarService.removeScrollHeightChangeListener(updateHeight);
   }, [updateHeight]);
 
   return footerHeight;

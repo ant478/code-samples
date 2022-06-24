@@ -1,5 +1,6 @@
 import { useEffect, useCallback, useState } from 'react';
 import { appScrollbarService } from 'src/services/scroll';
+import useEventListener from 'src/hooks/useEventListener';
 
 export const COLLAPSED_HEIGHT = 62;
 export const EXPANDED_HEIGHT = 62;
@@ -21,10 +22,7 @@ export default function useHeaderHeight() {
 
   useEffect(() => { updateHeight(); }, [updateHeight]);
 
-  useEffect(() => {
-    scrollElement.addEventListener('scroll', updateHeight);
-    return () => scrollElement.removeEventListener('scroll', updateHeight);
-  }, [scrollElement, updateHeight]);
+  useEventListener(scrollElement, 'scroll', updateHeight);
 
   return headerHeight;
 }

@@ -49,7 +49,9 @@ const SidebarScrollbar = memo(({ children, ...props }) => {
       renderTrackVertical={renderTrackVertical}
       {...props}
     >
-      {!isFirstRenderRef.current && children}
+      <div>
+        {!isFirstRenderRef.current && children}
+      </div>
     </Scrollbars>
   );
 });
