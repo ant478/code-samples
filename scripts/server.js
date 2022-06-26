@@ -9,6 +9,12 @@ const publicPath = path.join(__dirname, '..', 'build');
 app.use(sslRedirect());
 app.use(express.static(publicPath));
 
+app.use((req, res, next) => {
+  res.header('Cross-Origin-Embedder-Policy', 'require-corp');
+  res.header('Cross-Origin-Opener-Policy', 'same-origin');
+  next();
+});
+
 app.get('*', (req, res) => {
   res.sendFile(path.join(publicPath, 'index.html'));
 });

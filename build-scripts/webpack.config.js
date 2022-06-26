@@ -129,6 +129,10 @@ module.exports = () => merge(
         publicPath: paths.publicPath,
         directory: paths.output,
       },
+      headers: {
+        'Cross-Origin-Embedder-Policy': 'require-corp',
+        'Cross-Origin-Opener-Policy': 'same-origin',
+      },
     },
   },
   localWebpackConfig,
