@@ -4,7 +4,6 @@ import { getRgbColor } from 'src/helpers/css';
 import {
   MIN_GLOWING_TEMPERATURE,
   MAX_TEMPERATURE,
-  METAL_COLOR_COLD_BY_TYPE,
   GLOWING_RANGE,
   METAL_COLOR_START,
   METAL_COLOR_REST,
@@ -42,7 +41,7 @@ for (let temperature = MIN_GLOWING_TEMPERATURE; temperature <= MAX_TEMPERATURE; 
 
 export function getMetalColor(temperature, type) {
   if (temperature <= MIN_GLOWING_TEMPERATURE) {
-    return METAL_COLOR_COLD_BY_TYPE[type];
+    return precalculatedMetalColors[0][type];
   }
 
   return precalculatedMetalColors[~~(temperature) - MIN_GLOWING_TEMPERATURE][type];

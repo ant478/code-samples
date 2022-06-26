@@ -8,6 +8,7 @@ import React, {
   useCallback,
 } from 'react';
 import useFps from 'src/hooks/useFps';
+import useAnimationCycle from 'src/hooks/useAnimationCycle';
 import { getTransformTranslate } from 'src/helpers/css';
 import {
   MIN_GLOWING_TEMPERATURE,
@@ -24,101 +25,8 @@ import {
 
 const APPROXIMATE_PIECES_COUNT = 5000;
 
-function animate() {
-  if (!this.isAnimating) {
-    return;
-  }
-
-  const brushSize = (this.brushDriverElement.offsetWidth >> 1);
-  const distance = getDistance(
-    (this.offsetLeft + (this.offsetWidth >> 1)),
-    (this.offsetTop + (this.offsetHeight >> 1)),
-    (this.brushPosition.x + brushSize),
-    (this.brushPosition.y + brushSize),
-  );
-  this.heatRate = 3 * Math.max(0, (1.1 - distance / brushSize));
-
-  if (this.heatRate === 0 || !this.isMouseDownRef.current) {
-    if (this.temperature === 0 && !this.isIntersecting) {
-      this.isAnimating = false;
-      return;
-    }
-
-    if (this.temperature === 0) {
-      requestAnimationFrame(this.animate);
-      return;
-    }
-
-    if (this.temperature <= MIN_GLOWING_TEMPERATURE) {
-      const decrease = 0.2;
-      const delta = (-decrease / this.fpsData.fpsCoef);
-      this.temperature = Math.max(MIN_TEMPERATURE, (this.temperature + delta));
-
-      requestAnimationFrame(this.animate);
-      return;
-    }
-
-    const glowingCoef = ((this.temperature - MIN_GLOWING_TEMPERATURE) / GLOWING_RANGE);
-    const decrease = (0.2 + glowingCoef);
-    const delta = (-decrease / this.fpsData.fpsCoef);
-
-    this.temperature = Math.max(MIN_TEMPERATURE, (this.temperature + delta));
-
-    const metalColor = getMetalColor(this.temperature, this.type);
-    this.style.backgroundColor = metalColor;
-
-    if (this.temperature > MIN_GLOWING_TEMPERATURE) {
-      this.style.boxShadow = `0 0 ${~~(glowingCoef * 10)}px ${metalColor}`;
-      this.style.zIndex = 1;
-    } else {
-      this.style.removeProperty('box-shadow');
-      this.style.removeProperty('z-index');
-    }
-
-    requestAnimationFrame(this.animate);
-    return;
-  }
-
-  const glowingCoef = this.temperature > MIN_GLOWING_TEMPERATURE
-    ? ((this.temperature - MIN_GLOWING_TEMPERATURE) / GLOWING_RANGE)
-    : 0;
-  const increase = (this.isMouseDownRef.current ? (3 + 15 * (1 - glowingCoef)) * this.heatRate : 0);
-  const decrease = (0.2 + glowingCoef);
-  const delta = ((increase - decrease) / this.fpsData.fpsCoef);
-
-  this.temperature = clamp(this.temperature + delta, MIN_TEMPERATURE, MAX_TEMPERATURE);
-  const metalColor = getMetalColor(this.temperature, this.type);
-
-  this.style.backgroundColor = metalColor;
-
-  if (this.temperature > MIN_GLOWING_TEMPERATURE) {
-    this.style.boxShadow = `0 0 ${~~(glowingCoef * 10)}px ${metalColor}`;
-    this.style.zIndex = 1;
-  }
-
-  if (this.temperature >= MIN_LIQUID_TEMPERATURE) {
-    this.isLiquid = true;
-    this.isAnimating = false;
-    this.style.transform = getTransformTranslate(~~(this.viewSizeRef.current.width / 20), this.viewSizeRef.current.height);
-    this.style.zIndex = 2;
-    this.disapearTimeout = setTimeout(() => this.style.display = 'none', 1000);
-    return;
-  }
-
-  requestAnimationFrame(this.animate);
-}
-
 function handleIntersection({ target, isIntersecting }) {
   target.isIntersecting = isIntersecting;
-
-  if (!target.isIntersecting || target.isLiquid) {
-    return;
-  }
-
-  if (!target.isAnimating) {
-    target.isAnimating = true;
-    requestAnimationFrame(target.animate);
-  }
 }
 
 const Canvas = memo(({
@@ -131,38 +39,110 @@ const Canvas = memo(({
 }) => {
   const fpsData = useFps(100);
   const isMouseDownRef = useRef(isMouseDown);
+  const viewSizeRef = useRef(viewSize);
+  const brushPositionRef = useRef(brushPosition);
+  const brushDriverElementRef = useRef(brushDriverElement);
   const piecesSetRef = useRef(new Set());
   const prevPiecesSetRef = useRef(new Set());
   const elementRef = useRef(null);
-  const viewSizeRef = useRef(null);
+  const fpsDataRef = useRef(fpsData);
 
   isMouseDownRef.current = isMouseDown;
   viewSizeRef.current = viewSize;
+  brushPositionRef.current = brushPosition;
+  brushDriverElementRef.current = brushDriverElement;
+  fpsDataRef.current = fpsData;
+
+  const animatePieces = useCallback(() => {
+    for (const element of piecesSetRef.current) {
+      if (element.isLiquid) continue;
+      if (element.temperature === 0 && (!element.isIntersecting || !isMouseDownRef.current)) continue;
+
+      const brushSize = (brushDriverElementRef.current.offsetWidth >> 1);
+      const distance = getDistance(
+        (element.offsetLeft + (element.offsetWidth >> 1)),
+        (element.offsetTop + (element.offsetHeight >> 1)),
+        (brushPositionRef.current.x + brushSize),
+        (brushPositionRef.current.y + brushSize),
+      );
+      element.heatRate = 3 * Math.max(0, (1.1 - distance / brushSize));
+
+      if (element.heatRate === 0 || !isMouseDownRef.current) {
+        if (element.temperature === 0) {
+          continue;
+        }
+
+        if (element.temperature <= MIN_GLOWING_TEMPERATURE) {
+          const decrease = 0.2;
+          const delta = (-decrease / fpsDataRef.current.fpsCoef);
+          element.temperature = Math.max(MIN_TEMPERATURE, (element.temperature + delta));
+          continue;
+        }
+
+        const glowingCoef = ((element.temperature - MIN_GLOWING_TEMPERATURE) / GLOWING_RANGE);
+        const decrease = (0.2 + glowingCoef);
+        const delta = (-decrease / fpsDataRef.current.fpsCoef);
+
+        element.temperature = Math.max(MIN_TEMPERATURE, (element.temperature + delta));
+
+        const metalColor = getMetalColor(element.temperature, element.type);
+        element.style.backgroundColor = metalColor;
+
+        if (element.temperature > MIN_GLOWING_TEMPERATURE) {
+          element.style.boxShadow = `0 0 ${~~(glowingCoef * 10)}px ${metalColor}`;
+          element.style.zIndex = 1;
+        } else {
+          element.style.boxShadow = 'none';
+          element.style.zIndex = 0;
+        }
+
+        continue;
+      }
+
+      const glowingCoef = element.temperature > MIN_GLOWING_TEMPERATURE
+        ? ((element.temperature - MIN_GLOWING_TEMPERATURE) / GLOWING_RANGE)
+        : 0;
+      const increase = (isMouseDownRef.current ? (3 + 15 * (1 - glowingCoef)) * element.heatRate : 0);
+      const decrease = (0.2 + glowingCoef);
+      const delta = ((increase - decrease) / fpsDataRef.current.fpsCoef);
+
+      element.temperature = clamp(element.temperature + delta, MIN_TEMPERATURE, MAX_TEMPERATURE);
+      const metalColor = getMetalColor(element.temperature, element.type);
+
+      element.style.backgroundColor = metalColor;
+
+      if (element.temperature > MIN_GLOWING_TEMPERATURE) {
+        element.style.boxShadow = `0 0 ${~~(glowingCoef * 10)}px ${metalColor}`;
+        element.style.zIndex = 1;
+      }
+
+      if (element.temperature >= MIN_LIQUID_TEMPERATURE) {
+        element.isLiquid = true;
+        element.style.transform = getTransformTranslate(~~(viewSizeRef.current.width / 20), viewSizeRef.current.height);
+        element.style.zIndex = 2;
+        element.disapearTimeout = setTimeout(() => element.style.display = 'none', 1000);
+      }
+    }
+  }, []);
+
+  useAnimationCycle(animatePieces, true);
 
   const processNewElement = useCallback((element, index) => {
     element.type = (index % ELEMENT_TYPES_COUNT);
-    element.isAnimating = false;
     element.isLiquid = false;
-    element.animate = animate.bind(element);
     element.temperature = 0;
     element.heatRate = 0;
     element.style.backgroundColor = getMetalColor(element.temperature, element.type);
-    element.isMouseDownRef = isMouseDownRef;
-    element.fpsData = fpsData;
-    element.viewSizeRef = viewSizeRef;
-    element.brushDriverElement = brushDriverElement;
-    element.brushPosition = brushPosition;
     element.disapearTimeout = null;
 
     observe(element, handleIntersection);
-  }, [brushDriverElement, brushPosition, fpsData, observe]);
+  }, [observe]);
 
   const processStaleElement = useCallback((element, index) => {
     element.type = (index % ELEMENT_TYPES_COUNT);
   }, []);
 
   const processOldElement = useCallback((element) => {
-    element.isAnimating = false;
     clearTimeout(element.disapearTimeout);
 
     unobserve(element, handleIntersection);

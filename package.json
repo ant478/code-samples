@@ -39,6 +39,7 @@
     "core-js": "3.17.2",
     "cross-env": "7.0.3",
     "express": "4.18.0",
+    "heroku-ssl-redirect": "0.1.1",
     "highlight.js": "11.2.0",
     "lodash": "4.17.21",
     "process": "0.11.10",
