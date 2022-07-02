@@ -43,5 +43,5 @@ export default class IntersectionObserverService {
 
       for (const handler of handlers) handler(entry);
     });
-  }
+  };
 }

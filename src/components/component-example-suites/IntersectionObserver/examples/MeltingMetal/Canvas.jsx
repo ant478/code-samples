@@ -1,233 +1,331 @@
-import clamp from 'lodash/clamp';
 import React, {
   memo,
   useRef,
   useEffect,
   useLayoutEffect,
-  useMemo,
   useCallback,
 } from 'react';
-import useFps from 'src/hooks/useFps';
+import Circular2dHashTable, {
+  toHash,
+} from 'src/services/Circular2dHashTable';
 import useAnimationCycle from 'src/hooks/useAnimationCycle';
 import { getTransformTranslate } from 'src/helpers/css';
 import {
   MIN_GLOWING_TEMPERATURE,
   MIN_LIQUID_TEMPERATURE,
-  GLOWING_RANGE,
-  MIN_TEMPERATURE,
-  MAX_TEMPERATURE,
   ELEMENT_TYPES_COUNT,
 } from './constants';
 import {
   getMetalColor,
-  getDistance,
+  calculatePiecesData,
+  getSharableTypedArray,
 } from './helpers';
-
-const APPROXIMATE_PIECES_COUNT = 5000;
-
-function handleIntersection({ target, isIntersecting }) {
-  target.isIntersecting = isIntersecting;
-}
 
 const Canvas = memo(({
   isMouseDown,
-  viewSize,
+  viewWidth,
+  viewHeight,
   brushPosition,
   brushDriverElement,
   observe,
   unobserve,
 }) => {
-  const fpsData = useFps(100);
-  const isMouseDownRef = useRef(isMouseDown);
-  const viewSizeRef = useRef(viewSize);
+  const viewWidthRef = useRef(viewWidth);
+  const viewHeightRef = useRef(viewHeight);
   const brushPositionRef = useRef(brushPosition);
   const brushDriverElementRef = useRef(brushDriverElement);
-  const piecesSetRef = useRef(new Set());
-  const prevPiecesSetRef = useRef(new Set());
-  const elementRef = useRef(null);
-  const fpsDataRef = useRef(fpsData);
 
-  isMouseDownRef.current = isMouseDown;
-  viewSizeRef.current = viewSize;
+  viewWidthRef.current = viewWidth;
+  viewHeightRef.current = viewHeight;
   brushPositionRef.current = brushPosition;
   brushDriverElementRef.current = brushDriverElement;
-  fpsDataRef.current = fpsData;
+
+  const piecesHashTableRef = useRef(new Circular2dHashTable());
+  const isPiecePresentArrayRef = useRef(getSharableTypedArray(Uint8Array, 0));
+  const isIntersectingArrayRef = useRef(getSharableTypedArray(Uint8Array, 0));
+  const isLiquidArrayRef = useRef(getSharableTypedArray(Uint8Array, 0));
+  const offsetTopArrayRef = useRef(getSharableTypedArray(Uint16Array, 0));
+  const offsetLeftArrayRef = useRef(getSharableTypedArray(Uint16Array, 0));
+  const offsetWidthArrayRef = useRef(getSharableTypedArray(Uint16Array, 0));
+  const offsetHeightArrayRef = useRef(getSharableTypedArray(Uint16Array, 0));
+  const temperatureArrayRef = useRef(getSharableTypedArray(Float32Array, 0));
+  const glowingRangeArrayRef = useRef(getSharableTypedArray(Uint8Array, 0));
+  const heatRateArrayRef = useRef(getSharableTypedArray(Float32Array, 0));
+  const brushDataRef = useRef(getSharableTypedArray(Int16Array, 3));
+  const elementRef = useRef(null);
+  const temperatureWorkersRef = useRef([]);
+  const heatRateWorkersRef = useRef([]);
+
+  const animateBrushData = useCallback(() => {
+    brushDataRef.current[0] = brushPositionRef.current.x;
+    brushDataRef.current[1] = brushPositionRef.current.y;
+    brushDataRef.current[2] = (brushDriverElementRef.current.offsetWidth >> 1);
+  }, []);
 
   const animatePieces = useCallback(() => {
-    for (const element of piecesSetRef.current) {
-      if (element.isLiquid) continue;
-      if (element.temperature === 0 && (!element.isIntersecting || !isMouseDownRef.current)) continue;
+    for (const element of piecesHashTableRef.current) {
+      const index = element.index;
 
-      const brushSize = (brushDriverElementRef.current.offsetWidth >> 1);
-      const distance = getDistance(
-        (element.offsetLeft + (element.offsetWidth >> 1)),
-        (element.offsetTop + (element.offsetHeight >> 1)),
-        (brushPositionRef.current.x + brushSize),
-        (brushPositionRef.current.y + brushSize),
-      );
-      element.heatRate = 3 * Math.max(0, (1.1 - distance / brushSize));
+      if (isLiquidArrayRef.current[index]) continue;
+      if (temperatureArrayRef.current[index] === 0 && heatRateArrayRef.current[index] === 0) continue;
 
-      if (element.heatRate === 0 || !isMouseDownRef.current) {
-        if (element.temperature === 0) {
-          continue;
-        }
-
-        if (element.temperature <= MIN_GLOWING_TEMPERATURE) {
-          const decrease = 0.2;
-          const delta = (-decrease / fpsDataRef.current.fpsCoef);
-          element.temperature = Math.max(MIN_TEMPERATURE, (element.temperature + delta));
-          continue;
-        }
-
-        const glowingCoef = ((element.temperature - MIN_GLOWING_TEMPERATURE) / GLOWING_RANGE);
-        const decrease = (0.2 + glowingCoef);
-        const delta = (-decrease / fpsDataRef.current.fpsCoef);
-
-        element.temperature = Math.max(MIN_TEMPERATURE, (element.temperature + delta));
-
-        const metalColor = getMetalColor(element.temperature, element.type);
-        element.style.backgroundColor = metalColor;
-
-        if (element.temperature > MIN_GLOWING_TEMPERATURE) {
-          element.style.boxShadow = `0 0 ${~~(glowingCoef * 10)}px ${metalColor}`;
-          element.style.zIndex = 1;
-        } else {
-          element.style.boxShadow = 'none';
-          element.style.zIndex = 0;
-        }
-
-        continue;
-      }
-
-      const glowingCoef = element.temperature > MIN_GLOWING_TEMPERATURE
-        ? ((element.temperature - MIN_GLOWING_TEMPERATURE) / GLOWING_RANGE)
-        : 0;
-      const increase = (isMouseDownRef.current ? (3 + 15 * (1 - glowingCoef)) * element.heatRate : 0);
-      const decrease = (0.2 + glowingCoef);
-      const delta = ((increase - decrease) / fpsDataRef.current.fpsCoef);
-
-      element.temperature = clamp(element.temperature + delta, MIN_TEMPERATURE, MAX_TEMPERATURE);
-      const metalColor = getMetalColor(element.temperature, element.type);
+      const metalColor = getMetalColor(temperatureArrayRef.current[index], element.type);
 
       element.style.backgroundColor = metalColor;
 
-      if (element.temperature > MIN_GLOWING_TEMPERATURE) {
-        element.style.boxShadow = `0 0 ${~~(glowingCoef * 10)}px ${metalColor}`;
+      if (temperatureArrayRef.current[index] > MIN_GLOWING_TEMPERATURE) {
+        element.style.boxShadow = `0 0 ${glowingRangeArrayRef.current[index]}px ${metalColor}`;
+        element.style.zIndex = 2;
+      } else {
+        element.style.boxShadow = 'none';
         element.style.zIndex = 1;
       }
 
-      if (element.temperature >= MIN_LIQUID_TEMPERATURE) {
-        element.isLiquid = true;
-        element.style.transform = getTransformTranslate(~~(viewSizeRef.current.width / 20), viewSizeRef.current.height);
-        element.style.zIndex = 2;
+      if (temperatureArrayRef.current[index] >= MIN_LIQUID_TEMPERATURE) {
+        isLiquidArrayRef.current[index] = 1;
+        element.style.transform = getTransformTranslate(viewWidthRef.current >> 5, viewHeightRef.current);
+        element.style.zIndex = 3;
         element.disapearTimeout = setTimeout(() => element.style.display = 'none', 1000);
       }
     }
   }, []);
 
-  useAnimationCycle(animatePieces, true);
+  const [runPiecesAnimationCycle] = useAnimationCycle(animatePieces);
+  const [runBrushDataAnimation] = useAnimationCycle(animateBrushData);
+
+  const handleIntersection = useCallback(({ target, isIntersecting }) => {
+    isIntersectingArrayRef.current[target.index] = Boolean(isIntersecting);
+  }, []);
 
   const processNewElement = useCallback((element, index) => {
+    element.className = 'melting-metal-canvas_piece';
+    element.index = index;
     element.type = (index % ELEMENT_TYPES_COUNT);
-    element.isLiquid = false;
-    element.temperature = 0;
-    element.heatRate = 0;
-    element.style.backgroundColor = getMetalColor(element.temperature, element.type);
+    isLiquidArrayRef.current[index] = 0;
+    isIntersectingArrayRef.current[index] = 0;
+    temperatureArrayRef.current[index] = 0;
+    glowingRangeArrayRef.current[index] = 0;
+    heatRateArrayRef.current[index] = 0;
+    isPiecePresentArrayRef.current[index] = 1;
+    element.style.backgroundColor = getMetalColor(temperatureArrayRef.current[index], element.type);
     element.disapearTimeout = null;
 
     observe(element, handleIntersection);
-  }, [observe]);
+  }, [observe, handleIntersection]);
 
   const processStaleElement = useCallback((element, index) => {
-    element.type = (index % ELEMENT_TYPES_COUNT);
+    isPiecePresentArrayRef.current[index] = 1;
   }, []);
 
-  const processOldElement = useCallback((element) => {
+  const processOldElement = useCallback((element, index) => {
+    isPiecePresentArrayRef.current[index] = 0;
     clearTimeout(element.disapearTimeout);
 
     unobserve(element, handleIntersection);
-  }, [unobserve]);
+  }, [unobserve, handleIntersection]);
 
-  const cols = useMemo(() => {
-    const { width, height } = viewSize;
+  const appendPiecesToElement = useCallback(() => {
+    const fragment = document.createDocumentFragment();
 
-    const approximateElementWidth = Math.sqrt((width * height) / APPROXIMATE_PIECES_COUNT);
+    for (const element of piecesHashTableRef.current) {
+      fragment.appendChild(element);
+    }
 
-    const colsCount = Math.floor(width / approximateElementWidth);
-    const rowsCount = (Math.floor(height / approximateElementWidth) - Math.floor(height / approximateElementWidth) % ELEMENT_TYPES_COUNT + 1);
-    const colWidth = (width / colsCount);
-    const rowHeight = (height / rowsCount);
+    elementRef.current.innerHTML = '';
+    elementRef.current.appendChild(fragment);
+  }, []);
 
-    const cells = new Array(colsCount);
+  const updateElementSizeAndPosition = useCallback((element, index, width, height, left, top) => {
+    element.style.width = `${width}px`;
+    element.style.height = `${height}px`;
+    element.style.left = `${left}px`;
+    element.style.top = `${top}px`;
+
+    offsetWidthArrayRef.current[index] = width;
+    offsetHeightArrayRef.current[index] = height;
+    offsetLeftArrayRef.current[index] = left;
+    offsetTopArrayRef.current[index] = top;
+  }, []);
+
+  const updateSharedArrays = useCallback(() => {
+    const length = piecesHashTableRef.current.length;
+
+    isPiecePresentArrayRef.current = getSharableTypedArray(Uint8Array, length);
+    offsetTopArrayRef.current = getSharableTypedArray(Uint16Array, length);
+    offsetLeftArrayRef.current = getSharableTypedArray(Uint16Array, length);
+    offsetWidthArrayRef.current = getSharableTypedArray(Uint16Array, length);
+    offsetHeightArrayRef.current = getSharableTypedArray(Uint16Array, length);
+    isLiquidArrayRef.current = getSharableTypedArray(Uint8Array, length, isLiquidArrayRef.current);
+    isIntersectingArrayRef.current = getSharableTypedArray(Uint8Array, length, isIntersectingArrayRef.current);
+    temperatureArrayRef.current = getSharableTypedArray(Float32Array, length, temperatureArrayRef.current);
+    glowingRangeArrayRef.current = getSharableTypedArray(Uint8Array, length, glowingRangeArrayRef.current);
+    heatRateArrayRef.current = getSharableTypedArray(Float32Array, length, heatRateArrayRef.current);
+  }, []);
+
+  const updateWorkersData = useCallback(() => {
+    const workersCount = ~~((navigator.hardwareConcurrency - 1) / 2);
+    const piecesCountPerWorker = (piecesHashTableRef.current.length / workersCount);
+
+    let offset = 0;
+
+    for (const [index, worker] of temperatureWorkersRef.current.entries()) {
+      worker.postMessage({ name: 'setRangeStart', data: Math.round(offset) });
+      worker.postMessage({ name: 'setRangeEnd', data: Math.round(offset + piecesCountPerWorker) });
+      worker.postMessage({ name: 'setIsPiecePresentArray', data: isPiecePresentArrayRef.current });
+      worker.postMessage({ name: 'setTemperatureArray', data: temperatureArrayRef.current });
+      worker.postMessage({ name: 'setGlowingRangeArray', data: glowingRangeArrayRef.current });
+      worker.postMessage({ name: 'setHeatRateArray', data: heatRateArrayRef.current });
+      worker.postMessage({ name: 'setIsLiquidArray', data: isLiquidArrayRef.current });
+
+      offset += index !== temperatureWorkersRef.current.length - 1
+        ? piecesCountPerWorker + 1
+        : piecesCountPerWorker;
+    }
+
+    offset = 0;
+
+    for (const [index, worker] of heatRateWorkersRef.current.entries()) {
+      worker.postMessage({ name: 'setBrushData', data: brushDataRef.current });
+      worker.postMessage({ name: 'setRangeStart', data: Math.round(offset) });
+      worker.postMessage({ name: 'setRangeEnd', data: Math.round(offset + piecesCountPerWorker) });
+      worker.postMessage({ name: 'setHeatRateArray', data: heatRateArrayRef.current });
+      worker.postMessage({ name: 'setIsPiecePresentArray', data: isPiecePresentArrayRef.current });
+      worker.postMessage({ name: 'setIsLiquidArray', data: isLiquidArrayRef.current });
+      worker.postMessage({ name: 'setIsIntersectingArray', data: isIntersectingArrayRef.current });
+      worker.postMessage({ name: 'setOffsetTopArray', data: offsetTopArrayRef.current });
+      worker.postMessage({ name: 'setOffsetLeftArray', data: offsetLeftArrayRef.current });
+      worker.postMessage({ name: 'setOffsetWidthArray', data: offsetWidthArrayRef.current });
+      worker.postMessage({ name: 'setOffsetHeightArray', data: offsetHeightArrayRef.current });
+
+      offset += index !== temperatureWorkersRef.current.length - 1
+        ? piecesCountPerWorker + 1
+        : piecesCountPerWorker;
+    }
+  }, []);
+
+  useLayoutEffect(() => {
+    const {
+      colsCount,
+      rowsCount,
+      colWidth,
+      rowHeight,
+    } = calculatePiecesData(viewWidth, viewHeight);
+
+    const oldColsCount = piecesHashTableRef.current.colsCount;
+    const oldRowsCount = piecesHashTableRef.current.rowsCount;
+    const unitedRangeColsCount = Math.max(colsCount, oldColsCount);
+    const unitedRangeRowsCount = Math.max(rowsCount, oldRowsCount);
+
+    piecesHashTableRef.current.length = (Math.max(colsCount, rowsCount) ** 2);
+    piecesHashTableRef.current.colsCount = colsCount;
+    piecesHashTableRef.current.rowsCount = rowsCount;
+
+    updateSharedArrays();
+    updateWorkersData();
+
     let offsetX = 0;
-    let roundedOffsetX = 0;
 
-    for (let colIndex = 0; colIndex <= colsCount - 1; colIndex++) {
+    for (let colIndex = 0; colIndex <= unitedRangeColsCount - 1; colIndex++) {
       let offsetY = 0;
-      let roundedOffsetY = 0;
-      cells[colIndex] = new Array(rowsCount);
 
-      for (let rowIndex = 0; rowIndex <= rowsCount - 1; rowIndex++) {
-        cells[colIndex][rowIndex] = {
-          width: (Math.round(offsetX + colWidth) - roundedOffsetX),
-          height: (Math.round(offsetY + rowHeight) - roundedOffsetY),
-          left: roundedOffsetX,
-          top: roundedOffsetY,
-        };
+      for (let rowIndex = 0; rowIndex <= unitedRangeRowsCount - 1; rowIndex++) {
+        const index = toHash(colIndex, rowIndex);
+
+        if (rowIndex >= rowsCount || colIndex >= colsCount) {
+          const element = piecesHashTableRef.current.get(colIndex, rowIndex);
+
+          if (element) {
+            processOldElement(element, index);
+            piecesHashTableRef.current.delete(colIndex, rowIndex);
+          }
+        } else if (rowIndex < oldRowsCount && colIndex < oldColsCount) {
+          const element = piecesHashTableRef.current.get(colIndex, rowIndex);
+
+          if (element) {
+            const width = (Math.round(offsetX + colWidth) - Math.round(offsetX));
+            const height = (Math.round(offsetY + rowHeight) - Math.round(offsetY));
+
+            processStaleElement(element, index);
+            updateElementSizeAndPosition(element, index, width, height, Math.round(offsetX), Math.round(offsetY));
+          }
+        } else {
+          const element = document.createElement('div');
+
+          const width = (Math.round(offsetX + colWidth) - Math.round(offsetX));
+          const height = (Math.round(offsetY + rowHeight) - Math.round(offsetY));
+
+          processNewElement(element, index);
+          updateElementSizeAndPosition(element, index, width, height, Math.round(offsetX), Math.round(offsetY));
+          piecesHashTableRef.current.set(colIndex, rowIndex, element);
+        }
 
         offsetY += rowHeight;
-        roundedOffsetY = Math.round(offsetY);
       }
 
       offsetX += colWidth;
-      roundedOffsetX = Math.round(offsetX);
     }
 
-    return cells;
-  }, [viewSize]);
+    appendPiecesToElement();
+  }, [
+    viewWidth,
+    viewHeight,
+    processNewElement,
+    processOldElement,
+    processStaleElement,
+    appendPiecesToElement,
+    updateSharedArrays,
+    updateWorkersData,
+    updateElementSizeAndPosition,
+  ]);
 
-  useLayoutEffect(() => {
-    const piecesSet = new Set();
-    piecesSetRef.current = piecesSet;
+  useEffect(() => {
+    const workersCount = ~~((navigator.hardwareConcurrency - 1) / 2);
 
-    for (const element of elementRef.current.children) piecesSet.add(element);
+    for (let i = 0; i <= workersCount - 1; i++) {
+      temperatureWorkersRef.current.push(
+        new Worker(new URL('./temperature.worker.js', import.meta.url)),
+      );
+      heatRateWorkersRef.current.push(
+        new Worker(new URL('./heat-rate.worker.js', import.meta.url)),
+      );
+    }
+
+    updateWorkersData();
+
+    const temperatureWorkers = temperatureWorkersRef.current;
+    const heatRateWorkers = heatRateWorkersRef.current;
 
     return () => {
-      prevPiecesSetRef.current = piecesSet;
+      for (const worker of temperatureWorkers) worker.terminate();
+      for (const worker of heatRateWorkers) worker.terminate();
     };
-  }, [cols]);
+  }, [updateWorkersData]);
 
-  useLayoutEffect(() => {
-    let index = 0;
-
-    for (const element of piecesSetRef.current) {
-      if (!prevPiecesSetRef.current.has(element)) processNewElement(element, index++);
-      else processStaleElement(element, index++);
+  useEffect(() => {
+    for (const worker of heatRateWorkersRef.current) {
+      worker.postMessage({ name: 'setIsMouseDown', data: isMouseDown });
     }
+  }, [isMouseDown]);
 
-    for (const element of prevPiecesSetRef.current) {
-      if (!piecesSetRef.current.has(element)) processOldElement(element);
+  useEffect(() => {
+    runPiecesAnimationCycle();
+    runBrushDataAnimation();
+    for (const worker of temperatureWorkersRef.current) worker.postMessage({ name: 'run' });
+    for (const worker of heatRateWorkersRef.current) worker.postMessage({ name: 'run' });
+  }, [runPiecesAnimationCycle, runBrushDataAnimation]);
+
+  useEffect(() => () => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    for (const element of piecesHashTableRef.current) {
+      processOldElement(element, element.index);
     }
-  }, [processNewElement, processStaleElement, processOldElement, cols]);
-
-  useEffect(
-    () => () => { for (const element of piecesSetRef.current) processOldElement(element); },
-    [processOldElement],
-  );
+  }, [processOldElement]);
 
   return (
     <div
       ref={elementRef}
       className="intersection-observer-example melting-metal-canvas"
-    >
-      {cols.map((rows, colIndex) => rows.map((style, rowIndex) => (
-        <div
-          key={`${colIndex}_${rowIndex}`}
-          className="melting-metal-canvas_piece"
-          style={style}
-        />
-      )))}
-    </div>
+    />
   );
 });
 
