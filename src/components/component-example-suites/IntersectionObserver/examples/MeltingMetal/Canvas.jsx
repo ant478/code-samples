@@ -163,7 +163,9 @@ const Canvas = memo(({
   }, []);
 
   const updateWorkersData = useCallback(() => {
-    const workersCount = ~~((navigator.hardwareConcurrency - 1) / 2);
+    const workersCount = navigator.hardwareConcurrency
+      ? ~~((navigator.hardwareConcurrency - 1) / 2)
+      : 1;
     const piecesCountPerWorker = (piecesHashTableRef.current.length / workersCount);
 
     let offset = 0;
@@ -279,7 +281,9 @@ const Canvas = memo(({
   ]);
 
   useEffect(() => {
-    const workersCount = ~~((navigator.hardwareConcurrency - 1) / 2);
+    const workersCount = navigator.hardwareConcurrency
+      ? ~~((navigator.hardwareConcurrency - 1) / 2)
+      : 1;
 
     for (let i = 0; i <= workersCount - 1; i++) {
       temperatureWorkersRef.current.push(
