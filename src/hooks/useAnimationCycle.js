@@ -31,7 +31,9 @@ export default function useAnimationCycle(callback, isInitiallyActive = false) {
 
   useEffect(() => {
     if (isInitiallyActive) runAnimationCycle();
-  }, [runAnimationCycle, isInitiallyActive]);
+
+    return () => stopAnimationCycle();
+  }, [runAnimationCycle, stopAnimationCycle, isInitiallyActive]);
 
   return [runAnimationCycle, stopAnimationCycle];
 }

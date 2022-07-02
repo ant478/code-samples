@@ -22,7 +22,8 @@ const IntersectionCanvas = memo(({
   observerOptions = defaultObserverOptions,
 }) => {
   const [isMouseDown, setIsMouseDown] = useState(false);
-  const [viewSize, setViewSize] = useState(null);
+  const [viewWidth, setViewWidth] = useState(0);
+  const [viewHeight, setViewHeight] = useState(0);
   const [observerService, setObserverService] = useState(null);
 
   const viewRef = useRef(null);
@@ -87,11 +88,12 @@ const IntersectionCanvas = memo(({
     const { offsetWidth: width, offsetHeight: height } = viewRef.current;
     const [x, y] = getElementOffsets(viewRef.current, document.documentElement);
 
-    setViewSize({ width, height });
+    setViewWidth(width);
+    setViewHeight(height);
     viewOffsetRef.current = { x, y };
   }, []);
 
-  const handleResize = useCallback(debounce(updateDimensions, 300), [updateDimensions]);
+  const handleResize = useCallback(debounce(updateDimensions, 200), [updateDimensions]);
 
   useEffect(() => {
     const resizeObserver = new ResizeObserver(handleResize);
@@ -117,12 +119,13 @@ const IntersectionCanvas = memo(({
 
   const renderOptions = useMemo(() => ({
     isMouseDown,
-    viewSize,
+    viewWidth,
+    viewHeight,
     brushDriverElement: brushDriverRef.current,
     brushPosition: dataRef.current.brushPosition,
     observe,
     unobserve,
-  }), [observe, unobserve, viewSize, isMouseDown]);
+  }), [observe, unobserve, viewWidth, viewHeight, isMouseDown]);
 
   return (
     <div
@@ -135,12 +138,12 @@ const IntersectionCanvas = memo(({
         className="intersection-canvas_brush-driver"
         onMouseDown={handleMouseDown}
       >
-        {viewSize && (
+        {viewWidth && viewHeight && (
           <>
             <div
               style={{
-                width: viewSize.width,
-                height: viewSize.height,
+                width: viewWidth,
+                height: viewHeight,
               }}
               className="intersection-canvas_frame"
               ref={frameRef}

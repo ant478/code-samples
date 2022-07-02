@@ -6,7 +6,8 @@
     "node": true
   },
   "globals": {
-    "Benchmark": "readonly"
+    "Benchmark": "readonly",
+    "SharedArrayBuffer": "readonly"
   },
   "rules": {
     "no-plusplus": "off",
