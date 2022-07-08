@@ -1,14 +1,8 @@
 .app {
-  @include main-background;
-
   color: var(--primary-text-color);
   font: 16px/1.375 $font-family-primary;
   font-weight: 400;
   height: 100%;
-
-  &__theme-hue {
-    @include theme-hue;
-  }
 
   &_header {
     bottom: 100%;

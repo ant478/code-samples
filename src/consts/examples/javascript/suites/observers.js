@@ -4,7 +4,7 @@ import IntersectionObserver from 'src/components/component-example-suites/Inters
 export default [
   {
     id: 'intersection-observer',
-    title: 'Melting metal (IntersectionObserver, ResizeObserver)',
+    title: 'Melting metal (IntersectionObserver, ResizeObserver, WebWorkers, SharedArrayBuffer, HashTables)',
     type: SUITE_TYPES.component,
     component: IntersectionObserver,
     // TODO: add description

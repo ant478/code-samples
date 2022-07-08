@@ -16,6 +16,14 @@ body,
   height: 100%;
 }
 
+body {
+  @include main-background(true);
+
+  &.theme-hue {
+    @include theme-hue;
+  }
+}
+
 a {
   color: inherit;
   outline: none;

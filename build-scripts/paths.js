@@ -6,7 +6,8 @@ const pathResolve = (relativePath) => path.resolve(cwd, relativePath);
 
 module.exports = {
   indexHtml: pathResolve('src/index.html'),
-  mainEntry: pathResolve('src/index.jsx'),
+  mainEntry: pathResolve('src/main.jsx'),
+  initialEntry: pathResolve('src/initial.js'),
   rawCodeSamplesEntry: pathResolve('src/raw-code-samples/index.js'),
   output: pathResolve('build'),
   nodeModules: pathResolve('node_modules'),

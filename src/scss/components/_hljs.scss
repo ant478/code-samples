@@ -21,7 +21,7 @@
 
   &::before {
     background-color: var(--hljs-mask-color);
-    mask: url('~img/code-pattern.png') center top / auto repeat;
+    mask: url('src/img/code-pattern.png') center top / auto repeat;
     z-index: -2;
   }
 

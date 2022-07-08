@@ -14,7 +14,7 @@
   }
 
   &_sidebar {
-    @include highlighted-block('~img/code-pattern.png', center top);
+    @include highlighted-block('src/img/code-pattern.png', center top);
 
     bottom: calc(var(--footer-height) + 2em);
     position: fixed;

@@ -1,3 +1,14 @@
+<% const filesToInline = (htmlWebpackPlugin.options.templateParameters.filesToInline || []); %>
+<% const publicPath = htmlWebpackPlugin.files.publicPath; %>
+
+<% const jsFiles = htmlWebpackPlugin.files.js; %>
+<% const jsFilesToLoad = jsFiles.filter((file) => !filesToInline.some((regex) => regex.test(file))); %>
+<% const jsFilesToInline = jsFiles.filter((file) => filesToInline.some((regex) => regex.test(file))); %>
+
+<% const cssFiles = htmlWebpackPlugin.files.css; %>
+<% const cssFilesToLoad = cssFiles.filter((file) => !filesToInline.some((regex) => regex.test(file))); %>
+<% const cssFilesToInline = cssFiles.filter((file) => filesToInline.some((regex) => regex.test(file))); %>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,14 +19,21 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=block" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=block">
     <title>Code samples</title>
-    <% htmlWebpackPlugin.files.css.forEach((file) => { %>
-      <link href="<%= file %>" rel="stylesheet" />
+    <% cssFilesToInline.forEach((file) => { %>
+      <style><%= compilation.assets[file.substr(publicPath.length)].source() %></style>
     <% }); %>
   </head>
-  <body>
+  <body class="theme-hue">
     <div id="root"></div>
-    <% htmlWebpackPlugin.files.js.forEach((file) => { %>
-      <script src="<%= file %>"></script>
+
+    <% cssFilesToLoad.forEach((file) => { %>
+      <link href="<%= file %>" rel="stylesheet" />
+    <% }); %>
+    <% jsFilesToLoad.forEach((file) => { %>
+      <script defer src="<%= file %>"></script>
+    <% }); %>
+    <% jsFilesToInline.forEach((file) => { %>
+      <script><%= compilation.assets[file.substr(publicPath.length)].source() %></script>
     <% }); %>
   </body>
 </html>

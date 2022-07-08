@@ -30,6 +30,9 @@ module.exports = () => merge(
       'raw-code-samples': {
         import: paths.rawCodeSamplesEntry,
       },
+      initial: {
+        import: paths.initialEntry,
+      },
     },
     output: {
       filename: '[name].[contenthash].js',
@@ -80,10 +83,18 @@ module.exports = () => merge(
         },
         {
           test: /\.(jpeg|png|webp)$/,
-          type: 'asset/resource',
-          generator: {
-            filename: '[path][name].[contenthash].[ext]',
-          },
+          oneOf: [
+            {
+              resourceQuery: /inline/,
+              type: 'asset/inline',
+            },
+            {
+              type: 'asset/resource',
+              generator: {
+                filename: '[path][name].[contenthash].[ext]',
+              },
+            },
+          ],
         },
         {
           test: /\.svg$/,
@@ -111,14 +122,21 @@ module.exports = () => merge(
         ],
       }),
       new MiniCssExtractPlugin({
-        filename: 'main.[contenthash].css',
+        filename: '[name].[contenthash].css',
+        chunkFilename: '[name].[contenthash].css',
       }),
       new HtmlWebpackPlugin({
+        filename: 'index.html',
         template: paths.indexHtml,
         inject: false,
+        templateParameters: {
+          filesToInline: [/initial/],
+        },
       }),
     ],
     devServer: {
+      client: false,
+      webSocketServer: false,
       https: true,
       historyApiFallback: true,
       host: '0.0.0.0',

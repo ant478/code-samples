@@ -1,10 +1,4 @@
-@import 'reset-css';
-@import 'common/media';
-@import 'common/variables';
-@import 'common/functions';
-@import 'common/themes';
-@import 'common/mixins';
-@import 'common/default';
+@import 'common/index';
 @import 'components/**/*';
 @import 'intersection-observer-example/**/*';
 @import 'pages/**/*';

@@ -2,7 +2,7 @@
   "name": "code-samples",
   "version": "0.0.1",
   "description": "code-samples",
-  "main": "src/index.jsx",
+  "main": "src/main.jsx",
   "engines": {
     "node": "12.13.0",
     "npm": "6.12.0"
