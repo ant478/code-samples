@@ -287,10 +287,10 @@ const Canvas = memo(({
 
     for (let i = 0; i <= workersCount - 1; i++) {
       temperatureWorkersRef.current.push(
-        new Worker(new URL('./temperature.worker.js', import.meta.url)),
+        new Worker(new URL('./workers/temperature.worker.js', import.meta.url)),
       );
       heatRateWorkersRef.current.push(
-        new Worker(new URL('./heat-rate.worker.js', import.meta.url)),
+        new Worker(new URL('./workers/heat-rate.worker.js', import.meta.url)),
       );
     }
 

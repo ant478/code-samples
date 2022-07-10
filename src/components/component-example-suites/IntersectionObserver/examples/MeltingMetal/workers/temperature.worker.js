@@ -6,8 +6,8 @@ import {
   MAX_TEMPERATURE,
   MIN_GLOWING_TEMPERATURE,
   MIN_TEMPERATURE,
-} from './constants';
-import { isIndexInRange } from './helpers';
+} from '../constants';
+import { isIndexInRange } from '../helpers';
 
 const ONE_SECOND = 1000;
 const FPS_INTERVAL = ONE_SECOND / 10;

@@ -1,3 +1,3 @@
 .footer {
-  @include highlighted-block('src/img/code-pattern.png', center bottom);
+  @include highlighted-block(var(--code-paterrn-url), center bottom);
 }

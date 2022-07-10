@@ -14,26 +14,37 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=block" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=block">
-    <title>Code samples</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <% jsFilesToInline.forEach((file) => { %>
+      <script><%= compilation.assets[file.substr(publicPath.length)].source() %></script>
+    <% }); %>
     <% cssFilesToInline.forEach((file) => { %>
       <style><%= compilation.assets[file.substr(publicPath.length)].source() %></style>
     <% }); %>
+
+    <% jsFilesToLoad.forEach((file) => { %>
+      <link rel="preload" href="<%= file %>" as="script">
+    <% }); %>
+    <% cssFilesToLoad.forEach((file) => { %>
+      <link rel="preload" href="<%= file %>" as="style">
+    <% }); %>
+
+    <title>Code samples</title>
   </head>
   <body class="theme-hue">
     <div id="root"></div>
 
+    <script>document.dispatchEvent(new Event('BodyLoadedCustomEvent'));</script>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=block" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=block" />
     <% cssFilesToLoad.forEach((file) => { %>
-      <link href="<%= file %>" rel="stylesheet" />
+      <link rel="stylesheet" href="<%= file %>" />
     <% }); %>
     <% jsFilesToLoad.forEach((file) => { %>
       <script defer src="<%= file %>"></script>
-    <% }); %>
-    <% jsFilesToInline.forEach((file) => { %>
-      <script><%= compilation.assets[file.substr(publicPath.length)].source() %></script>
     <% }); %>
   </body>
 </html>

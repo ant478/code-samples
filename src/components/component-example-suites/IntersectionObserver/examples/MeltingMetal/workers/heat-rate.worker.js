@@ -3,7 +3,7 @@
 import {
   getDistance,
   isIndexInRange,
-} from './helpers';
+} from '../helpers';
 
 let isMouseDown = false;
 let rangeStart;

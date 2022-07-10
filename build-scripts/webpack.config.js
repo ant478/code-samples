@@ -32,6 +32,7 @@ module.exports = () => merge(
       },
       initial: {
         import: paths.initialEntry,
+        runtime: false,
       },
     },
     output: {
@@ -40,6 +41,15 @@ module.exports = () => merge(
       path: paths.output,
     },
     optimization: {
+      splitChunks: {
+        cacheGroups: {
+          vendors: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendors',
+            chunks: 'all',
+          },
+        },
+      },
       runtimeChunk: 'single',
       concatenateModules: false,
       minimizer: [
@@ -91,7 +101,7 @@ module.exports = () => merge(
             {
               type: 'asset/resource',
               generator: {
-                filename: '[path][name].[contenthash].[ext]',
+                filename: '[path][name].[contenthash][ext]',
               },
             },
           ],

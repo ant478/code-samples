@@ -1,3 +1,46 @@
 @import 'reset-css';
 @import 'common/index';
-@import 'default';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+*::selection {
+  background-color: var(--selection-background-color);
+  color: var(--selection-text-color);
+  text-shadow: none;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  --main-paterrn-url: url('src/img/main-pattern.png?inline');
+
+  @include main-background;
+
+  &.theme-hue {
+    @include theme-hue(true);
+  }
+}
+
+a {
+  color: inherit;
+  outline: none;
+  text-decoration: inherit;
+}
+
+button {
+  background: none;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  outline: none;
+  padding: 0;
+}

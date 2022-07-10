@@ -1,8 +1,8 @@
-@mixin highlighted-block($maskImage: none, $maskPosition: center) {
+@mixin highlighted-block($maskImageUrl: none, $maskPosition: center) {
   background-color: var(--highlighted-block-background-color);
   border-radius: 3px;
 
-  @if ($maskImage == none) {
+  @if ($maskImageUrl == none) {
     box-shadow:
       var(--highlighted-block-shadow-inset),
       var(--highlighted-block-shadow);
@@ -23,7 +23,7 @@
 
     &::before {
       background-color: var(--highlighted-block-mask-color);
-      mask: url($maskImage) $maskPosition / auto repeat;
+      mask: $maskImageUrl $maskPosition / auto repeat;
       z-index: -2;
     }
 
@@ -110,7 +110,7 @@
   }
 }
 
-@mixin main-background($inline: false) {
+@mixin main-background() {
   background-color: var(--app-background-color);
   position: relative;
   z-index: 1;
@@ -120,7 +120,7 @@
 
     background-color: var(--app-mask-background-color);
     content: '';
-    mask: url('src/img/main-pattern.png#{if($inline,'?inline','')}') center top / auto repeat;
+    mask: var(--main-paterrn-url) center top / auto repeat;
     pointer-events: none;
     z-index: -1;
   }

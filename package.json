@@ -7,6 +7,10 @@
     "node": "12.13.0",
     "npm": "6.12.0"
   },
+  "sideEffects": [
+    "**/*.scss",
+    "./vendor/benchmark.js"
+  ],
   "scripts": {
     "start": "node ./scripts/server.js",
     "serve": "npm run serve:dev",
@@ -15,6 +19,8 @@
     "build": "npm run build:prod",
     "build:dev": "node_modules/.bin/cross-env NODE_ENV=development webpack --config=build-scripts/webpack.config.js",
     "build:prod": "node_modules/.bin/cross-env NODE_ENV=production webpack --config=build-scripts/webpack.config.js",
+    "build:bundle-stats": "node_modules/.bin/cross-env NODE_ENV=production webpack --profile --json=stats/bundle.json --config=build-scripts/webpack.config.js",
+    "analyze:bundle": "npm run build:prod && npm run build:bundle-stats && webpack-bundle-analyzer stats/bundle.json build/",
     "lint": "eslint --ext .js,.jsx src/ build-scripts/ babel.config.js",
     "lint:fix": "eslint --ext .js,.jsx src/ build-scripts/ babel.config.js --fix",
     "stylelint": "stylelint src/**/*.{css,scss}",
@@ -81,7 +87,8 @@
     "stylelint-config-standard": "22.0.0",
     "terser-webpack-plugin": "5.2.5",
     "webpack": "5.72.0",
-    "webpack-cli": "4.9.2",
+    "webpack-bundle-analyzer": "4.5.0",
+    "webpack-cli": "4.10.0",
     "webpack-dev-server": "4.1.1",
     "webpack-merge": "5.8.0"
   }

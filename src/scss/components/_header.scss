@@ -1,5 +1,5 @@
 .header {
-  @include highlighted-block('src/img/code-pattern.png', center top);
+  @include highlighted-block(var(--code-paterrn-url), center top);
 
   display: flex;
   flex-direction: column;
