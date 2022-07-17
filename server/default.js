@@ -1,12 +1,11 @@
+const fs = require('fs');
 const path = require('path');
 const express = require('express');
-const sslRedirect = require('heroku-ssl-redirect').default;
+const https = require('https');
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = 4780;
 const publicPath = path.join(__dirname, '..', 'build');
-
-app.use(sslRedirect());
 
 app.use((req, res, next) => {
   res.header('Cross-Origin-Embedder-Policy', 'require-corp');
@@ -20,6 +19,13 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(publicPath, 'index.html'));
 });
 
-app.listen(port, () => {
+const privateKey = fs.readFileSync('sslcert/key.pem', 'utf8');
+const certificate = fs.readFileSync('sslcert/cert.pem', 'utf8');
+const credentials = { key: privateKey, cert: certificate };
+
+const httpsServer = https.createServer(credentials, app);
+
+httpsServer.listen(port, () => {
+  // eslint-disable-next-line no-console
   console.log(`Server is up on port ${port}!`);
 });

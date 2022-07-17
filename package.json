@@ -12,7 +12,10 @@
     "./vendor/benchmark.js"
   ],
   "scripts": {
-    "start": "node ./scripts/server.js",
+    "start": "npm run start:heroku",
+    "start:dev": "node_modules/.bin/cross-env NODE_ENV=development node server/default.js",
+    "start:prod": "node_modules/.bin/cross-env NODE_ENV=production node server/default.js",
+    "start:heroku": "node ./server/heroku.js",
     "serve": "npm run serve:dev",
     "serve:dev": "node_modules/.bin/cross-env NODE_ENV=development webpack serve --config=build-scripts/webpack.config.js",
     "serve:prod": "node_modules/.bin/cross-env NODE_ENV=production webpack serve --config=build-scripts/webpack.config.js",
@@ -21,8 +24,8 @@
     "build:prod": "node_modules/.bin/cross-env NODE_ENV=production webpack --config=build-scripts/webpack.config.js",
     "build:bundle-stats": "node_modules/.bin/cross-env NODE_ENV=production webpack --profile --json=stats/bundle.json --config=build-scripts/webpack.config.js",
     "analyze:bundle": "npm run build:prod && npm run build:bundle-stats && webpack-bundle-analyzer stats/bundle.json build/",
-    "lint": "eslint --ext .js,.jsx src/ build-scripts/ babel.config.js",
-    "lint:fix": "eslint --ext .js,.jsx src/ build-scripts/ babel.config.js --fix",
+    "lint": "eslint --ext .js,.jsx src/ build-scripts/ server/ babel.config.js",
+    "lint:fix": "eslint --ext .js,.jsx src/ build-scripts/ server/ babel.config.js --fix",
     "stylelint": "stylelint src/**/*.{css,scss}",
     "stylelint:fix": "stylelint src/**/*.{css,scss} --fix"
   },
