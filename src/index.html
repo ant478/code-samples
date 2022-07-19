@@ -1,13 +1,26 @@
-<% const filesToInline = (htmlWebpackPlugin.options.templateParameters.filesToInline || []); %>
-<% const publicPath = htmlWebpackPlugin.files.publicPath; %>
+<% const inlinePatterns = (htmlWebpackPlugin.options.templateParameters.inlinePatterns || []); %>
+<% const loadPatterns = (htmlWebpackPlugin.options.templateParameters.loadPatterns || []); %>
+<% const workersPatterns = (htmlWebpackPlugin.options.templateParameters.workersPatterns || {}); %>
 
-<% const jsFiles = htmlWebpackPlugin.files.js; %>
-<% const jsFilesToLoad = jsFiles.filter((file) => !filesToInline.some((regex) => regex.test(file))); %>
-<% const jsFilesToInline = jsFiles.filter((file) => filesToInline.some((regex) => regex.test(file))); %>
+<% const publicPath = htmlWebpackPlugin.files.publicPath; %>
+<% const getFileSource = (file) => compilation.assets[file.substr(publicPath.length)].source(); %>
+
+<% const jsFiles = Array.from(htmlWebpackPlugin.files.js); %>
+<% const jsFilesToLoad = jsFiles.filter((file) => loadPatterns.some((regex) => regex.test(file))); %>
+<% const jsFilesToInline = jsFiles.filter((file) => inlinePatterns.some((regex) => regex.test(file))); %>
+
+<% const workers = {}; %>
+<% Object.keys(workersPatterns).forEach((key) => {                           %>
+<%   const file = jsFiles.find((file) => workersPatterns[key].test(file));   %>
+<%                                                                           %>
+<%   if (file) {                                                             %>
+<%     workers[key] = file;                                                  %>
+<%   }                                                                       %>
+<% });                                                                       %>
 
 <% const cssFiles = htmlWebpackPlugin.files.css; %>
-<% const cssFilesToLoad = cssFiles.filter((file) => !filesToInline.some((regex) => regex.test(file))); %>
-<% const cssFilesToInline = cssFiles.filter((file) => filesToInline.some((regex) => regex.test(file))); %>
+<% const cssFilesToLoad = cssFiles.filter((file) => loadPatterns.some((regex) => regex.test(file))); %>
+<% const cssFilesToInline = cssFiles.filter((file) => inlinePatterns.some((regex) => regex.test(file))); %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -18,10 +31,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <% jsFilesToInline.forEach((file) => { %>
-      <script><%= compilation.assets[file.substr(publicPath.length)].source() %></script>
+      <script><%= getFileSource(file) %></script>
     <% }); %>
     <% cssFilesToInline.forEach((file) => { %>
-      <style><%= compilation.assets[file.substr(publicPath.length)].source() %></style>
+      <style><%= getFileSource(file) %></style>
     <% }); %>
 
     <% jsFilesToLoad.forEach((file) => { %>
@@ -36,7 +49,10 @@
   <body class="theme-hue">
     <div id="root"></div>
 
-    <script>document.dispatchEvent(new Event('BodyLoadedCustomEvent'));</script>
+    <script>
+      window.workers = <%= JSON.stringify(workers) %>;
+      document.dispatchEvent(new Event('BodyLoadedCustomEvent'));
+    </script>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=block" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=block" />

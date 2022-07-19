@@ -19,6 +19,7 @@ import {
   getMetalColor,
   calculatePiecesData,
   getSharableTypedArray,
+  getWorkerBlobUrl,
 } from './helpers';
 
 const Canvas = memo(({
@@ -281,25 +282,41 @@ const Canvas = memo(({
   ]);
 
   useEffect(() => {
-    const workersCount = navigator.hardwareConcurrency
-      ? ~~((navigator.hardwareConcurrency - 1) / 2)
-      : 1;
+    let isTerminated = false;
 
-    for (let i = 0; i <= workersCount - 1; i++) {
-      temperatureWorkersRef.current.push(
-        new Worker(new URL('./workers/temperature.worker.js', import.meta.url)),
-      );
-      heatRateWorkersRef.current.push(
-        new Worker(new URL('./workers/heat-rate.worker.js', import.meta.url)),
-      );
+    async function createWorkers() {
+      const [
+        temperatureWorkerUrl,
+        heatRateWorkerUrl,
+      ] = await Promise.all([
+        getWorkerBlobUrl(window.workers['temperature-worker']),
+        getWorkerBlobUrl(window.workers['heat-rate-worker']),
+      ]);
+
+      const workersCount = navigator.hardwareConcurrency
+        ? ~~((navigator.hardwareConcurrency - 1) / 2)
+        : 1;
+
+      if (isTerminated) return;
+
+      for (let i = 0; i <= workersCount - 1; i++) {
+        temperatureWorkersRef.current.push(new Worker(temperatureWorkerUrl));
+        heatRateWorkersRef.current.push(new Worker(heatRateWorkerUrl));
+      }
+
+      updateWorkersData();
+
+      for (const worker of temperatureWorkersRef.current) worker.postMessage({ name: 'run' });
+      for (const worker of heatRateWorkersRef.current) worker.postMessage({ name: 'run' });
     }
 
-    updateWorkersData();
+    createWorkers();
 
     const temperatureWorkers = temperatureWorkersRef.current;
     const heatRateWorkers = heatRateWorkersRef.current;
 
     return () => {
+      isTerminated = true;
       for (const worker of temperatureWorkers) worker.terminate();
       for (const worker of heatRateWorkers) worker.terminate();
     };
@@ -314,8 +331,6 @@ const Canvas = memo(({
   useEffect(() => {
     runPiecesAnimationCycle();
     runBrushDataAnimation();
-    for (const worker of temperatureWorkersRef.current) worker.postMessage({ name: 'run' });
-    for (const worker of heatRateWorkersRef.current) worker.postMessage({ name: 'run' });
   }, [runPiecesAnimationCycle, runBrushDataAnimation]);
 
   useEffect(() => () => {

@@ -4,8 +4,9 @@ const { merge } = require('webpack-merge');
 const globImporter = require('node-sass-glob-importer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-
+const devServerConfig = require('./dev-server');
 const paths = require('./paths');
+const { getWorkerEntries } = require('./helpers');
 
 let localWebpackConfig;
 
@@ -16,6 +17,9 @@ try {
 }
 
 const isDevelopment = process.env.NODE_ENV === 'development';
+
+const workerEntries = getWorkerEntries();
+const workerNames = Object.keys(workerEntries);
 
 module.exports = () => merge(
   {
@@ -34,9 +38,16 @@ module.exports = () => merge(
         import: paths.initialEntry,
         runtime: false,
       },
+      ...workerEntries,
     },
     output: {
-      filename: '[name].[contenthash].js',
+      filename: ({ chunk: { name } }) => {
+        if (workerNames.includes(name)) {
+          return 'workers/[name].[contenthash].js';
+        }
+
+        return '[name].[contenthash].js';
+      },
       publicPath: paths.publicPath,
       path: paths.output,
     },
@@ -46,11 +57,13 @@ module.exports = () => merge(
           vendors: {
             test: /[\\/]node_modules[\\/]/,
             name: 'vendors',
-            chunks: 'all',
+            chunks: ({ name }) => !workerNames.includes(name),
           },
         },
       },
-      runtimeChunk: 'single',
+      runtimeChunk: {
+        name: 'runtime',
+      },
       concatenateModules: false,
       minimizer: [
         new TerserPlugin({
@@ -140,28 +153,23 @@ module.exports = () => merge(
         template: paths.indexHtml,
         inject: false,
         templateParameters: {
-          filesToInline: [/initial/],
+          inlinePatterns: [
+            /initial/,
+          ],
+          loadPatterns: [
+            /main/,
+            /raw-code-samples/,
+            /runtime/,
+            /vendors/,
+          ],
+          workersPatterns: workerNames.reduce((acc, key) => ({
+            [key]: new RegExp(key),
+            ...acc,
+          }), {}),
         },
       }),
     ],
-    devServer: {
-      client: false,
-      webSocketServer: false,
-      https: true,
-      historyApiFallback: true,
-      host: '0.0.0.0',
-      port: 4780,
-      liveReload: false,
-      hot: false,
-      static: {
-        publicPath: paths.publicPath,
-        directory: paths.output,
-      },
-      headers: {
-        'Cross-Origin-Embedder-Policy': 'require-corp',
-        'Cross-Origin-Opener-Policy': 'same-origin',
-      },
-    },
   },
+  devServerConfig,
   localWebpackConfig,
 );

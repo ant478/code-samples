@@ -83,6 +83,6 @@ self.onmessage = function onmessage({ data: { name, data } }) {
       isMouseDown = data;
       break;
     default:
-      throw new Error(`temperature-worker: unknown event "${name}"`);
+      throw new Error(`heat-rate-worker: unknown event "${name}"`);
   }
 };

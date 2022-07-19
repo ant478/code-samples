@@ -1,8 +1,4 @@
-const path = require('path');
-
-const cwd = process.cwd();
-
-const pathResolve = (relativePath) => path.resolve(cwd, relativePath);
+const { pathResolve } = require('./helpers');
 
 module.exports = {
   indexHtml: pathResolve('src/index.html'),
