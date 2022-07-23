@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import Navigation from 'src/components/Navigation';
+import HueControl from 'src/components/HueControl';
 import { EXPANDED_HEIGHT } from 'src/hooks/useHeaderHeight';
 import { CATEGORIES } from 'src/consts/categories';
 
@@ -16,8 +17,10 @@ const Header = memo(() => (
     style={styles}
   >
     <Navigation
+      className="header_navigation-mix"
       links={NAVIGATION_LINKS}
     />
+    <HueControl className="header_theme-control-mix" />
   </header>
 ));
 

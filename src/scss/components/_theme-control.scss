@@ -1,0 +1,11 @@
+.theme-control {
+  &_sample {
+    @include control-block;
+
+    background-color: hsl-with-var(0, 100%, 12%) !important;
+    border-radius: 50% !important;
+    cursor: pointer;
+    height: 2.75em;
+    width: 2.75em;
+  }
+}

@@ -2,6 +2,14 @@
   @include highlighted-block(var(--code-paterrn-url), center top);
 
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: flex-end;
+
+  &_navigation-mix {
+    flex: 1;
+  }
+
+  &_theme-control-mix {
+    padding: 0.625em 1.5em;
+  }
 }

@@ -1,5 +1,4 @@
 @mixin theme-hue($initial: false) {
-  --hue: 340;
   --primary-text-color: #919191;
   --selection-text-color: #151515;
   --selection-background-color: var(--primary-text-color);
