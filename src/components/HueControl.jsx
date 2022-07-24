@@ -3,47 +3,63 @@ import React, {
   memo,
   useRef,
   useCallback,
+  useState,
+  useReducer,
 } from 'react';
 import { useWindowEventListener } from 'src/hooks/useEventListener';
 import {
   getHueValueFromLocalStorage,
   saveHueValueToLocalStorage,
 } from 'src/helpers/hue';
+import HueControlSlider from 'src/components/HueControlSlider';
 
-const HUE_DELTA = 3;
+const isControlVisibleReducer = (isVisible, newValue) => (newValue ?? !isVisible);
 
 const HueControl = memo(({
   className,
 }) => {
-  const isMouseDownRef = useRef(false);
+  const baseRef = useRef(null);
+  const [isControlVisible, toggleIsControlVisible] = useReducer(isControlVisibleReducer, false);
+  const [hueValue, setHueValue] = useState(getHueValueFromLocalStorage());
 
-  const handleMouseDown = useCallback(() => {
-    isMouseDownRef.current = true;
-  }, []);
-
-  const handleMouseUp = useCallback(() => {
-    isMouseDownRef.current = false;
-  }, []);
-
-  const handleWheel = useCallback((event) => {
-    if (!isMouseDownRef.current) return;
-
-    const delta = (event.deltaY > 0 ? HUE_DELTA : -HUE_DELTA);
-    const newValue = (getHueValueFromLocalStorage() + delta);
-
+  const handleControlChange = useCallback((newValue) => {
+    setHueValue(newValue);
     document.documentElement.style.setProperty('--hue', newValue);
     saveHueValueToLocalStorage(newValue);
   }, []);
 
-  useWindowEventListener('mouseup', handleMouseUp);
-  useWindowEventListener('wheel', handleWheel);
+  const handleControlClick = useCallback(() => {
+    toggleIsControlVisible();
+  }, []);
+
+  const handleWindowClick = useCallback(({ target }) => {
+    if (!baseRef.current) return;
+
+    const isInside = (target === baseRef.current || baseRef.current.contains(target));
+
+    if (!isInside) toggleIsControlVisible(false);
+  }, []);
+
+  useWindowEventListener('click', handleWindowClick);
 
   return (
     <div
-      onMouseDown={handleMouseDown}
-      className={cx('theme-control', className)}
+      ref={baseRef}
+      className={cx('hue-control', className)}
     >
-      <div className="theme-control_sample" />
+      {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+      <button
+        onClick={handleControlClick}
+        type="button"
+        className="hue-control_sample"
+      />
+      {isControlVisible && (
+        <HueControlSlider
+          className="hue-control_slider-mix"
+          value={hueValue}
+          onChange={handleControlChange}
+        />
+      )}
     </div>
   );
 });

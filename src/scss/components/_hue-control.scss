@@ -1,4 +1,6 @@
-.theme-control {
+.hue-control {
+  position: relative;
+
   &_sample {
     @include control-block;
 
@@ -7,5 +9,12 @@
     cursor: pointer;
     height: 2.75em;
     width: 2.75em;
+  }
+
+  &_slider-mix {
+    left: 50%;
+    position: absolute;
+    top: calc(100% + 1.5em);
+    transform: translateX(-50%);
   }
 }

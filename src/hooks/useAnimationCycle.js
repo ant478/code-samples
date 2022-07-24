@@ -1,5 +1,5 @@
 import {
-  useEffect,
+  useLayoutEffect,
   useRef,
   useCallback,
 } from 'react';
@@ -17,9 +17,7 @@ export default function useAnimationCycle(callback, isInitiallyActive = false) {
   }, []);
 
   const runAnimationCycle = useCallback(() => {
-    if (isActive.current) {
-      return;
-    }
+    if (isActive.current) return;
 
     isActive.current = true;
     requestAnimationFrame(cycle);
@@ -29,7 +27,7 @@ export default function useAnimationCycle(callback, isInitiallyActive = false) {
     isActive.current = false;
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (isInitiallyActive) runAnimationCycle();
 
     return () => stopAnimationCycle();
