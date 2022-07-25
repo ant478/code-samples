@@ -27,10 +27,12 @@ const HueControl = memo(({
 }) => {
   const baseRef = useRef(null);
   const [isControlVisible, toggleIsControlVisible] = useReducer(isControlVisibleReducer, false);
+  const isControlVisibleRef = useRef(isControlVisible);
   const [value, setValue] = useState(getHueValueFromLocalStorage());
   const valueRef = useRef(value);
 
   valueRef.current = value;
+  isControlVisibleRef.current = isControlVisible;
 
   const changeValue = useCallback((newValue) => {
     setValue(newValue);
@@ -43,6 +45,8 @@ const HueControl = memo(({
   }, [changeValue]);
 
   const handleKeyDown = useCallback(({ keyCode, ctrlKey }) => {
+    if (!isControlVisibleRef.current) return;
+
     if (keyCode === ESC_KEY_CODE) {
       toggleIsControlVisible(false);
       return;
@@ -62,6 +66,8 @@ const HueControl = memo(({
   }, [changeValue]);
 
   const handleWheel = useCallback(({ deltaY }) => {
+    if (!isControlVisibleRef.current) return;
+
     const delta = (deltaY > 0 ? HUE_DELTA : -HUE_DELTA);
     const newValue = validateHueValue(valueRef.current + delta);
 
