@@ -1,11 +1,13 @@
 const path = require('path');
 const express = require('express');
 const sslRedirect = require('heroku-ssl-redirect').default;
+const compression = require('compression');
 
 const app = express();
 const port = process.env.PORT || 3000;
 const publicPath = path.join(__dirname, '..', 'build');
 
+app.use(compression());
 app.use(sslRedirect());
 
 app.use((req, res, next) => {
@@ -14,7 +16,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.static(publicPath));
+app.use(express.static(publicPath, { maxAge: '1y' }));
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(publicPath, 'index.html'));

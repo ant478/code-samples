@@ -2,10 +2,13 @@ const fs = require('fs');
 const path = require('path');
 const express = require('express');
 const https = require('https');
+const compression = require('compression');
 
 const app = express();
 const port = 4780;
 const publicPath = path.join(__dirname, '..', 'build');
+
+app.use(compression());
 
 app.use((req, res, next) => {
   res.header('Cross-Origin-Embedder-Policy', 'require-corp');
@@ -13,7 +16,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.static(publicPath));
+app.use(express.static(publicPath, { maxAge: '1y' }));
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(publicPath, 'index.html'));
