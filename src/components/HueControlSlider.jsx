@@ -12,12 +12,12 @@ import useAnimationCycle from 'src/hooks/useAnimationCycle';
 import { getTransformTranslate } from 'src/helpers/css';
 import { validateHueValue } from 'src/helpers/hue';
 
-const WHEEL_DELTA = 5;
-
 const HueControlSlider = ({
   className,
   value = 0,
   onChange = noop,
+  onWheel = noop,
+  onKeyDown = noop,
 }) => {
   const controlRef = useRef(null);
   const sliderRef = useRef(null);
@@ -83,14 +83,17 @@ const HueControlSlider = ({
     stopDraggingAnimation();
   }, [stopDraggingAnimation]);
 
-  const handleWheel = useCallback(({ deltaY }) => {
+  const handleWheel = useCallback((event) => {
     if (isMouseDownRef.current) return;
 
-    const delta = (deltaY > 0 ? WHEEL_DELTA : -WHEEL_DELTA);
-    const newValue = validateHueValue(valueRef.current + delta);
+    onWheel(event);
+  }, [onWheel]);
 
-    onChange(newValue);
-  }, [onChange]);
+  const handleKeyDown = useCallback((event) => {
+    if (isMouseDownRef.current) return;
+
+    onKeyDown(event);
+  }, [onKeyDown]);
 
   useWindowEventListener('mousemove', handleWindowMouseMove);
   useWindowEventListener('mouseup', handleWindowMouseUp);
@@ -107,6 +110,7 @@ const HueControlSlider = ({
       >
         {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
         <button
+          onKeyDown={handleKeyDown}
           type="button"
           className="hue-control-slider_slider"
           ref={sliderRef}
