@@ -45,7 +45,11 @@ export const EXAMPLES = [
   {
     id: EXAMPLE_IDS.observers,
     title: 'Observers',
-    // description: ``,
+    description: `
+        GitHub:<br/><br/>
+        ${makeMarkdownLink('https://github.com/ant478/code-samples/blob/master/src/components/component-example-suites/IntersectionObserver/IntersectionObserver.jsx', 'IntersectionObserver')}<br/>
+        ${makeMarkdownLink('https://github.com/ant478/code-samples/tree/master/src/components/component-example-suites/IntersectionObserver/examples/MeltingMetal', 'MeltingMetal')}
+      `,
     suites: observersSuites,
   },
 ];
