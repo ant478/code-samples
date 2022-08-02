@@ -16,7 +16,16 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.static(publicPath, { maxAge: '1y' }));
+app.use(express.static(publicPath, {
+  setHeaders(res, filePath) {
+    if (filePath.endsWith('.html')) {
+      res.setHeader('Cache-Control', 'public, max-age=0');
+      return;
+    }
+
+    res.setHeader('Cache-Control', 'public, max-age=31536000');
+  },
+}));
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(publicPath, 'index.html'));
