@@ -21,6 +21,7 @@ const IntersectionObserver = memo(() => {
   return (
     <div>
       <ControlButton
+        title="Run"
         onClick={handleRunClick}
         icon="▶"
       >

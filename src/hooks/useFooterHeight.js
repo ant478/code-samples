@@ -3,7 +3,7 @@ import { appScrollbarService } from 'src/services/scroll';
 import useEventListener from 'src/hooks/useEventListener';
 
 export const COLLAPSED_HEIGHT = 0;
-export const EXPANDED_HEIGHT = 120;
+export const EXPANDED_HEIGHT = 44;
 export const EXPAND_DIFF = (EXPANDED_HEIGHT - COLLAPSED_HEIGHT);
 
 export default function useFooterHeight() {

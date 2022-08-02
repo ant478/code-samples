@@ -76,26 +76,29 @@
 }
 
 @mixin link-underline {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+
   &:focus {
-    text-decoration: underline;
+    text-decoration-color: currentColor;
   }
 
   @supports #{'\selector(*:focus-visible)'} {
     &:focus {
-      text-decoration: none;
+      text-decoration-color: transparent;
     }
 
     &:focus-visible {
-      text-decoration: underline;
+      text-decoration-color: currentColor;
     }
   }
 
   &:hover {
-    text-decoration: underline;
+    text-decoration-color: currentColor;
   }
 
   &:active {
-    text-decoration: underline;
+    text-decoration-color: currentColor;
   }
 }
 
@@ -132,4 +135,11 @@
   position: $position;
   right: $indent;
   top: $indent;
+}
+
+@mixin absolute-transform-centering {
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }

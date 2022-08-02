@@ -1,3 +1,42 @@
 .footer {
   @include highlighted-block(var(--code-paterrn-url), center bottom);
+
+  align-items: flex-start;
+  display: flex;
+  padding: 0.5em 1.5em;
+
+  &_row-section {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    margin-bottom: -0.75em;
+
+    &__left {
+      justify-content: flex-start;
+      margin-right: 1em;
+    }
+
+    &__right {
+      justify-content: flex-end;
+      margin-left: 1em;
+    }
+  }
+
+  &_link-cell {
+    margin-bottom: 0.75em;
+
+    &:not(:first-child) {
+      margin-left: 1em;
+    }
+  }
+
+  &_text {
+    font-size: 1.25em;
+    line-height: 1.4;
+  }
+
+  &_text-highlight {
+    color: var(--article-title-color);
+    font-weight: 700;
+  }
 }

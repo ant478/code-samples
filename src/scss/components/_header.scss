@@ -4,12 +4,48 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  padding: 0 1.5em;
+
+  &_logo-wrapper {
+    margin-right: 2.5em;
+    position: relative;
+    width: 2.375em;
+  }
+
+  &_logo-link {
+    height: 5em;
+    left: -0.75em;
+    position: absolute;
+    top: 0.25em;
+    width: 5em;
+  }
+
+  &_logo {
+    background-color: var(--highlighted-block-background-color);
+    border-radius: 50%;
+    box-shadow: var(--highlighted-block-shadow);
+    color: var(--header-logo-color);
+    height: 100%;
+    width: 100%;
+  }
+
+  &_title {
+    color: var(--header-title-color);
+    font-size: 2em;
+    font-weight: 700;
+    line-height: 1.9375;
+    text-shadow: var(--header-title--text-shadow);
+    white-space: nowrap;
+  }
 
   &_navigation-mix {
     flex: 1;
+    margin-left: 1.5em;
+    padding: 0.75em 0;
   }
 
-  &_theme-control-mix {
-    padding: 0.625em 1.5em;
+  &_hue-control-mix {
+    margin-left: 1.5em;
+    padding: 0.4375em 0;
   }
 }

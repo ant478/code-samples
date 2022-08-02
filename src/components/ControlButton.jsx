@@ -7,6 +7,7 @@ const ControlButton = memo(({
   className,
   children,
   onClick,
+  title = '',
 }) => {
   const classes = cx(
     className,
@@ -17,6 +18,7 @@ const ControlButton = memo(({
 
   return (
     <button
+      title={title}
       disabled={isDisabled}
       className={classes}
       type="button"

@@ -35,6 +35,7 @@ const FullscreenOverlay = memo(({
       <div className={cx(className, 'fullscreen-overlay')}>
         {children}
         <ControlButton
+          title="Close"
           className="fullscreen-overlay_close-mix"
           onClick={hide}
         >

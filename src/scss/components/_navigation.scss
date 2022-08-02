@@ -4,7 +4,9 @@
   }
 
   &_item {
-    padding: 0.75em 1em;
+    &:not(:first-child) {
+      margin-left: 1em;
+    }
   }
 
   &_item-link {
@@ -12,6 +14,11 @@
 
     display: block;
     padding: 0.5em;
+    transition:
+      color $transition-fast,
+      background-color $transition-fast,
+      box-shadow $transition-fast !important;
+    white-space: nowrap;
 
     &__active {
       color: var(--navigation-active-text-color);

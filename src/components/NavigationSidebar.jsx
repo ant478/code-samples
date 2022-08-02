@@ -75,6 +75,7 @@ const NavigationSidebar = memo(({
               className="navigation-sidebar_item"
             >
               <NavLink
+                title={title}
                 className="navigation-sidebar_item-link"
                 activeClassName="navigation-sidebar_item-link__active"
                 exact={exact}
@@ -90,6 +91,7 @@ const NavigationSidebar = memo(({
                     className="navigation-sidebar_sub-item"
                   >
                     <NavHashLink
+                      title={subTitle}
                       id={getLinkIdByHash(hash)}
                       className="navigation-sidebar_item-sub-link"
                       activeClassName="navigation-sidebar_item-sub-link__active"

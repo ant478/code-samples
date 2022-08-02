@@ -14,6 +14,7 @@ const Navigation = memo(({
           className="navigation_item"
         >
           <NavLink
+            title={title}
             exact={exact}
             className="navigation_item-link"
             activeClassName="navigation_item-link__active"

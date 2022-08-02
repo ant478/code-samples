@@ -3,6 +3,7 @@ import Navigation from 'src/components/Navigation';
 import HueControl from 'src/components/HueControl';
 import { EXPANDED_HEIGHT } from 'src/hooks/useHeaderHeight';
 import { CATEGORIES } from 'src/consts/categories';
+import Logo from 'src/img/logo/mask.svg?svgr';
 
 const styles = { height: `${EXPANDED_HEIGHT}px` };
 
@@ -16,11 +17,21 @@ const Header = memo(() => (
     className="header"
     style={styles}
   >
+    <div className="header_logo-wrapper">
+      <a
+        className="header_logo-link"
+        href="/"
+        title="ant478 Code Samples"
+      >
+        <Logo className="header_logo" />
+      </a>
+    </div>
+    <h1 className="header_title">Code Samples</h1>
     <Navigation
       className="header_navigation-mix"
       links={NAVIGATION_LINKS}
     />
-    <HueControl className="header_theme-control-mix" />
+    <HueControl className="header_hue-control-mix" />
   </header>
 ));
 

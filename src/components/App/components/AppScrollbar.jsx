@@ -10,13 +10,16 @@ import {
   EXPAND_DIFF as HEADER_EXPAND_DIFF,
   EXPANDED_HEIGHT as HEADER_EXPANDED_HEIGHT,
 } from 'src/hooks/useHeaderHeight';
-import { EXPANDED_HEIGHT as FOOTER_EXPANDED_HEIGHT } from 'src/hooks/useFooterHeight';
+import {
+  EXPAND_DIFF as FOOTER_EXPAND_DIFF,
+  EXPANDED_HEIGHT as FOOTER_EXPANDED_HEIGHT,
+} from 'src/hooks/useFooterHeight';
 
 const VIEW_ID = 'app-scrollbar-view';
 const appMainStyles = {
   paddingTop: `${HEADER_EXPANDED_HEIGHT}px`,
   paddingBottom: `${FOOTER_EXPANDED_HEIGHT}px`,
-  minHeight: `calc(100% + ${FOOTER_EXPANDED_HEIGHT + HEADER_EXPAND_DIFF}px)`,
+  minHeight: `calc(100% + ${FOOTER_EXPAND_DIFF + HEADER_EXPAND_DIFF}px)`,
 };
 
 const renderThumbVertical = (props) => (

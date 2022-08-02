@@ -93,6 +93,7 @@ const BenchmarkSuite = memo(({
       </ul>
       <div className="benchmark-suite_controls">
         <ControlButton
+          title="Run"
           isDisabled={isRunning}
           className="benchmark-suite_button-mix"
           onClick={handleRunClick}
@@ -101,6 +102,7 @@ const BenchmarkSuite = memo(({
           Run
         </ControlButton>
         <ControlButton
+          title="Clear"
           isDisabled={isRunning}
           className="benchmark-suite_button-mix"
           onClick={handleClearClick}

@@ -105,8 +105,20 @@ module.exports = () => merge(
           ],
         },
         {
-          test: /\.(jpeg|png|webp)$/,
+          test: /\.(jpeg|png|webp|svg)$/,
           oneOf: [
+            {
+              resourceQuery: /svgr/,
+              use: [
+                'babel-loader',
+                {
+                  loader: '@svgr/webpack',
+                  options: {
+                    babel: false,
+                  },
+                },
+              ],
+            },
             {
               resourceQuery: /inline/,
               type: 'asset/inline',
@@ -114,14 +126,17 @@ module.exports = () => merge(
             {
               type: 'asset/resource',
               generator: {
-                filename: '[path][name].[contenthash][ext]',
+                filename: 'images/[name].[contenthash][ext]',
               },
             },
           ],
         },
         {
-          test: /\.svg$/,
-          type: 'asset/inline',
+          test: /\.(woff|woff2)$/,
+          type: 'asset/resource',
+          generator: {
+            filename: 'fonts/[name].[contenthash][ext]',
+          },
         },
       ],
     },

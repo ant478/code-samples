@@ -19,6 +19,7 @@ import {
   ESC_KEY_CODE,
 } from 'src/consts/key-codes';
 import { HUE_DELTA } from 'src/consts/hue';
+import BrushIcon from 'src/img/brush.svg?svgr';
 
 const isControlVisibleReducer = (isVisible, newValue) => (newValue ?? !isVisible);
 
@@ -88,19 +89,26 @@ const HueControl = memo(({
 
   useWindowEventListener('click', handleWindowClick);
 
+  const classes = cx('hue-control', className, {
+    'hue-control__control-visible': isControlVisible,
+  });
+
   return (
     <div
       ref={baseRef}
-      className={cx('hue-control', className)}
+      className={classes}
     >
       {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
       <button
+        title="Change style"
         onClick={handleControlClick}
         type="button"
         className="hue-control_sample"
         onKeyDown={handleKeyDown}
         onWheel={handleWheel}
-      />
+      >
+        <BrushIcon className="hue-control_sample-icon" />
+      </button>
       {isControlVisible && (
         <HueControlSlider
           className="hue-control_slider-mix"
