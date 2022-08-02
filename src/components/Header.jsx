@@ -1,9 +1,11 @@
 import React, { memo } from 'react';
+import loadable from '@loadable/component';
 import Navigation from 'src/components/Navigation';
 import HueControl from 'src/components/HueControl';
 import { EXPANDED_HEIGHT } from 'src/hooks/useHeaderHeight';
 import { CATEGORIES } from 'src/consts/categories';
-import Logo from 'src/img/logo/mask.svg?svgr';
+
+const Logo = loadable(() => import(/* webpackChunkName: "svgr-common" */'src/img/logo/mask.svg?svgr'));
 
 const styles = { height: `${EXPANDED_HEIGHT}px` };
 

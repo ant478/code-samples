@@ -6,6 +6,7 @@ import React, {
   useState,
   useReducer,
 } from 'react';
+import loadable from '@loadable/component';
 import { useWindowEventListener } from 'src/hooks/useEventListener';
 import {
   getHueValueFromLocalStorage,
@@ -19,7 +20,8 @@ import {
   ESC_KEY_CODE,
 } from 'src/consts/key-codes';
 import { HUE_DELTA } from 'src/consts/hue';
-import BrushIcon from 'src/img/brush.svg?svgr';
+
+const BrushIcon = loadable(() => import(/* webpackChunkName: "svgr-common" */'src/img/brush.svg?svgr'));
 
 const isControlVisibleReducer = (isVisible, newValue) => (newValue ?? !isVisible);
 

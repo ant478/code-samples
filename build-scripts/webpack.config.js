@@ -50,6 +50,7 @@ module.exports = () => merge(
       },
       publicPath: paths.publicPath,
       path: paths.output,
+      chunkFilename: 'chunks/[name].[contenthash].js',
     },
     optimization: {
       splitChunks: {

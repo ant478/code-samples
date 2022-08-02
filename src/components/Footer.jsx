@@ -1,4 +1,5 @@
 import React, { memo } from 'react';
+import loadable from '@loadable/component';
 import { EXPANDED_HEIGHT } from 'src/hooks/useFooterHeight';
 import FooterLink from 'src/components/FooterLink';
 
@@ -6,43 +7,43 @@ const styles = { height: `${EXPANDED_HEIGHT}px` };
 
 const ICON_PROPS = {
   facebook: {
-    icon: require('src/img/social-icons/facebook.svg?svgr').default,
+    icon: loadable(() => import(/* webpackChunkName: "svgr-common" */'src/img/social-icons/facebook.svg?svgr')),
     href: 'https://www.facebook.com/ant478/',
     title: 'Facebook',
   },
   vk: {
-    icon: require('src/img/social-icons/vk.svg?svgr').default,
+    icon: loadable(() => import(/* webpackChunkName: "svgr-common" */'src/img/social-icons/vk.svg?svgr')),
     href: 'https://vk.com/ant478',
     title: 'VKontakte',
   },
   github: {
-    icon: require('src/img/social-icons/github.svg?svgr').default,
+    icon: loadable(() => import(/* webpackChunkName: "svgr-common" */'src/img/social-icons/github.svg?svgr')),
     href: 'https://github.com/ant478',
     title: 'GitHub',
   },
   linkedin: {
-    icon: require('src/img/social-icons/linkedin.svg?svgr').default,
+    icon: loadable(() => import(/* webpackChunkName: "svgr-common" */'src/img/social-icons/linkedin.svg?svgr')),
     href: 'https://www.linkedin.com/in/ant478/',
     title: 'LinkedIn',
   },
   telegram: {
-    icon: require('src/img/social-icons/telegram.svg?svgr').default,
+    icon: loadable(() => import(/* webpackChunkName: "svgr-common" */'src/img/social-icons/telegram.svg?svgr')),
     href: 'https://t.me/ant478',
     title: 'Telegram',
   },
   whatsapp: {
-    icon: require('src/img/social-icons/whatsapp.svg?svgr').default,
+    icon: loadable(() => import(/* webpackChunkName: "svgr-common" */'src/img/social-icons/whatsapp.svg?svgr')),
     href: 'https://wa.me/375447092034',
     title: 'WhatsApp',
   },
   email: {
-    icon: require('src/img/social-icons/email.svg?svgr').default,
+    icon: loadable(() => import(/* webpackChunkName: "svgr-common" */'src/img/social-icons/email.svg?svgr')),
     text: 'ant478@gmail.com',
     href: 'mailto:ant478@gmail.com',
     title: 'Email',
   },
   phone: {
-    icon: require('src/img/social-icons/phone.svg?svgr').default,
+    icon: loadable(() => import(/* webpackChunkName: "svgr-common" */'src/img/social-icons/phone.svg?svgr')),
     text: '+357 99 28-20-43',
     href: 'tel:+35799282043',
     title: 'Telephone',
