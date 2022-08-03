@@ -24,9 +24,17 @@
     background-color: var(--highlighted-block-background-color);
     border-radius: 50%;
     box-shadow: var(--highlighted-block-shadow);
-    color: var(--header-logo-color);
     height: 100%;
     width: 100%;
+
+    &::part(base) {
+      fill: var(--header-logo-color);
+    }
+
+    &::part(gear) {
+      animation: spin 60s linear infinite;
+      transform-origin: center;
+    }
   }
 
   &_title {

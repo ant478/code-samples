@@ -17,12 +17,19 @@ html,
 body,
 #root {
   height: 100%;
+  line-height: inherit;
+  overflow: hidden;
 }
 
-body {
+html {
   --main-paterrn-url: url('src/img/main-pattern.png?inline');
 
   @include main-background;
+
+  color: var(--primary-text-color);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.375;
 
   &.theme-hue {
     @include theme-hue(true);
@@ -43,4 +50,27 @@ button {
   font: inherit;
   outline: none;
   padding: 0;
+}
+
+ant478-logo.spinner {
+  @include full-size;
+
+  height: 15em;
+  margin: auto;
+  transform: scaleX(0);
+  transition: transform $transition-fast;
+  width: 15em;
+
+  &__displayed {
+    transform: scaleX(1);
+  }
+
+  &::part(base) {
+    fill: var(--spinner-color);
+  }
+
+  &::part(gear) {
+    animation: spin 9s linear infinite;
+    transform-origin: center;
+  }
 }

@@ -3,8 +3,10 @@
 @import 'intersection-observer-example/**/*';
 @import 'pages/**/*';
 
-body {
-  --code-paterrn-url: url('src/img/code-pattern.png?inline');
+html {
+  --code-paterrn-url: url('src/img/code-pattern.png');
+
+  font-family: $font-family-primary;
 
   &.theme-hue {
     @include theme-hue;

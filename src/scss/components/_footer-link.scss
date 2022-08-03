@@ -6,11 +6,14 @@
   transition: text-decoration-color $transition-fast;
   vertical-align: middle;
 
+  &_icon-wrapper {
+    height: 1.75em;
+    width: 1.75em;
+  }
+
   &_icon {
     color: var(--footer-link-color);
-    height: 1.75em;
     transition: color $transition-fast;
-    width: 1.75em;
 
     .footer-link:focus & {
       color: var(--footer-link-color-hover);

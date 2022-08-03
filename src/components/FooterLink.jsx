@@ -13,7 +13,9 @@ const FooterLink = memo(({
     rel="noreferrer"
     title={title}
   >
-    <Icon className="footer-link_icon" />
+    <div className="footer-link_icon-wrapper">
+      <Icon className="footer-link_icon" />
+    </div>
     {text && <span className="footer-link_text">{text}</span>}
   </a>
 ));
