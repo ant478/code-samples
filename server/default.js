@@ -23,6 +23,11 @@ app.use(express.static(publicPath, {
       return;
     }
 
+    if (filePath.includes('favicon')) {
+      res.setHeader('Cache-Control', 'public, max-age=86400');
+      return;
+    }
+
     res.setHeader('Cache-Control', 'public, max-age=31536000');
   },
 }));

@@ -73,6 +73,7 @@
     "babel-eslint": "10.1.0",
     "babel-loader": "8.2.2",
     "clean-webpack-plugin": "4.0.0",
+    "copy-webpack-plugin": "9.1.0",
     "css-loader": "6.2.0",
     "eslint": "7.2.0",
     "eslint-config-airbnb": "18.2.1",
@@ -97,6 +98,7 @@
     "webpack-bundle-analyzer": "4.5.0",
     "webpack-cli": "4.10.0",
     "webpack-dev-server": "4.1.1",
+    "webpack-exclude-entry": "1.0.1",
     "webpack-merge": "5.8.0"
   }
 }

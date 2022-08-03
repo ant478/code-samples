@@ -1,5 +1,7 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+const WebpackExcludeEntry = require('webpack-exclude-entry');
 const { merge } = require('webpack-merge');
 const globImporter = require('node-sass-glob-importer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -184,6 +186,12 @@ module.exports = () => merge(
           }), {}),
         },
       }),
+      new CopyPlugin({
+        patterns: [
+          { from: paths.public, to: paths.output },
+        ],
+      }),
+      new WebpackExcludeEntry([/initial/]),
     ],
   },
   devServerConfig,

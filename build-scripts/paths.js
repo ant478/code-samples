@@ -6,6 +6,7 @@ module.exports = {
   initialEntry: pathResolve('src/initial.js'),
   rawCodeSamplesEntry: pathResolve('src/raw-code-samples/index.js'),
   output: pathResolve('build'),
+  public: pathResolve('src/public'),
   nodeModules: pathResolve('node_modules'),
   benchmarkModule: pathResolve('node_modules/benchmark'),
   rawCodeSamplesFolder: pathResolve('src/raw-code-samples/'),
