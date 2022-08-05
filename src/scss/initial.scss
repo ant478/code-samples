@@ -55,6 +55,9 @@ button {
 ant478-logo.spinner {
   @include full-size;
 
+  background-color: var(--highlighted-block-background-color);
+  border-radius: 50%;
+  box-shadow: var(--highlighted-block-shadow);
   height: 15em;
   margin: auto;
   transform: scaleX(0);
