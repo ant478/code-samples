@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import Navigation from 'src/components/Navigation';
 import HueControl from 'src/components/HueControl';
+import HeaderScrollbar from 'src/components/HeaderScrollbar';
 import { EXPANDED_HEIGHT } from 'src/hooks/useHeaderHeight';
 import { CATEGORIES } from 'src/consts/categories';
 
@@ -16,20 +17,19 @@ const Header = memo(() => (
     className="header"
     style={styles}
   >
-    <div className="header_logo-wrapper">
-      <a
-        className="header_logo-link"
-        href="/"
-        title="ant478 Code Samples"
-      >
-        <ant478-logo class="header_logo" />
-      </a>
-    </div>
+    <a
+      className="header_logo-link"
+      href="/"
+      title="ant478 Code Samples"
+    >
+      <ant478-logo class="header_logo" />
+    </a>
     <h1 className="header_title">Code Samples</h1>
-    <Navigation
-      className="header_navigation-mix"
-      links={NAVIGATION_LINKS}
-    />
+    <HeaderScrollbar>
+      <div className="header_navigation">
+        <Navigation links={NAVIGATION_LINKS} />
+      </div>
+    </HeaderScrollbar>
     <HueControl className="header_hue-control-mix" />
   </header>
 ));

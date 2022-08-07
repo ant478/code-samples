@@ -43,7 +43,6 @@ const SidebarScrollbar = memo(({ children, ...props }) => {
 
   return (
     <Scrollbars
-      autoHide={false}
       renderView={renderView}
       renderThumbVertical={renderThumbVertical}
       renderTrackVertical={renderTrackVertical}

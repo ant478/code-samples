@@ -4,17 +4,12 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  padding: 0 1.5em;
-
-  &_logo-wrapper {
-    margin-right: 2.5em;
-    position: relative;
-    width: 2.375em;
-  }
+  padding-left: 6.375em;
+  padding-right: 1.5em;
 
   &_logo-link {
     height: 5em;
-    left: -0.75em;
+    left: 0.75em;
     position: absolute;
     top: 0.25em;
     width: 5em;
@@ -42,14 +37,37 @@
     font-size: 2em;
     font-weight: 700;
     line-height: 1.9375;
+    margin-right: 0.75em;
     text-shadow: var(--header-title--text-shadow);
     white-space: nowrap;
   }
 
-  &_navigation-mix {
-    flex: 1;
-    margin-left: 1.5em;
+  &_navigation {
     padding: 0.75em 0;
+  }
+
+  &_scrollbar-thumb-horizontal {
+    @include control-block('::after');
+
+    position: relative;
+
+    &::after {
+      bottom: 0;
+      content: '';
+      height: 6px;
+      left: 0;
+      margin: auto;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+
+  &_scrollbar-track-horizontal {
+    bottom: 0;
+    height: 0.75em !important;
+    left: 0;
+    right: 0;
   }
 
   &_hue-control-mix {
