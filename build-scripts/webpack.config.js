@@ -60,7 +60,8 @@ module.exports = () => merge(
           vendors: {
             test: /[\\/]node_modules[\\/]/,
             name: 'vendors',
-            chunks: ({ name }) => !workerNames.includes(name),
+            chunks: ({ name }) => !['initial', ...workerNames].includes(name),
+            enforce: true,
           },
         },
       },
@@ -79,6 +80,11 @@ module.exports = () => merge(
         paths.benchmarkModule,
       ],
       rules: [
+        isDevelopment && {
+          enforce: 'pre',
+          test: /\.js$/,
+          use: ['source-map-loader'],
+        },
         {
           test: /\.(js|jsx)$/,
           exclude: [paths.nodeModules, paths.rawCodeSamplesFolder],
@@ -141,7 +147,7 @@ module.exports = () => merge(
             filename: 'fonts/[name].[contenthash][ext]',
           },
         },
-      ],
+      ].filter(Boolean),
     },
     resolve: {
       extensions: ['.js', '.jsx'],

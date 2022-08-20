@@ -16,19 +16,13 @@
   }
 
   &_logo {
-    background-color: var(--highlighted-block-background-color);
-    border-radius: 50%;
-    box-shadow: var(--highlighted-block-shadow);
     height: 100%;
     width: 100%;
 
-    &::part(base) {
+    &::part(root) {
+      background-color: var(--highlighted-block-background-color);
+      box-shadow: var(--highlighted-block-shadow);
       fill: var(--header-logo-color);
-    }
-
-    &::part(gear) {
-      animation: spin 60s linear infinite;
-      transform-origin: center;
     }
   }
 

@@ -22,7 +22,7 @@ const Header = memo(() => (
       href="/"
       title="ant478 Code Samples"
     >
-      <ant478-logo class="header_logo" />
+      <ant478-logo wc-gear-spin-duration="60s" class="header_logo" />
     </a>
     <h1 className="header_title">Code Samples</h1>
     <HeaderScrollbar>
