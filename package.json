@@ -43,7 +43,7 @@
     "last 10 chrome version"
   ],
   "dependencies": {
-    "@ant478/web-components": "1.0.9",
+    "@ant478/web-components": "1.0.14",
     "@loadable/component": "5.15.2",
     "benchmark": "2.1.4",
     "classnames": "2.3.1",
