@@ -9,5 +9,15 @@
       --wc-selection-background-color: var(--selection-background-color );
       --wc-selection-text-color: var(--selection-text-color);
     }
+
+    &::part(link),
+    &::part(link_icon) {
+      transition-duration: 0.15s;
+      transition-timing-function: ease-out;
+
+      &:hover {
+        transition-duration: 0s;
+      }
+    }
   }
 }
