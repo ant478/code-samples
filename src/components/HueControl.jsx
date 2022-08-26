@@ -21,7 +21,7 @@ import {
 } from 'src/consts/key-codes';
 import { HUE_DELTA } from 'src/consts/hue';
 
-const BrushIcon = loadable(() => import(/* webpackChunkName: "svgr-common" */'src/img/brush.svg?svgr'));
+const BrushIcon = loadable(() => import(/* webpackChunkName: "secondary-components" */'src/img/brush.svg?svgr'));
 
 const isControlVisibleReducer = (isVisible, newValue) => (newValue ?? !isVisible);
 

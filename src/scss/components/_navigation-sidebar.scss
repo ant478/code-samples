@@ -20,9 +20,13 @@
     @include control-block;
 
     transition:
-      color $transition-fast,
-      background-color $transition-fast,
-      box-shadow $transition-fast !important;
+      color $transition,
+      background-color $transition,
+      box-shadow $transition !important;
+
+    &:hover {
+      transition-duration: 0s !important;
+    }
   }
 
   &_item-sub-link {
@@ -30,7 +34,11 @@
 
     position: relative;
     text-indent: 1em;
-    transition: color $transition-fast;
+    transition: color $transition;
+
+    &:hover {
+      transition-duration: 0s;
+    }
 
     &::before {
       content: '#';

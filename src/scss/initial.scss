@@ -58,7 +58,7 @@ ant478-logo.spinner {
   height: 15em;
   margin: auto;
   transform: scaleX(0);
-  transition: transform $transition-fast;
+  transition: transform 0.3s;
   width: 15em;
 
   &__displayed {

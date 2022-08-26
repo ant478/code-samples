@@ -9,4 +9,6 @@ $app-scrollbar-track-vertical-z-index: $app-footer-z-index + 1;
 $overlay-z-index: $app-scrollbar-track-vertical-z-index + 1;
 
 /* transition */
-$transition-fast: 0.1s ease-in-out;
+$transition-duration: 0.15s;
+$transition-timing-function: ease-out;
+$transition: $transition-duration $transition-timing-function;

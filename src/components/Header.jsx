@@ -4,6 +4,9 @@ import HueControl from 'src/components/HueControl';
 import HeaderScrollbar from 'src/components/HeaderScrollbar';
 import { EXPANDED_HEIGHT } from 'src/hooks/useHeaderHeight';
 import { CATEGORIES } from 'src/consts/categories';
+import loadable from '@loadable/component';
+
+const Ant478Logo = loadable(() => import(/* webpackChunkName: "secondary-components" */'src/components/web-components/Ant478Logo'));
 
 const styles = { height: `${EXPANDED_HEIGHT}px` };
 
@@ -22,7 +25,7 @@ const Header = memo(() => (
       href="/"
       title="ant478 Code Samples"
     >
-      <ant478-logo wc-gear-spin-duration="60s" class="header_logo" />
+      <Ant478Logo wc-gear-spin-duration="60s" className="header_logo" />
     </a>
     <h1 className="header_title">Code Samples</h1>
     <HeaderScrollbar>

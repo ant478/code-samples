@@ -15,10 +15,14 @@
     display: block;
     padding: 0.5em;
     transition:
-      color $transition-fast,
-      background-color $transition-fast,
-      box-shadow $transition-fast !important;
+      color $transition,
+      background-color $transition,
+      box-shadow $transition !important;
     white-space: nowrap;
+
+    &:hover {
+      transition-duration: 0s !important;
+    }
 
     &__active {
       color: var(--navigation-active-text-color);

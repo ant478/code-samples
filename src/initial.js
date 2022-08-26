@@ -2,7 +2,9 @@ import 'src/scss/initial.scss';
 import { getHueValueFromLocalStorage } from 'src/helpers/hue';
 import { Logo } from '@ant478/web-components';
 
-customElements.define('ant478-logo', Logo);
+if (!customElements.get('ant478-logo')) {
+  customElements.define('ant478-logo', Logo);
+}
 
 document.documentElement.style.setProperty('--hue', getHueValueFromLocalStorage());
 

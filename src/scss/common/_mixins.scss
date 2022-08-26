@@ -51,12 +51,14 @@
 
     border-radius: 5px;
     transition:
-      background-color $transition-fast,
-      box-shadow $transition-fast;
+      background-color $transition,
+      box-shadow $transition;
   }
 
   &:focus#{$selector} {
     @include control-block-styles('-hover');
+
+    transition-duration: 0s;
   }
 
   @supports #{'\selector(*:focus-visible)'} {
@@ -65,10 +67,14 @@
     }
     &:focus-visible#{$selector} {
       @include control-block-styles('-hover');
+
+      transition-duration: 0s;
     }
   }
   &:hover#{$selector} {
     @include control-block-styles('-hover');
+
+    transition-duration: 0s;
   }
   &:active#{$selector} {
     @include control-block-styles('-active');
@@ -106,7 +112,13 @@
   @include link-underline;
 
   color: var(--link-color);
-  transition: color $transition-fast;
+  transition:
+    color $transition,
+    text-decoration-color $transition;
+
+  &:hover {
+    transition-duration: 0s;
+  }
 
   &:visited {
     color: var(--link-color-visited);
