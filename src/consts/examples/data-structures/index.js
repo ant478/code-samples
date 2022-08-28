@@ -16,7 +16,7 @@ export const EXAMPLES = [
     id: EXAMPLE_IDS.linkedList,
     title: 'Linked list',
     description: `
-        Documentation:<br/><br/>
+        Documentation:<br/>
         en - ${makeMarkdownLink('https://en.wikipedia.org/wiki/Linked_list')}<br/>
         ru - ${makeMarkdownLink('https://ru.wikipedia.org/wiki/Связный_список')}
       `,
@@ -26,7 +26,7 @@ export const EXAMPLES = [
     id: EXAMPLE_IDS.tree,
     title: 'Tree',
     description: `
-        Documentation:<br/><br/>
+        Documentation:<br/>
         en - ${makeMarkdownLink('https://en.wikipedia.org/wiki/Tree_(data_structure)')}<br/>
         ru - ${makeMarkdownLink('https://ru.wikipedia.org/wiki/Дерево_(структура_данных)')}
       `,
@@ -36,7 +36,7 @@ export const EXAMPLES = [
     id: EXAMPLE_IDS.heap,
     title: 'Heap',
     description: `
-        Documentation:<br/><br/>
+        Documentation:<br/>
         en - ${makeMarkdownLink('https://en.wikipedia.org/wiki/Heap_(data_structure)')}<br/>
         ru - ${makeMarkdownLink('https://ru.wikipedia.org/wiki/Куча_(структура_данных)')}
       `,
@@ -46,7 +46,7 @@ export const EXAMPLES = [
     id: EXAMPLE_IDS.hashTable,
     title: 'Hash table',
     description: `
-        Documentation:<br/><br/>
+        Documentation:<br/>
         en - ${makeMarkdownLink('https://en.wikipedia.org/wiki/Hash_table')}<br/>
         ru - ${makeMarkdownLink('https://ru.wikipedia.org/wiki/Хеш-таблица')}
       `,

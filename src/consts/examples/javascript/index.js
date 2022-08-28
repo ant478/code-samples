@@ -16,7 +16,7 @@ export const EXAMPLES = [
     id: EXAMPLE_IDS.iterators,
     title: 'Iterators',
     description: `
-        Documentation:<br/><br/>
+        Documentation:<br/>
         en - ${makeMarkdownLink('https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols')}<br/>
         ru - ${makeMarkdownLink('https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Iteration_protocols')}
       `,
@@ -26,7 +26,7 @@ export const EXAMPLES = [
     id: EXAMPLE_IDS.symbols,
     title: 'Symbols',
     description: `
-        Documentation:<br/><br/>
+        Documentation:<br/>
         en - ${makeMarkdownLink('https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol')}<br/>
         ru - ${makeMarkdownLink('https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Symbol')}
       `,
@@ -36,7 +36,7 @@ export const EXAMPLES = [
     id: EXAMPLE_IDS.proxy,
     title: 'Proxy',
     description: `
-        Documentation:<br/><br/>
+        Documentation:<br/>
         en - ${makeMarkdownLink('https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy')}<br/>
         ru - ${makeMarkdownLink('https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Proxy')}
       `,

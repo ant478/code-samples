@@ -11,3 +11,12 @@ export function getElementOffsets(element, wrapper) {
 
   return [offsetLeft, offsetTop];
 }
+
+export function getUniqId(prefix, length = 16) {
+  let id;
+
+  do id = `${prefix}-${Math.random().toString(16).slice(2, length + 2)}`;
+  while (document.getElementById(id));
+
+  return id;
+}

@@ -11,7 +11,7 @@ export const EXAMPLES = [{
   id: EXAMPLE_IDS.treeSort,
   title: 'Tree sort',
   description: `
-      Documentation:<br/><br/>
+      Documentation:<br/>
       en - ${makeMarkdownLink('https://en.wikipedia.org/wiki/Tree_sort')}<br/>
       ru - ${makeMarkdownLink('https://ru.wikipedia.org/wiki/Сортировка_с_помощью_двоичного_дерева')}
     `,
@@ -20,7 +20,7 @@ export const EXAMPLES = [{
   id: EXAMPLE_IDS.heapSort,
   title: 'Heap sort',
   description: `
-      Documentation:<br/><br/>
+      Documentation:<br/>
       en - ${makeMarkdownLink('https://en.wikipedia.org/wiki/Heapsort')}<br/>
       ru - ${makeMarkdownLink('https://ru.wikipedia.org/wiki/Пирамидальная_сортировка')}
     `,

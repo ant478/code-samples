@@ -1,0 +1,22 @@
+.web-components-lib-example {
+  &_demo {
+    margin-bottom: 1.5em;
+  }
+}
+
+$base: '.web-components-lib-example';
+#{$base}.logo {
+  #{$base}_demo {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  #{$base}_demo > div {
+    flex-basis: calc(50% - 1em);
+    padding: 1em;
+  }
+
+  ant478-logo {
+    margin-top: 0.5em;
+  }
+}
