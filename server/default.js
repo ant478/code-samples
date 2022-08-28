@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
-const spdy = require('spdy');
+const https = require('https');
 const compression = require('compression');
 
 const app = express();
@@ -36,14 +36,13 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(publicPath, 'index.html'));
 });
 
-const options = {
-  key: fs.readFileSync('sslcert/key.pem', 'utf8'),
-  cert: fs.readFileSync('sslcert/cert.pem', 'utf8'),
-};
+const privateKey = fs.readFileSync('sslcert/key.pem', 'utf8');
+const certificate = fs.readFileSync('sslcert/cert.pem', 'utf8');
+const credentials = { key: privateKey, cert: certificate };
 
-const server = spdy.createServer(options, app);
+const httpsServer = https.createServer(credentials, app);
 
-server.listen(port, () => {
+httpsServer.listen(port, () => {
   // eslint-disable-next-line no-console
   console.log(`Server is up on port ${port}!`);
 });
