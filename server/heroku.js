@@ -1,6 +1,8 @@
+const fs = require('fs');
 const path = require('path');
 const express = require('express');
 const sslRedirect = require('heroku-ssl-redirect').default;
+const spdy = require('spdy');
 const compression = require('compression');
 
 const app = express();
@@ -36,7 +38,14 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(publicPath, 'index.html'));
 });
 
-app.listen(port, () => {
+const options = {
+  key: fs.readFileSync('sslcert/key.pem', 'utf8'),
+  cert: fs.readFileSync('sslcert/cert.pem', 'utf8'),
+};
+
+const server = spdy.createServer(options, app);
+
+server.listen(port, () => {
   // eslint-disable-next-line no-console
   console.log(`Server is up on port ${port}!`);
 });
