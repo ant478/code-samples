@@ -12,8 +12,8 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('push', (event) => {
   event.waitUntil((async () => {
     const notificationData = {
-      title: 'ant478 Code Samples',
-      body: `See what\`s new at ${location.host}`,
+      title: 'Updates at Code Samples',
+      body: 'Hey, I got some new stuff posted. Lets go check this out!',
       icon: logo,
     };
 
