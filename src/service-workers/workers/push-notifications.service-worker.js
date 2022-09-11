@@ -29,6 +29,20 @@ self.addEventListener('push', (event) => {
 
 self.addEventListener('notificationclick', (event) => {
   event.waitUntil((async () => {
-    console.log('213esad sdg34tfd gw45ybg');
+    const notification = event.notification;
+    notification.close();
+
+    if (notification.data && notification.data.clickPath) {
+      const url = new URL(notification.data.clickPath, location.origin).href;
+      return self.clients.openWindow(url);
+    }
+
+    const windowClients = await self.clients.matchAll({ type: 'window' });
+
+    if (windowClients.length > 0) {
+      return windowClients[0].focus();
+    }
+
+    return self.clients.openWindow(location.origin);
   })());
 });
