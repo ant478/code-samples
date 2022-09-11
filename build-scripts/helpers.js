@@ -22,6 +22,28 @@ function getWorkerEntries() {
     entries[workerName] = {
       import: file,
       runtime: false,
+      filename: 'workers/[name].[contenthash].js',
+    };
+
+    return entries;
+  }, {});
+}
+
+function getServiceWorkersEntries() {
+  const files = glob.sync(pathResolve('src/service-workers/workers/*.service-worker.js').replace(/\\/g, '/'));
+
+  return files.reduce((entries, file) => {
+    const workerId = /(.*[/\\])?(.+?)\.service-worker\.js$/.exec(file)[2];
+    const workerName = `${workerId}-service-worker`;
+
+    if (workerName in entries) {
+      throw new Error('helpers.js: service worker names should be unique');
+    }
+
+    entries[workerName] = {
+      import: file,
+      runtime: false,
+      filename: '[name].js',
     };
 
     return entries;
@@ -31,4 +53,5 @@ function getWorkerEntries() {
 module.exports = {
   pathResolve,
   getWorkerEntries,
+  getServiceWorkersEntries,
 };

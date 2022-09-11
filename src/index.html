@@ -9,14 +9,23 @@
 <% const jsFilesToLoad = jsFiles.filter((file) => loadPatterns.some((regex) => regex.test(file))); %>
 <% const jsFilesToInline = jsFiles.filter((file) => inlinePatterns.some((regex) => regex.test(file))); %>
 
-<% const workers = {}; %>
-<% Object.keys(workersPatterns).forEach((key) => {                           %>
-<%   const file = jsFiles.find((file) => workersPatterns[key].test(file));   %>
-<%                                                                           %>
-<%   if (file) {                                                             %>
-<%     workers[key] = file;                                                  %>
-<%   }                                                                       %>
-<% });                                                                       %>
+<% const workers = {};                                                              %>
+<% Object.keys(workersPatterns).forEach((key) => {                                  %>
+<%   const file = jsFiles.find((file) => workersPatterns[key].test(file));          %>
+<%                                                                                  %>
+<%   if (file) {                                                                    %>
+<%     workers[key] = file;                                                         %>
+<%   }                                                                              %>
+<% });                                                                              %>
+
+<% const serviceWorkers = {};                                                       %>
+<% Object.keys(serviceWorkersPatterns).forEach((key) => {                           %>
+<%   const file = jsFiles.find((file) => serviceWorkersPatterns[key].test(file));   %>
+<%                                                                                  %>
+<%   if (file) {                                                                    %>
+<%     serviceWorkers[key] = file;                                                  %>
+<%   }                                                                              %>
+<% });                                                                              %>
 
 <% const cssFiles = htmlWebpackPlugin.files.css; %>
 <% const cssFilesToLoad = cssFiles.filter((file) => loadPatterns.some((regex) => regex.test(file))); %>
@@ -25,6 +34,8 @@
 <!DOCTYPE html>
 <html lang="en" class="theme-hue">
   <head>
+    <link rel="manifest" href="/manifest.json">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -54,6 +65,7 @@
 
     <script>
       window.workers = <%= JSON.stringify(workers) %>;
+      window.serviceWorkers = <%= JSON.stringify(serviceWorkers) %>;
       document.dispatchEvent(new Event('BodyLoadedCustomEvent'));
     </script>
 

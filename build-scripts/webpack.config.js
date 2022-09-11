@@ -8,7 +8,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const devServerConfig = require('./dev-server');
 const paths = require('./paths');
-const { getWorkerEntries } = require('./helpers');
+const {
+  getWorkerEntries,
+  getServiceWorkersEntries,
+} = require('./helpers');
 
 let localWebpackConfig;
 
@@ -21,7 +24,9 @@ try {
 const isDevelopment = process.env.NODE_ENV === 'development';
 
 const workerEntries = getWorkerEntries();
+const serviceWorkerEntries = getServiceWorkersEntries();
 const workerNames = Object.keys(workerEntries);
+const serviceWorkerNames = Object.keys(serviceWorkerEntries);
 
 module.exports = () => merge(
   {
@@ -40,18 +45,13 @@ module.exports = () => merge(
         import: paths.initialEntry,
         runtime: false,
       },
+      ...serviceWorkerEntries,
       ...workerEntries,
     },
     output: {
-      filename: ({ chunk: { name } }) => {
-        if (workerNames.includes(name)) {
-          return 'workers/[name].[contenthash].js';
-        }
-
-        return '[name].[contenthash].js';
-      },
       publicPath: paths.publicPath,
       path: paths.output,
+      filename: '[name].[contenthash].js',
       chunkFilename: 'chunks/[name].[contenthash].js',
     },
     optimization: {
@@ -60,7 +60,7 @@ module.exports = () => merge(
           vendors: {
             test: /[\\/]node_modules[\\/]/,
             name: 'vendors',
-            chunks: ({ name }) => !['initial', ...workerNames].includes(name),
+            chunks: ({ name }) => !['initial', ...workerNames, ...serviceWorkerNames].includes(name),
             enforce: true,
           },
         },
@@ -187,6 +187,10 @@ module.exports = () => merge(
             /vendors/,
           ],
           workersPatterns: workerNames.reduce((acc, key) => ({
+            [key]: new RegExp(key),
+            ...acc,
+          }), {}),
+          serviceWorkersPatterns: serviceWorkerNames.reduce((acc, key) => ({
             [key]: new RegExp(key),
             ...acc,
           }), {}),
