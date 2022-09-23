@@ -63,8 +63,10 @@ const SubscribeControl = memo(({
 
       setState(subscriptionRef.current ? STATE.SUBSCRIBED : STATE.UNSUBSCRIBED);
       isLockedRef.current = false;
-    } catch {
+    } catch (error) {
       setState(STATE.DISABLED);
+      // eslint-disable-next-line no-console
+      console.error(error);
     }
   }, [clearSubscription]);
 
@@ -87,9 +89,10 @@ const SubscribeControl = memo(({
         });
 
         localStorage.setItem(LOCAL_STORAGE_KEY, id);
-      } catch {
+      } catch (error) {
         setState(STATE.DISABLED);
         await clearSubscription();
+        throw error;
       }
 
       return;
