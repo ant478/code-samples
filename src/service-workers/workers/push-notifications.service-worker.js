@@ -43,6 +43,8 @@ self.addEventListener('notificationclick', (event) => {
       return windowClients[0].focus();
     }
 
-    return self.clients.openWindow(location.origin);
+    const newWindow = await self.clients.openWindow(location.origin);
+
+    return newWindow.focus();
   })());
 });
