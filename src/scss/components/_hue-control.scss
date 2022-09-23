@@ -19,10 +19,6 @@
     transition: color $transition;
     width: 1.25em;
 
-    &:hover {
-      transition-duration: 0s;
-    }
-
     .hue-control__control-visible & {
       color: var(--article-title-color);
     }

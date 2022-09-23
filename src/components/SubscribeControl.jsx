@@ -21,10 +21,23 @@ const Notification = (window.Notification || window.mozNotification || window.we
 const LOCAL_STORAGE_KEY = 'subscription-id';
 const STATE = {
   INITIAL: 'initial',
+  LOADING: 'loading',
   UNSUBSCRIBED: 'unsubscribed',
   SUBSCRIBED: 'subscribed',
   DISABLED: 'disabled',
 };
+
+function getButtonTitle(state) {
+  if (state === STATE.SUBSCRIBED) {
+    return 'Unsubscribe';
+  }
+
+  if (state === STATE.UNSUBSCRIBED) {
+    return 'Subscribe for updates';
+  }
+
+  return '';
+}
 
 const SubscribeControl = memo(({
   className,
@@ -72,7 +85,7 @@ const SubscribeControl = memo(({
 
   const toggleSubscription = useCallback(async () => {
     if (stateRef.current === STATE.UNSUBSCRIBED) {
-      setState(STATE.SUBSCRIBED);
+      setState(STATE.LOADING);
 
       try {
         subscriptionRef.current = await registrationRef.current.pushManager.subscribe({
@@ -89,6 +102,7 @@ const SubscribeControl = memo(({
         });
 
         localStorage.setItem(LOCAL_STORAGE_KEY, id);
+        setState(STATE.SUBSCRIBED);
       } catch (error) {
         setState(STATE.DISABLED);
         await clearSubscription();
@@ -123,7 +137,6 @@ const SubscribeControl = memo(({
   useEffect(() => { init(); }, [init]);
 
   const classes = cx('subscribe-control', className, `subscribe-control__state-${state}`);
-  const title = (state === STATE.UNSUBSCRIBED ? 'Subscribe for updates' : 'Unsubscribe');
 
   return (
     <div
@@ -132,12 +145,12 @@ const SubscribeControl = memo(({
     >
       <ControlButton
         isDisabled={state === STATE.DISABLED}
-        title={title}
+        title={getButtonTitle(state)}
         className="subscribe-control_sample"
         onClick={handleClick}
       >
         {
-          state === STATE.INITIAL
+          [STATE.INITIAL, STATE.LOADING].includes(state)
             ? <SimpleLoader className="subscribe-control_icon subscribe-control_icon__loader" />
             : <BellIcon className="subscribe-control_icon subscribe-control_icon__bell" />
         }

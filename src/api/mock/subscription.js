@@ -1,3 +1,4 @@
 export async function saveSubscriptionMock() {
-  return {};
+  await new Promise((resolve) => setTimeout(resolve, 300));
+  return { data: { id: 478 } };
 }

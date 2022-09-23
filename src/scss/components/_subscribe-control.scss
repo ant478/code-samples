@@ -16,14 +16,13 @@
 
     transition: color $transition;
 
-    &:hover {
-      transition-duration: 0s;
-    }
-
     &__loader {
-      animation: fadeIn $transition-duration forwards 0.3s;
       height: 1.25em;
-      opacity: 0;
+
+      .subscribe-control__state-initial & {
+        animation: fadeIn $transition-duration forwards 0.3s;
+        opacity: 0;
+      }
     }
 
     &__bell {
