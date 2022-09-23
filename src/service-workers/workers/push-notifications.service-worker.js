@@ -34,7 +34,9 @@ self.addEventListener('notificationclick', (event) => {
 
     if (notification.data && notification.data.clickPath) {
       const url = new URL(notification.data.clickPath, location.origin).href;
-      return self.clients.openWindow(url);
+      const newWindow = await self.clients.openWindow(url);
+
+      return newWindow.focus();
     }
 
     const windowClients = await self.clients.matchAll({ type: 'window' });
