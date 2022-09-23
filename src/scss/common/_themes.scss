@@ -28,6 +28,7 @@
     --header-logo-color: #{hsl-with-var(0, 100%, 20%)};
     --header-title-color: #{hsl(calc(var(--hue) + 0), 100%, 24%)};
     --header-title--text-shadow: 2px 8px 16px #{hsl-with-var(0, 0%, 0%)};
+    --header-control-background-color: #{hsl-with-var(0, 80%, 9%)};
     --page-title-color: #{hsl-with-var(0, 100%, 31%)};
     --page-title-text-shadow: 2px 8px 16px #{hsl-with-var(0, 0%, 0%)};
     --article-title-color: #{hsl-with-var(0, 100%, 31%)};
@@ -41,6 +42,5 @@
     --table-border-color: #{hsl-with-var(0, 80%, 25%)};
     --footer-link-color: #444;
     --footer-link-color-hover: #666;
-    --hue-control-background-color: #{hsl-with-var(0, 80%, 9%)};
   }
 }

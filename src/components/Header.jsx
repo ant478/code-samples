@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import Navigation from 'src/components/Navigation';
 import HueControl from 'src/components/HueControl';
+import SubscribeControl from 'src/components/SubscribeControl';
 import HeaderScrollbar from 'src/components/HeaderScrollbar';
 import { EXPANDED_HEIGHT } from 'src/hooks/useHeaderHeight';
 import { CATEGORIES } from 'src/consts/categories';
@@ -14,6 +15,7 @@ const NAVIGATION_LINKS = CATEGORIES.map(({ id, title }) => ({
   to: `/${id}`,
   title,
 }));
+const isSubscribeControlVisible = ('serviceWorker' in navigator);
 
 const Header = memo(() => (
   <header
@@ -33,6 +35,7 @@ const Header = memo(() => (
         <Navigation links={NAVIGATION_LINKS} />
       </div>
     </HeaderScrollbar>
+    {isSubscribeControlVisible && <SubscribeControl className="header_subscribe-control-mix" />}
     <HueControl className="header_hue-control-mix" />
   </header>
 ));

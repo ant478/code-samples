@@ -6,10 +6,12 @@ import React, {
   useEffect,
   useCallback,
 } from 'react';
+import loadable from '@loadable/component';
 import Highlight from 'src/components/Highlight';
-import SimpleLoader from 'src/components/SimpleLoader';
 import ControlButton from 'src/components/ControlButton';
 import BenchmarkSuiteResults from 'src/components/Suites/BenchmarkSuite/BenchmarkSuiteResults';
+
+const SimpleLoader = loadable(() => import(/* webpackChunkName: "secondary-components" */'src/components/SimpleLoader'));
 
 const BenchmarkSuite = memo(({
   id,

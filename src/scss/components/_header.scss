@@ -65,8 +65,9 @@
     right: 0;
   }
 
-  &_hue-control-mix {
-    margin-left: 1.5em;
+  &_hue-control-mix,
+  &_subscribe-control-mix {
+    margin-left: 1em;
     padding: 0.4375em 0;
   }
 }

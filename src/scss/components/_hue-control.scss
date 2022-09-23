@@ -4,7 +4,7 @@
   &_sample {
     @include control-block;
 
-    background-color: var(--hue-control-background-color) !important;
+    background-color: var(--header-control-background-color) !important;
     border-radius: 50% !important;
     cursor: pointer;
     height: 3em;

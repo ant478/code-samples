@@ -1,0 +1,43 @@
+.subscribe-control {
+  position: relative;
+
+  &_sample {
+    background-color: var(--header-control-background-color) !important;
+    border-radius: 50% !important;
+    cursor: pointer;
+    height: 3em;
+    padding: 0;
+    position: relative;
+    width: 3em;
+  }
+
+  &_icon {
+    @include absolute-transform-centering;
+
+    transition: color $transition;
+
+    &:hover {
+      transition-duration: 0s;
+    }
+
+    &__loader {
+      animation: fadeIn $transition-duration forwards 0.3s;
+      height: 1.25em;
+      opacity: 0;
+    }
+
+    &__bell {
+      height: 1.375em;
+      width: 1.375em;
+
+      .subscribe-control__state-subscribed & {
+        color: var(--article-title-color);
+      }
+    }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+}
