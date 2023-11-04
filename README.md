@@ -10,4 +10,4 @@ App for storing and displaying code examples
 
 * Latest Chrome only
 
-* Deployed at [http://ant478-code-samples.herokuapp.com/](http://ant478-code-samples.herokuapp.com/)
+* Deployed at [https://ant478-code-samples-ae73e073973d.herokuapp.com/](https://ant478-code-samples-ae73e073973d.herokuapp.com/)
