@@ -64,7 +64,7 @@
     "spdy": "4.0.2"
   },
   "devDependencies": {
-    "@ant478/fps-meter": "1.0.2",
+    "@ant478/fps-meter": "1.0.3",
     "@babel/core": "7.17.9",
     "@babel/eslint-parser": "7.17.0",
     "@babel/plugin-proposal-decorators": "7.17.9",
