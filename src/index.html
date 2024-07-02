@@ -1,6 +1,7 @@
 <% const inlinePatterns = (htmlWebpackPlugin.options.templateParameters.inlinePatterns || []); %>
 <% const loadPatterns = (htmlWebpackPlugin.options.templateParameters.loadPatterns || []); %>
 <% const workersPatterns = (htmlWebpackPlugin.options.templateParameters.workersPatterns || {}); %>
+<% const isDevelopment = (htmlWebpackPlugin.options.templateParameters.isDevelopment || false); %>
 
 <% const publicPath = htmlWebpackPlugin.files.publicPath; %>
 <% const getFileSource = (file) => compilation.assets[file.substr(publicPath.length)].source(); %>
@@ -54,6 +55,9 @@
     <% cssFilesToLoad.forEach((file) => { %>
       <link rel="preload" href="<%= file %>" as="style">
     <% }); %>
+    <% if (isDevelopment) { %>
+      <script defer src="/fps-meter/index.js"></script>
+    <% } %>
 
     <title>Code samples</title>
 

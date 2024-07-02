@@ -11,6 +11,7 @@ const paths = require('./paths');
 const {
   getWorkerEntries,
   getServiceWorkersEntries,
+  pathResolve,
 } = require('./helpers');
 
 let localWebpackConfig;
@@ -177,6 +178,7 @@ module.exports = () => merge(
         template: paths.indexHtml,
         inject: false,
         templateParameters: {
+          isDevelopment,
           inlinePatterns: [
             /initial/,
           ],
@@ -199,7 +201,8 @@ module.exports = () => merge(
       new CopyPlugin({
         patterns: [
           { from: paths.public, to: paths.output },
-        ],
+          isDevelopment && { from: pathResolve('node_modules/@ant478/fps-meter/dist'), to: `${paths.output}/fps-meter` },
+        ].filter(Boolean),
       }),
       new WebpackExcludeEntry([/initial/]),
     ],
